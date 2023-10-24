@@ -87,6 +87,16 @@ public class Pollution_state {
         cargarDatosArchivo(new Pollution_state(this.id,this.Total_Consume,this.Consume_State,this.Message));
     }
 
+    public int eliminarState(int id){
+        for(int i=0;i < this.states.size(); i++){
+            if(this.states.get(i).getId() == id){
+                this.states.remove(i);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     public String toString(){
         return id+", "+Total_Consume+", "+Consume_State+", "+Message;
     }
@@ -97,6 +107,26 @@ public class Pollution_state {
         System.out.println("Consumo actual: " + Consume_State);
         System.out.println("Mensaje: " + Message);
         System.out.println();
+    }
+    public int buscarId(int idEliminado){
+        for(int i=0;i < this.states.size();i++){
+            if(idEliminado == this.states.get(i).getId()){
+                return this.states.get(i).getId();
+            }
+        }
+        return 0;
+    }
+
+    public void menuEliminarPollution(){
+        int idEliminado;
+        Scanner read = new Scanner(System.in);
+        for(int i=0;i < this.states.size();i++){
+            this.states.get(i).mostrarInformacion();
+        }
+        do{
+            System.out.println("Ingrese ID del elemento a eliminar");
+            idEliminado = read.nextInt();
+        }while(buscarId(idEliminado) != idEliminado);
     }
 
     // Método para mostrar un menú y permitir al usuario seleccionar qué elemento mostrar

@@ -165,6 +165,24 @@ public class User {
         }
     }
 
+    public int eliminarUsuarioArreglo(String rutEliminar){
+
+        for(int i=0;i<this.users.size();i++){
+            if(this.users.get(i).getRut().equals(rutEliminar)){
+                this.users.remove(i);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    public boolean buscarUsuario(String rutBuscado){
+        for (int i=0;i<this.users.size();i++){
+            if(this.users.get(i).getRut().equals(rutBuscado))return true;
+        }
+        return false;
+    }
+
     public void MenuActualizarDatos() {
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

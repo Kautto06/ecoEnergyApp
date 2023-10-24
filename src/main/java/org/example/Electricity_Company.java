@@ -112,6 +112,37 @@ public class Electricity_Company {
         cargarDatosArchivo(new Electricity_Company(this.rut,this.nombre,this.costoBase,this.costoPorkW,this.limiteDekW,this.costoAdicionalPorkW));
     }
 
+    public int eliminarCompany(String rut){
+        for(int i=0;i < this.companies.size(); i++){
+            if(this.companies.get(i).getRut().equals(rut)){
+                this.companies.remove(i);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    public boolean buscarRut(String rut){
+        for(int i=0;i < this.companies.size(); i++){
+            if(this.companies.get(i).getRut().equals(rut)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void menuEliminar(){
+        String rutEliminado;
+        Scanner read = new Scanner(System.in);
+        for(int i=0;i < this.companies.size(); i++){
+            this.companies.get(i).mostrarInformacion();
+        }
+        do{
+            System.out.println("Ingrese rut de la compania a eliminar");
+            rutEliminado = read.nextLine();
+        }while(!buscarRut(rutEliminado));
+    }
+
     public void mostrarInformacion() {
         System.out.println("RUT: " + rut);
         System.out.println("Nombre de la compañía: " + nombre);

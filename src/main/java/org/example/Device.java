@@ -12,7 +12,7 @@ public class Device {
     private int priorityUsage; //del 1-10
     private char consumeClassify; // A-G
 
-    private ArrayList<Device> dispositivos= new ArrayList<>();
+    private ArrayList<Device> dispositivos = new ArrayList<>();
 
     public Device(int id, String deviceName, double energyConsume, float activesHours, int priorityUsage, char consumeClasify) {
         this.id = id;
@@ -89,7 +89,6 @@ public class Device {
     }
 
 
-
     public void crearDatos() throws ParseException {
         Scanner scanner = new Scanner(System.in);
 
@@ -115,8 +114,18 @@ public class Device {
         System.out.print("Ingrese la clasificación de consumo (A-G): ");
         this.consumeClassify = scanner.next().charAt(0);
 
-        this.dispositivos.add(new Device(this.id,this.deviceName,this.energyConsume,this.activeHours,this.priorityUsage,this.consumeClassify));
-        cargarDatosArchivo(new Device(this.id,this.deviceName,this.energyConsume,this.activeHours,this.priorityUsage,this.consumeClassify));
+        this.dispositivos.add(new Device(this.id, this.deviceName, this.energyConsume, this.activeHours, this.priorityUsage, this.consumeClassify));
+        cargarDatosArchivo(new Device(this.id, this.deviceName, this.energyConsume, this.activeHours, this.priorityUsage, this.consumeClassify));
+    }
+
+    public int eliminarDevice(int id){
+            for(int i=0; i < this.dispositivos.size();i++){
+                if(this.dispositivos.get(i).getId() == id) {
+                    this.dispositivos.remove(i);
+                    return 1;
+                }
+            }
+            return 0;
     }
 
     public String toString(){
@@ -130,7 +139,29 @@ public class Device {
         System.out.println("Horas activas: " + activeHours);
         System.out.println("Prioridad de uso: " + priorityUsage);
         System.out.println("Clasificación de consumo: " + consumeClassify);
-        System.out.println();
+    }
+
+    public int buscarId(int idEliminado){
+        for(int i=0;i < this.dispositivos.size();i++){
+            if(idEliminado == this.dispositivos.get(i).getId()){
+                return this.dispositivos.get(i).getId();
+            }
+        }
+        return 0;
+    }
+
+    public void menuEliminar(){
+        int idEliminado, i;
+        Scanner read = new Scanner(System.in);
+        System.out.println("Lista de todos los Dispositivos");
+        for (i = 0; i < this.dispositivos.size(); i++){
+            System.out.println("ID: " + this.dispositivos.get(i).getId());
+            System.out.println("Nombre del dispositivo: " + this.dispositivos.get(i).getDeviceName());
+        }
+        do {
+            System.out.println("Ingrese el id del dispositivo que desea eliminar:");
+            idEliminado = read.nextInt();
+        }while(idEliminado != buscarId(idEliminado));
     }
 
     public void MostrarDevice() {

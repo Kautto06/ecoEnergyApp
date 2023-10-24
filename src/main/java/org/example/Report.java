@@ -190,6 +190,24 @@ public class Report {
         }
     }
 
+    public boolean buscarReporte(int idBuscado){
+        for (Report reporte : this.reports){
+            if(reporte.getId()==idBuscado) return true;
+        }
+
+        return false;
+    }
+
+    public int eliminarReporte(int idEliminar){
+        for (int i=0;i<this.reports.size();i++){
+            if(this.reports.get(i).getId()==idEliminar){
+                this.reports.remove(i);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
 
     public void leerReportsDesdeArchivo(String rutaArchivo) {
 

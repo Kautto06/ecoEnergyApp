@@ -159,6 +159,16 @@ public class Home {
         cargarDatosArchivo(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome,this.idInforme));
     }
 
+    public int eliminarHomeArreglo(int IdEliminar){
+
+        for(int i=0;i<this.homes.size();i++){
+            if(this.homes.get(i).getId() == IdEliminar){
+                this.homes.remove(i);
+                return 1;
+            }
+        }
+        return 0;
+    }
     public String toString(){
         return id+", "+stateId+", "+homeName+", "+environmentType+", "+idAdminHome+", "+idInforme;
     }
@@ -177,6 +187,39 @@ public class Home {
         System.out.println();
     }
 
+    public int BuscarHome(int idBuscar)
+    {
+        for(Home home:homes)
+            if(home.getId()==idBuscar)
+                return 1;
+        return 0;
+    }
+
+    public void MenuEliminarHome()
+    {
+        int id=0;
+        Scanner entrada= new Scanner(System.in);
+
+        System.out.println("Mostrando todas las homes del sistema.");
+        for(int i=0;i<this.homes.size();i++)
+        {
+            System.out.println("ID="+homes.get(i).id +"Nombre hombre ="+homes.get(i).homeName);
+        }
+        while(true)
+        {
+            System.out.println("Seleccione un id de  Home valido  para eliminar");
+            id=entrada.nextInt();
+            if(BuscarHome(id)==1)
+            {
+                eliminarHomeArreglo(id);
+                return;
+            }
+        }
+
+
+
+
+    }
     public void MenuMostrarHome() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione qué elemento de la casa desea mostrar:");

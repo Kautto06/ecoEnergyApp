@@ -69,6 +69,7 @@ public class Menus {
             System.out.println("1. Agregar un nuevo dispositivo");
             System.out.println("2. Mostrar todos los dispositivos");
             System.out.println("3. Cargar datos archivo dispositivos");
+            System.out.println("4. Eliminar un dispositivo");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt(); entrada.nextLine();
@@ -88,6 +89,10 @@ public class Menus {
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
+                case 4:
+                    dispositivo.menuEliminar();
+                    System.out.println();
+                    break;
                 case 0:
                     System.out.println("Saliendo...");
                     break;
@@ -99,6 +104,26 @@ public class Menus {
         }while(opcion!=0);
     }
 
+    public static void menuEliminarUsuarios(User usuario){
+        Scanner entrada = new Scanner(System.in);
+        boolean encontrado;
+        String rutAEliminar;
+        if(usuario==null){
+            System.out.println("No hay usuarios en el sistema");
+            return;
+        }
+
+        do {
+            usuario.mostrarInformacion();
+            System.out.print("Ingrese el Rut del usuario que desea eliminar: ");
+            rutAEliminar= entrada.nextLine();
+            System.out.println();
+        }while(!usuario.buscarUsuario(rutAEliminar));
+
+        usuario.eliminarUsuarioArreglo(rutAEliminar);
+        System.out.println("Se elimino el usuario correctamente");
+    }
+
     public static void menuUsuarios(User usuario) throws ParseException {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -108,6 +133,7 @@ public class Menus {
             System.out.println("1. Agregar un nuevo usuario");
             System.out.println("2. Mostrar todos los usuarios");
             System.out.println("3. Cargar datos archivo usuarios");
+            System.out.println("4. Eliminar un usuario");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt(); entrada.nextLine();
@@ -125,6 +151,10 @@ public class Menus {
                 case 3:
                     usuario.leerUsersDesdeArchivo("src/test/text/Users.txt");
                     System.out.println("Datos cargados");
+                    System.out.println();
+                    break;
+                case 4:
+                    menuEliminarUsuarios(usuario);
                     System.out.println();
                     break;
                 case 0:
@@ -149,6 +179,7 @@ public class Menus {
             System.out.println("1. Agregar un nueva empresa");
             System.out.println("2. Mostrar todas las empresas");
             System.out.println("3. Cargar datos archivo empresas");
+            System.out.println("4. Eliminar una empresa");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt(); entrada.nextLine();
@@ -166,6 +197,10 @@ public class Menus {
                 case 3:
                     empresa.leerDatosDesdeArchivo("src/test/text/ElectricityCompany.txt");
                     System.out.println("Datos cargados");
+                    System.out.println();
+                    break;
+                case 4:
+                    empresa.menuEliminar();
                     System.out.println();
                     break;
                 case 0:
@@ -190,6 +225,7 @@ public class Menus {
             System.out.println("1. Agregar un nuevo estado");
             System.out.println("2. Mostrar todos los estados");
             System.out.println("3. Cargar datos archivo estados");
+            System.out.println("4. Eliminar Estado de contaminacion");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt(); entrada.nextLine();
@@ -209,6 +245,9 @@ public class Menus {
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
+                case 4:
+                    estado.menuEliminarPollution();
+                    break;
                 case 0:
                     System.out.println("Saliendo...");
                     break;
@@ -218,6 +257,27 @@ public class Menus {
             }
 
         }while(opcion!=0);
+    }
+
+    public static void menuEliminarReporte(Report reporte){
+
+        Scanner entrada = new Scanner(System.in);
+        boolean encontrado;
+        int idAEliminar;
+        if(reporte==null){
+            System.out.println("No hay reportes en el sistema");
+            return;
+        }
+
+        do {
+            reporte.mostrarInformacion();
+            System.out.print("Ingrese el ID del reporte que desea eliminar: ");
+            idAEliminar= entrada.nextInt();
+            System.out.println();
+        }while(!reporte.buscarReporte(idAEliminar));
+
+        reporte.eliminarReporte(idAEliminar);
+        System.out.println("Se elimino el reporte correctamente");
     }
 
 
@@ -231,6 +291,7 @@ public class Menus {
             System.out.println("1. Agregar un nuevo reporte");
             System.out.println("2. Mostrar todas los reportes");
             System.out.println("3. Cargar datos archivo reportes");
+            System.out.println("4. Eliminar un reporte");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt();
@@ -248,6 +309,10 @@ public class Menus {
                 case 3:
                     reporte.leerReportsDesdeArchivo("src/test/text/Report.txt");
                     System.out.println("Datos cargados");
+                    System.out.println();
+                    break;
+                case 4:
+                    menuEliminarReporte(reporte);
                     System.out.println();
                     break;
                 case 0:
@@ -271,6 +336,7 @@ public class Menus {
             System.out.println("1. Agregar un nueva home");
             System.out.println("2. Mostrar todas las home");
             System.out.println("3. Cargar datos archivo home");
+            System.out.println("4. Eliminar una home");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt();
@@ -290,6 +356,9 @@ public class Menus {
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
+                case 4:
+                    home.MenuEliminarHome();
+                    break;
                 case 0:
                     System.out.println("Saliendo...");
                     break;
@@ -300,5 +369,7 @@ public class Menus {
 
         }while(opcion!=0);
     }
+
+
 
 }
