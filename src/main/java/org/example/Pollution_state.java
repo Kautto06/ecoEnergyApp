@@ -4,43 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import  java.util.Scanner;
 
-public class Pollution_state {
-    private int id;
+public class Pollution_state extends Reporte{
     private double Total_Consume;
     private double Consume_State;
     private String Message;
 
-    private ArrayList<Pollution_state> states= new ArrayList<>();
+    private ArrayList<Pollution_state> pollutionStates= new ArrayList<>();
 
-    public Pollution_state(int id, double Total_Consume, double Consume_State, String Message) {
-        this.id = id;
+    public Pollution_state(int id,int idHome,String idAdminHome,String fecha, double Total_Consume, double Consume_State, String Message) {
+        super(id,idHome,idAdminHome,fecha);
         this.Total_Consume = Total_Consume;
         this.Consume_State = Consume_State;
         this.Message = Message;
     }
 
     public Pollution_state() {
-        this.id = 0;
+        super();
         this.Total_Consume = 0;
         this.Consume_State = 0;
         this.Message = null;
     }
 
-    public ArrayList<Pollution_state> getStates() {
-        return states;
+    public ArrayList<Pollution_state> getPollutionStates() {
+        return pollutionStates;
     }
 
-    public void setStates(ArrayList<Pollution_state> states) {
-        this.states = states;
+    public void setPollutionStates(ArrayList<Pollution_state> states) {
+        this.pollutionStates = states;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public double getTotal_Consume() {
         return Total_Consume;
@@ -68,10 +60,23 @@ public class Pollution_state {
 
     public void crearDatos() {
         Scanner scanner = new Scanner(System.in);
+        int id, idHome;
+        String idAdminHome,fecha;
+        ArrayList<Reporte> aux =getReportes();
+
 
         System.out.print("Ingrese el ID: ");
-        this.id = scanner.nextInt();
+        id = scanner.nextInt();
         scanner.nextLine();
+
+        System.out.print("Ingrese el ID de Home: ");
+        idHome = scanner.nextInt();
+
+        System.out.print("Ingrese el ID de Admin Home: ");
+        idAdminHome = scanner.nextLine();
+
+        System.out.print("Ingrese la fecha del reporte (dd/mm/yy): ");
+        fecha= scanner.nextLine();
 
         System.out.print("Ingrese el total de consumo: ");
         this.Total_Consume = scanner.nextDouble();
@@ -83,14 +88,16 @@ public class Pollution_state {
         System.out.print("Ingrese un mensaje: ");
         this.Message = scanner.nextLine();
 
-        this.states.add(new Pollution_state(this.id,this.Total_Consume,this.Consume_State,this.Message));
-        cargarDatosArchivo(new Pollution_state(this.id,this.Total_Consume,this.Consume_State,this.Message));
+        aux.add(new Reporte(id,idHome,idAdminHome,fecha));
+        setReportes(aux);
+        this.pollutionStates.add(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
+        cargarDatosArchivo(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
     }
 
     public int eliminarState(int id){
-        for(int i=0;i < this.states.size(); i++){
-            if(this.states.get(i).getId() == id){
-                this.states.remove(i);
+        for(int i=0;i < this.pollutionStates.size(); i++){
+            if(this.pollutionStates.get(i).getId() == id){
+                this.pollutionStates.remove(i);
                 return 1;
             }
         }
@@ -98,20 +105,23 @@ public class Pollution_state {
     }
 
     public String toString(){
-        return id+", "+Total_Consume+", "+Consume_State+", "+Message;
+        return getId()+", "+getIdHome()+", "+getIdAdminHome()+", "+ getFecha() +", "+Total_Consume+", "+Consume_State+", "+Message;
     }
 
     public void mostrarInformacion() {
-        System.out.println("ID: " + id);
+        System.out.println("ID: " + getId());
+        System.out.println("ID de la casa: " + getIdHome());
+        System.out.println("ID del administrador de la casa: " + getIdAdminHome());
+        System.out.println("Fecha reporte: "+getFecha());
         System.out.println("Total de consumo: " + Total_Consume);
         System.out.println("Consumo actual: " + Consume_State);
         System.out.println("Mensaje: " + Message);
         System.out.println();
     }
     public int buscarId(int idEliminado){
-        for(int i=0;i < this.states.size();i++){
-            if(idEliminado == this.states.get(i).getId()){
-                return this.states.get(i).getId();
+        for(int i=0;i < this.pollutionStates.size();i++){
+            if(idEliminado == this.pollutionStates.get(i).getId()){
+                return this.pollutionStates.get(i).getId();
             }
         }
         return 0;
@@ -120,8 +130,8 @@ public class Pollution_state {
     public void menuEliminarPollution(){
         int idEliminado;
         Scanner read = new Scanner(System.in);
-        for(int i=0;i < this.states.size();i++){
-            this.states.get(i).mostrarInformacion();
+        for(int i=0;i < this.pollutionStates.size();i++){
+            this.pollutionStates.get(i).mostrarInformacion();
         }
         do{
             System.out.println("Ingrese ID del elemento a eliminar");
@@ -218,7 +228,7 @@ public class Pollution_state {
                     state.setTotal_Consume(Double.parseDouble(partes[1]));
                     state.setConsume_State(Double.parseDouble(partes[2]));
                     state.setMessage(partes[3]);
-                    states.add(state);
+                    pollutionStates.add(state);
                 } else {
                     System.err.println("Error en el formato de la línea: " + linea);
                 }

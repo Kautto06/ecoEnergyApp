@@ -244,6 +244,7 @@ public class User {
         }
     }
 
+
     public void leerUsersDesdeArchivo(String rutaArchivo) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);

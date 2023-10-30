@@ -1,5 +1,7 @@
 package org.example;
-
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +15,17 @@ public class Home {
     private ArrayList<String> homeUsers=new ArrayList(); // futuro uso con base de datos
     private ArrayList<String> homeDevices= new ArrayList(); // futuro uso con base de datos
     private String idAdminHome;
-    private int idInforme;
 
     private ArrayList<Home> homes= new ArrayList<>();
 
 
-    public Home(int id, String companyRut, int stateId, String homeName, String envioromentType, String idAdminHome, int inform) {
+    public Home(int id, String companyRut, int stateId, String homeName, String envioromentType, String idAdminHome) {
         this.id = id;
         this.companyRut = companyRut;
         this.stateId = stateId;
         this.homeName = homeName;
         this.environmentType = envioromentType;
         this.idAdminHome = idAdminHome;
-        this.idInforme = inform;
     }
 
     public Home(){
@@ -35,7 +35,6 @@ public class Home {
         this.homeName = "";
         this.environmentType = "";
         this.idAdminHome = "";
-        this.idInforme = 0;
     }
 
     public void setId(int id) {
@@ -62,10 +61,6 @@ public class Home {
         this.idAdminHome = idAdminHome;
     }
 
-    public void setIdInforme(int idInforme) {
-        this.idInforme = idInforme;
-    }
-
     public int getId() {
         return id;
     }
@@ -90,10 +85,6 @@ public class Home {
         return idAdminHome;
     }
 
-    public int getInform() {
-        return idInforme;
-    }
-
     public String getEnvironmentType() {
         return environmentType;
     }
@@ -104,10 +95,6 @@ public class Home {
 
     public ArrayList<String> getHomeDevices() {
         return homeDevices;
-    }
-
-    public int getIdInforme() {
-        return idInforme;
     }
 
     public ArrayList<Home> getHomes() {
@@ -151,12 +138,9 @@ public class Home {
         this.idAdminHome = scanner.next();
         scanner.nextLine();
 
-        System.out.print("Ingrese el ID del informe: ");
-        this.idInforme = scanner.nextInt();
-        scanner.nextLine();
 
-        this.homes.add(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome,this.idInforme));
-        cargarDatosArchivo(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome,this.idInforme));
+        this.homes.add(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome));
+        cargarDatosArchivo(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome));
     }
 
     public int eliminarHomeArreglo(int IdEliminar){
@@ -170,7 +154,7 @@ public class Home {
         return 0;
     }
     public String toString(){
-        return id+", "+stateId+", "+homeName+", "+environmentType+", "+idAdminHome+", "+idInforme;
+        return id+", "+stateId+", "+homeName+", "+environmentType+", "+idAdminHome;
     }
 
 
@@ -183,7 +167,6 @@ public class Home {
         System.out.println("Usuarios en la casa: " + homeUsers);
         System.out.println("Dispositivos en la casa: " + homeDevices);
         System.out.println("ID del administrador de la casa: " + idAdminHome);
-        System.out.println("ID del informe: " + idInforme);
         System.out.println();
     }
 
@@ -249,9 +232,6 @@ public class Home {
                 System.out.println("Dispositivos en la casa: " + homeDevices);
                 break;
             case 6:
-                System.out.println("ID del informe: " + idInforme);
-                break;
-            case 7:
                 mostrarInformacion();
                 break;
             default:
@@ -293,11 +273,6 @@ public class Home {
                 String nuevoIdAdminHome = scanner.next();
                 setIdAdminHome(nuevoIdAdminHome);
                 break;
-            case 5:
-                System.out.print("Nuevo ID del informe: ");
-                int nuevoIdInforme = scanner.nextInt();
-                setIdInforme(nuevoIdInforme);
-                break;
             default:
                 System.out.println("Opción no válida");
                 break;
@@ -315,37 +290,34 @@ public class Home {
         }
     }
 
-
-    public void leerHomesDesdeArchivo(String rutaArchivo) {
+    public void Leer(String rutaArchivo) throws CsvValidationException{
+        File file = new File(rutaArchivo);
         try {
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader inputfile = new FileReader(file);
+            CSVReader reader = new CSVReader(inputfile);
 
-            String linea;
+            String[] nextRecord;
 
-            while ((linea = bufferedReader.readLine()) != null) {
-                String[] partes = linea.split(", ");
+            // we are going to read data line by line
+            int i=0;
+            while ((nextRecord = reader.readNext()) != null) {
 
-                if (partes.length == 6) {
-                    Home home = new Home();
-                    home.setId(Integer.parseInt(partes[0]));
-                    home.setCompanyRut(partes[1]);
-                    home.setHomeName(partes[2]);
-                    home.setEnvironmentType(partes[3]);
-                    home.setIdAdminHome(partes[4]);
-                    home.setIdInforme(Integer.parseInt(partes[5]));
-                    homes.add(home);
-                } else {
-                    System.err.println("Error en el formato de la línea: " + linea);
+                //System.out.println(nextRecord[4]);
+                if(i>0)homes.add(new Home(Integer.parseInt(nextRecord[0]),nextRecord[1],Integer.parseInt(nextRecord[2]),nextRecord[3],nextRecord[4],nextRecord[5]));
+
+
+                for (String cell : nextRecord) {
+
+                    System.out.print(cell + "\t");
                 }
+                i++;
+                System.out.println();
             }
 
-            bufferedReader.close();
-            fileReader.close();
 
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
+
 }

@@ -1,7 +1,6 @@
 package org.example;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -15,7 +14,7 @@ public class Menus {
         User usuarios=new User();
         Electricity_Company empresa=new Electricity_Company();
         Pollution_state estado=new Pollution_state();
-        Report reporte = new Report();
+        Consume_state reporte = new Consume_state();
         Home home =new Home();
 
         do{
@@ -210,7 +209,6 @@ public class Menus {
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             }
-
         }while(opcion!=0);
     }
 
@@ -236,8 +234,8 @@ public class Menus {
                     System.out.println();
                     break;
                 case 2:
-                    for(int i=0;i<estado.getStates().size();i++)
-                        estado.getStates().get(i).mostrarInformacion();
+                    for(int i=0;i<estado.getPollutionStates().size();i++)
+                        estado.getPollutionStates().get(i).mostrarInformacion();
                     System.out.println();
                     break;
                 case 3:
@@ -259,7 +257,7 @@ public class Menus {
         }while(opcion!=0);
     }
 
-    public static void menuEliminarReporte(Report reporte){
+    public static void menuEliminarReporte(Consume_state reporte){
 
         Scanner entrada = new Scanner(System.in);
         boolean encontrado;
@@ -281,7 +279,7 @@ public class Menus {
     }
 
 
-    public static void menuReportes(Report reporte)
+    public static void menuReportes(Consume_state reporte)
     {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -352,7 +350,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    home.leerHomesDesdeArchivo("src/test/text/Home.txt");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;

@@ -1,44 +1,23 @@
 package org.example;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.text.ParseException;
-public class Report {
-    private int id;
-    private String idHome;
-    private String idAdminHome;
+
+public class Consume_state extends Reporte{
     private double totalConsume;
     private double totalCost;
+    private ArrayList<Consume_state> consumestates = new ArrayList<>();
 
-    private ArrayList<Report> reports= new ArrayList<>();
-
-    public Report(int id, String idHome, String idAdminHome, double totalConsume, double totalCost) {
-        this.id = id;
-        this.idHome = idHome;
-        this.idAdminHome = idAdminHome;
+    public Consume_state(int id, int idHome, String idAdminHome, String fecha, double totalConsume, double totalCost) {
+        super(id,idHome,idAdminHome,fecha);
         this.totalConsume = totalConsume;
         this.totalCost = totalCost;
     }
 
-    public Report() {
-        this.id = 0;
-        this.idHome = "";
-        this.idAdminHome = "";
+    public Consume_state() {
+        super();
         this.totalConsume = 0;
         this.totalCost = 0;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setIdHome(String idHome) {
-        this.idHome = idHome;
-    }
-
-    public void setIdAdminHome(String idAdminHome) {
-        this.idAdminHome = idAdminHome;
     }
 
     public void setTotalConsume(double totalConsume) {
@@ -49,18 +28,6 @@ public class Report {
         this.totalCost = totalCost;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getIdHome() {
-        return idHome;
-    }
-
-    public String getIdAdminHome() {
-        return idAdminHome;
-    }
-
     public double getTotalConsume() {
         return totalConsume;
     }
@@ -69,26 +36,32 @@ public class Report {
         return totalCost;
     }
 
-    public ArrayList<Report> getReports() {
-        return reports;
+    public ArrayList<Consume_state> getReports() {
+        return consumestates;
     }
 
-    public void setReports(ArrayList<Report> reports) {
-        this.reports = reports;
+    public void setReports(ArrayList<Consume_state> consumestates) {
+        this.consumestates = consumestates;
     }
 
     public void crearDatos() {
         Scanner scanner = new Scanner(System.in);
+        int id,idHome;
+        String idAdminHome,fecha;
+        ArrayList<Reporte> aux =getReportes();
 
         System.out.print("Ingrese el ID: ");
-        this.id = scanner.nextInt();
+        id = scanner.nextInt();
         scanner.nextLine();
 
         System.out.print("Ingrese el ID de Home: ");
-        this.idHome = scanner.nextLine();
+        idHome = scanner.nextInt();
 
         System.out.print("Ingrese el ID de Admin Home: ");
-        this.idAdminHome = scanner.nextLine();
+        idAdminHome = scanner.nextLine();
+        
+        System.out.print("Ingrese la fecha del reporte (dd/mm/yy): ");
+        fecha= scanner.nextLine();
 
         System.out.print("Ingrese el total de consumo: ");
         this.totalConsume = scanner.nextDouble();
@@ -98,18 +71,22 @@ public class Report {
         this.totalCost = scanner.nextDouble();
         scanner.nextLine();
 
-        this.reports.add(new Report(this.id,this.idHome,this.idAdminHome,this.totalConsume,this.totalCost));
-        cargarDatosArchivo(new Report(this.id,this.idHome,this.idAdminHome,this.totalConsume,this.totalCost));
+
+        aux.add(new Reporte(id,idHome,idAdminHome,fecha));
+        setReportes(aux);
+        this.consumestates.add(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
+        cargarDatosArchivo(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
     }
 
     public String toString(){
-        return id+", "+idHome+", "+idAdminHome+", "+totalConsume+", "+totalCost;
+        return getId()+", "+getIdHome()+", "+getIdAdminHome()+", "+ getFecha() +", "+totalConsume+", "+totalCost;
     }
 
     public void mostrarInformacion() {
-        System.out.println("ID: " + id);
-        System.out.println("ID de la casa: " + idHome);
-        System.out.println("ID del administrador de la casa: " + idAdminHome);
+        System.out.println("ID: " + getId());
+        System.out.println("ID de la casa: " + getIdHome());
+        System.out.println("ID del administrador de la casa: " + getIdAdminHome());
+        System.out.println("Fecha reporte: "+getFecha());
         System.out.println("Total de consumo: " + totalConsume);
         System.out.println("Total de costo: " + totalCost);
         System.out.println();
@@ -128,10 +105,10 @@ public class Report {
 
         switch (opcion) {
             case 1:
-                System.out.println("ID de la casa: " + idHome);
+                System.out.println("ID de la casa: " + getId());
                 break;
             case 2:
-                System.out.println("ID del administrador de la casa: " + idAdminHome);
+                System.out.println("ID del administrador de la casa: " + getIdAdminHome());
                 break;
             case 3:
                 System.out.println("Total de consumo: " + totalConsume);
@@ -179,7 +156,7 @@ public class Report {
         }
     }
 
-    public void cargarDatosArchivo(Report newData){
+    public void cargarDatosArchivo(Consume_state newData){
         try{
             FileWriter fileWriter = new FileWriter("src/test/text/Report.txt",true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -191,7 +168,7 @@ public class Report {
     }
 
     public boolean buscarReporte(int idBuscado){
-        for (Report reporte : this.reports){
+        for (Consume_state reporte : this.consumestates){
             if(reporte.getId()==idBuscado) return true;
         }
 
@@ -199,9 +176,9 @@ public class Report {
     }
 
     public int eliminarReporte(int idEliminar){
-        for (int i=0;i<this.reports.size();i++){
-            if(this.reports.get(i).getId()==idEliminar){
-                this.reports.remove(i);
+        for (int i = 0; i<this.consumestates.size(); i++){
+            if(this.consumestates.get(i).getId()==idEliminar){
+                this.consumestates.remove(i);
                 return 1;
             }
         }
@@ -221,13 +198,13 @@ public class Report {
                 String[] partes = linea.split(", ");
 
                 if (partes.length == 5) {
-                    Report report = new Report();
-                    report.setId(Integer.parseInt(partes[0]));
-                    report.setIdHome(partes[1]);
-                    report.setIdAdminHome(partes[2]);
-                    report.setTotalConsume(Double.parseDouble(partes[3]));
-                    report.setTotalCost(Double.parseDouble(partes[4]));
-                    reports.add(report);
+                    Consume_state consumestate = new Consume_state();
+                    consumestate.setId(Integer.parseInt(partes[0]));
+                    consumestate.setIdHome(Integer.parseInt(partes[1]));
+                    consumestate.setIdAdminHome(partes[2]);
+                    consumestate.setTotalConsume(Double.parseDouble(partes[3]));
+                    consumestate.setTotalCost(Double.parseDouble(partes[4]));
+                    consumestates.add(consumestate);
                 } else {
                     System.err.println("Error en el formato de la línea: " + linea);
                 }
