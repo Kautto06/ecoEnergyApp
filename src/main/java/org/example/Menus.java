@@ -1,12 +1,14 @@
 package org.example;
 
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.text.ParseException;
 import java.util.Scanner;
 
 
 public class Menus {
 
-    public static  void menuSeleccionClases() throws ParseException {
+    public static  void menuSeleccionClases() throws ParseException, CsvValidationException {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
 
@@ -58,7 +60,7 @@ public class Menus {
         }while(opcion!=0);
     }
 
-    public static void menuDispositivos(Device dispositivo) throws ParseException {
+    public static void menuDispositivos(Device dispositivo) throws ParseException, CsvValidationException {
         System.out.println();
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -84,7 +86,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    dispositivo.leerDispositivosDesdeArchivo("src/test/text/Devices.txt");
+                    dispositivo.LeerDesdeCsv("src/test/text/Devices.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -103,27 +105,9 @@ public class Menus {
         }while(opcion!=0);
     }
 
-    public static void menuEliminarUsuarios(User usuario){
-        Scanner entrada = new Scanner(System.in);
-        boolean encontrado;
-        String rutAEliminar;
-        if(usuario==null){
-            System.out.println("No hay usuarios en el sistema");
-            return;
-        }
 
-        do {
-            usuario.mostrarInformacion();
-            System.out.print("Ingrese el Rut del usuario que desea eliminar: ");
-            rutAEliminar= entrada.nextLine();
-            System.out.println();
-        }while(!usuario.buscarUsuario(rutAEliminar));
 
-        usuario.eliminarUsuarioArreglo(rutAEliminar);
-        System.out.println("Se elimino el usuario correctamente");
-    }
-
-    public static void menuUsuarios(User usuario) throws ParseException {
+    public static void menuUsuarios(User usuario) throws ParseException, CsvValidationException {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
 
@@ -148,12 +132,12 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    usuario.leerUsersDesdeArchivo("src/test/text/Users.txt");
+                    usuario.LeerDesdeCsv("src/test/text/Users.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
                 case 4:
-                    menuEliminarUsuarios(usuario);
+                    usuario.menuEliminarUsuarios();
                     System.out.println();
                     break;
                 case 0:
@@ -168,8 +152,7 @@ public class Menus {
     }
 
 
-    public static void menuEmpresaElectricidad(Electricity_Company empresa)
-    {
+    public static void menuEmpresaElectricidad(Electricity_Company empresa) throws ParseException, CsvValidationException{
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
 
@@ -194,7 +177,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    empresa.leerDatosDesdeArchivo("src/test/text/ElectricityCompany.txt");
+                    empresa.LeerDesdeCsv("src/test/text/Electricity_Company.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -213,7 +196,7 @@ public class Menus {
     }
 
 
-    public static void menuEstadoDeContaminacion(Pollution_state estado)
+    public static void menuEstadoDeContaminacion(Pollution_state estado) throws ParseException, CsvValidationException
     {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -239,7 +222,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    estado.leerStatesDesdeArchivo("src/test/text/Pollution.txt");
+                    estado.LeerDesdeCsv("src/test/text/PollutionState.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -257,29 +240,9 @@ public class Menus {
         }while(opcion!=0);
     }
 
-    public static void menuEliminarReporte(Consume_state reporte){
-
-        Scanner entrada = new Scanner(System.in);
-        boolean encontrado;
-        int idAEliminar;
-        if(reporte==null){
-            System.out.println("No hay reportes en el sistema");
-            return;
-        }
-
-        do {
-            reporte.mostrarInformacion();
-            System.out.print("Ingrese el ID del reporte que desea eliminar: ");
-            idAEliminar= entrada.nextInt();
-            System.out.println();
-        }while(!reporte.buscarReporte(idAEliminar));
-
-        reporte.eliminarReporte(idAEliminar);
-        System.out.println("Se elimino el reporte correctamente");
-    }
 
 
-    public static void menuReportes(Consume_state reporte)
+    public static void menuReportes(Consume_state reporte) throws ParseException, CsvValidationException
     {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -305,12 +268,12 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    reporte.leerReportsDesdeArchivo("src/test/text/Report.txt");
+                    reporte.LeerDesdeCsv("src/test/text/ConsumeState.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
                 case 4:
-                    menuEliminarReporte(reporte);
+                    reporte.menuEliminarReporte(reporte);
                     System.out.println();
                     break;
                 case 0:
@@ -324,7 +287,7 @@ public class Menus {
         }while(opcion!=0);
     }
 
-    public  static  void menuHomes(Home home)
+    public  static  void menuHomes(Home home) throws ParseException, CsvValidationException
     {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -350,6 +313,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    home.LeerDesdeCsv("src/test/text/Home.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -363,7 +327,6 @@ public class Menus {
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             }
-
         }while(opcion!=0);
     }
 

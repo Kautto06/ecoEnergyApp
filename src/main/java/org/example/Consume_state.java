@@ -1,4 +1,7 @@
 package org.example;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -48,7 +51,6 @@ public class Consume_state extends Reporte{
         Scanner scanner = new Scanner(System.in);
         int id,idHome;
         String idAdminHome,fecha;
-        ArrayList<Reporte> aux =getReportes();
 
         System.out.print("Ingrese el ID: ");
         id = scanner.nextInt();
@@ -71,9 +73,6 @@ public class Consume_state extends Reporte{
         this.totalCost = scanner.nextDouble();
         scanner.nextLine();
 
-
-        aux.add(new Reporte(id,idHome,idAdminHome,fecha));
-        setReportes(aux);
         this.consumestates.add(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
         cargarDatosArchivo(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
     }
@@ -184,38 +183,58 @@ public class Consume_state extends Reporte{
         }
         return 0;
     }
+    public static void menuEliminarReporte(Consume_state reporte){
 
-
-    public void leerReportsDesdeArchivo(String rutaArchivo) {
-
-        try {
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String linea;
-
-            while ((linea = bufferedReader.readLine()) != null) {
-                String[] partes = linea.split(", ");
-
-                if (partes.length == 5) {
-                    Consume_state consumestate = new Consume_state();
-                    consumestate.setId(Integer.parseInt(partes[0]));
-                    consumestate.setIdHome(Integer.parseInt(partes[1]));
-                    consumestate.setIdAdminHome(partes[2]);
-                    consumestate.setTotalConsume(Double.parseDouble(partes[3]));
-                    consumestate.setTotalCost(Double.parseDouble(partes[4]));
-                    consumestates.add(consumestate);
-                } else {
-                    System.err.println("Error en el formato de la línea: " + linea);
-                }
-            }
-
-            bufferedReader.close();
-            fileReader.close();
-
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+        Scanner entrada = new Scanner(System.in);
+        boolean encontrado;
+        int idAEliminar;
+        if(reporte==null){
+            System.out.println("No hay reportes en el sistema");
+            return;
         }
+
+        do {
+            for(int i=0;i<reporte.getReports().size();i++)
+                reporte.getReports().get(i).mostrarInformacion();
+            System.out.println();
+            System.out.print("Ingrese el ID del reporte que desea eliminar: ");
+            idAEliminar= entrada.nextInt();
+            System.out.println();
+        }while(!reporte.buscarReporte(idAEliminar));
+
+        reporte.eliminarReporte(idAEliminar);
+        System.out.println("Se elimino el reporte correctamente");
     }
 
+
+    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
+        File file = new File(rutaArchivo);
+        try {
+            FileReader inputfile = new FileReader(file);
+            CSVReader reader = new CSVReader(inputfile);
+
+            String[] nextRecord;
+
+            // we are going to read data line by line
+            int i=0;
+            while ((nextRecord = reader.readNext()) != null) {
+
+                //System.out.println(nextRecord[4]);
+                if(i>=0)consumestates.add(new Consume_state(Integer.valueOf(nextRecord[0]),Integer.valueOf(nextRecord[1]),nextRecord[2],
+                        nextRecord[3],Double.valueOf(nextRecord[4]),Double.valueOf(nextRecord[5])));
+
+
+                for (String cell : nextRecord) {
+
+                    System.out.print(cell + "\t");
+                }
+                i++;
+                System.out.println();
+            }
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

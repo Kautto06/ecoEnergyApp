@@ -1,5 +1,7 @@
 package org.example;
-
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.*;
@@ -127,7 +129,26 @@ public class User {
         System.out.println("Fecha de nacimiento: " + dateFormat.format(fechaNacimiento));
         System.out.println();
     }
+    public void menuEliminarUsuarios(){
+        Scanner entrada = new Scanner(System.in);
+        String rutAEliminar;
+        if(users==null){
+            System.out.println("No hay usuarios en el sistema");
+            return;
+        }
 
+        do {
+            for(int i=0;i<this.users.size();i++)
+                this.users.get(i).mostrarInformacion();
+            System.out.println();
+            System.out.print("Ingrese el Rut del usuario que desea eliminar: ");
+            rutAEliminar= entrada.nextLine();
+            System.out.println();
+        }while(!buscarUsuario(rutAEliminar));
+
+        eliminarUsuarioArreglo(rutAEliminar);
+        System.out.println("Se elimino el usuario correctamente");
+    }
     // Método para mostrar un menú y permitir al usuario seleccionar qué elemento mostrar
     public void MenuMostrarUser() {
         Scanner scanner = new Scanner(System.in);
@@ -165,15 +186,23 @@ public class User {
         }
     }
 
-    public int eliminarUsuarioArreglo(String rutEliminar){
+    /*public int eliminarUsuarioArreglo(String rutEliminar){
 
         for(int i=0;i<this.users.size();i++){
             if(this.users.get(i).getRut().equals(rutEliminar)){
-                this.users.remove(i);
+                System.out.printf("%s y %s \n",this.users.get(i).getRut(),rutEliminar);
+
+                this.users.remove(this.users.get(i));
                 return 1;
             }
         }
         return 0;
+    }
+    */
+
+    public int eliminarUsuarioArreglo(String rutEliminar) {
+        boolean removed = this.users.removeIf(user -> user.getRut().equals(rutEliminar));
+        return removed ? 1 : 0;
     }
 
     public boolean buscarUsuario(String rutBuscado){
@@ -244,42 +273,39 @@ public class User {
         }
     }
 
-
-    public void leerUsersDesdeArchivo(String rutaArchivo) {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-
+    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
+        File file = new File(rutaArchivo);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date fecha=null;
         try {
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader inputfile = new FileReader(file);
+            CSVReader reader = new CSVReader(inputfile);
+            String[] nextRecord;
 
-            String linea;
-
-            while ((linea = bufferedReader.readLine()) != null) {
-                String[] partes = linea.split(", ");
-
-                if (partes.length == 6) {
-                    User user = new User();
-                    user.setRut(partes[0]);
-                    user.setNombres(partes[1]);
-                    user.setApellidos(partes[2]);
-                    user.setPassword(partes[3]);
-                    user.setRol(partes[4]);
-                    Date fechaNacimiento = dateFormat.parse(partes[5]);
-                    user.setFechaNacimiento(fechaNacimiento);
-                    users.add(user);
-                } else {
-                    System.err.println("Error en el formato de la línea: " + linea);
+            // we are going to read data line by line
+            int i=0;
+            while ((nextRecord = reader.readNext()) != null) {
+                try {
+                    fecha = dateFormat.parse(nextRecord[5]);
+                }catch(ParseException e){
+                    e.printStackTrace();
                 }
+                //System.out.println(nextRecord[4]);
+                if(i>=0)users.add(new User(nextRecord[0],nextRecord[1],nextRecord[2],nextRecord[3],nextRecord[4],fecha));
+
+
+                for (String cell : nextRecord) {
+
+                    System.out.print(cell + "\t");
+                }
+                i++;
+                System.out.println();
             }
 
-            bufferedReader.close();
-            fileReader.close();
 
-        } catch (IOException | ParseException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 }
 

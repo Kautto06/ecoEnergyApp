@@ -1,4 +1,7 @@
 package org.example;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -162,6 +165,8 @@ public class Device {
             System.out.println("Ingrese el id del dispositivo que desea eliminar:");
             idEliminado = read.nextInt();
         }while(idEliminado != buscarId(idEliminado));
+        eliminarDevice(idEliminado);
+        System.out.println("Se elimino correctamente el dispositivo");
     }
 
     public void MostrarDevice() {
@@ -255,39 +260,33 @@ public class Device {
         }
     }
 
-
-    public void leerDispositivosDesdeArchivo(String rutaArchivo) {
+    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
+        File file = new File(rutaArchivo);
         try {
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader inputfile = new FileReader(file);
+            CSVReader reader = new CSVReader(inputfile);
 
-            String linea;
+            String[] nextRecord;
 
-            while ((linea = bufferedReader.readLine()) != null) {
-                String[] partes = linea.split(", ");
+            // we are going to read data line by line
+            int i=0;
+            while ((nextRecord = reader.readNext()) != null) {
 
-                if (partes.length == 6) {
-                    Device dispositivo = new Device();
-                    dispositivo.setId(Integer.parseInt(partes[0]));
-                    dispositivo.setDeviceName(partes[1]);
-                    dispositivo.setEnergyConsume(Double.parseDouble(partes[2]));
-                    dispositivo.setActiveHours(Float.parseFloat(partes[3]));
-                    dispositivo.setPriorityUsage(Integer.parseInt(partes[4]));
-                    dispositivo.setConsumeClassify(partes[5].charAt(0));
-                    dispositivos.add(dispositivo);
-                } else {
-                    System.err.println("Error en el formato de la línea: " + linea);
+                //System.out.println(nextRecord[4]);
+                if(i>=0)dispositivos.add(new Device(Integer.valueOf(nextRecord[0]),nextRecord[1],Double.valueOf(nextRecord[2]),Float.valueOf(nextRecord[3]),Integer.valueOf(nextRecord[4]),nextRecord[5].charAt(0)));
+
+
+                for (String cell : nextRecord) {
+
+                    System.out.print(cell + "\t");
                 }
+                i++;
+                System.out.println();
             }
 
-            bufferedReader.close();
-            fileReader.close();
 
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
-
     }
-
 }

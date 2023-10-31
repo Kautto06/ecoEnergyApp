@@ -1,4 +1,7 @@
 package org.example;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +65,6 @@ public class Pollution_state extends Reporte{
         Scanner scanner = new Scanner(System.in);
         int id, idHome;
         String idAdminHome,fecha;
-        ArrayList<Reporte> aux =getReportes();
 
 
         System.out.print("Ingrese el ID: ");
@@ -88,13 +90,11 @@ public class Pollution_state extends Reporte{
         System.out.print("Ingrese un mensaje: ");
         this.Message = scanner.nextLine();
 
-        aux.add(new Reporte(id,idHome,idAdminHome,fecha));
-        setReportes(aux);
         this.pollutionStates.add(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
         cargarDatosArchivo(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
     }
 
-    public int eliminarState(int id){
+    public int eliminarReporte(int id){
         for(int i=0;i < this.pollutionStates.size(); i++){
             if(this.pollutionStates.get(i).getId() == id){
                 this.pollutionStates.remove(i);
@@ -118,13 +118,13 @@ public class Pollution_state extends Reporte{
         System.out.println("Mensaje: " + Message);
         System.out.println();
     }
-    public int buscarId(int idEliminado){
+    public boolean buscarReporte(int idEliminado){
         for(int i=0;i < this.pollutionStates.size();i++){
             if(idEliminado == this.pollutionStates.get(i).getId()){
-                return this.pollutionStates.get(i).getId();
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
     public void menuEliminarPollution(){
@@ -136,7 +136,8 @@ public class Pollution_state extends Reporte{
         do{
             System.out.println("Ingrese ID del elemento a eliminar");
             idEliminado = read.nextInt();
-        }while(buscarId(idEliminado) != idEliminado);
+        }while(!buscarReporte(idEliminado));
+        eliminarReporte(idEliminado);
     }
 
     // Método para mostrar un menú y permitir al usuario seleccionar qué elemento mostrar
@@ -202,7 +203,7 @@ public class Pollution_state extends Reporte{
 
     public void cargarDatosArchivo(Pollution_state newData){
         try{
-            FileWriter fileWriter = new FileWriter("src/test/text/Pollution.txt",true);
+            FileWriter fileWriter = new FileWriter("src/test/text/Pollution.csv",true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("\n" + newData.toString());
             bufferedWriter.close();
@@ -211,36 +212,35 @@ public class Pollution_state extends Reporte{
         }
     }
 
-    public  void leerStatesDesdeArchivo(String rutaArchivo) {
-
+    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
+        File file = new File(rutaArchivo);
         try {
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader inputfile = new FileReader(file);
+            CSVReader reader = new CSVReader(inputfile);
 
-            String linea;
+            String[] nextRecord;
 
-            while ((linea = bufferedReader.readLine()) != null) {
-                String[] partes = linea.split(", ");
 
-                if (partes.length == 4) {
-                    Pollution_state state = new Pollution_state();
-                    state.setId(Integer.parseInt(partes[0]));
-                    state.setTotal_Consume(Double.parseDouble(partes[1]));
-                    state.setConsume_State(Double.parseDouble(partes[2]));
-                    state.setMessage(partes[3]);
-                    pollutionStates.add(state);
-                } else {
-                    System.err.println("Error en el formato de la línea: " + linea);
+            int i=0;
+            while ((nextRecord = reader.readNext()) != null) {
+
+
+                if(i>=0)pollutionStates.add(new Pollution_state(Integer.valueOf(nextRecord[0]),Integer.valueOf(nextRecord[1]),nextRecord[2],
+                        nextRecord[3],Double.valueOf(nextRecord[4]),Double.valueOf(nextRecord[5]),nextRecord[6]));
+
+
+                for (String cell : nextRecord) {
+
+                    System.out.print(cell + "\t");
                 }
+                i++;
+                System.out.println();
             }
 
-            bufferedReader.close();
-            fileReader.close();
 
-        } catch (IOException | NumberFormatException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 
 }

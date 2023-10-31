@@ -2,13 +2,12 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class Reporte {
+public abstract class Reporte{
 
     private int id;
     private int idHome;
     private String idAdminHome;
     private String fecha;
-    private ArrayList<Reporte> reportes =new ArrayList<>();
 
     public Reporte(int id, int idHome, String idAdminHome, String fecha) {
         this.id = id;
@@ -22,14 +21,6 @@ public class Reporte {
         this.idHome=0;
         this.idAdminHome=null;
         this.fecha=null;
-    }
-
-    public ArrayList<Reporte> getReportes() {
-        return reportes;
-    }
-
-    public void setReportes(ArrayList<Reporte> reportes) {
-        this.reportes = reportes;
     }
 
     public void setId(int id) {
@@ -63,4 +54,13 @@ public class Reporte {
     public String getFecha() {
         return fecha;
     }
+
+
+    public abstract void crearDatos();
+
+    public abstract void mostrarInformacion();
+
+    public abstract boolean buscarReporte(int id);
+
+    public abstract int eliminarReporte(int id);
 }

@@ -1,4 +1,7 @@
 package org.example;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -141,6 +144,9 @@ public class Electricity_Company {
             System.out.println("Ingrese rut de la compania a eliminar");
             rutEliminado = read.nextLine();
         }while(!buscarRut(rutEliminado));
+
+        eliminarCompany(rutEliminado);
+        System.out.println("Se elimino correctamente la empresa");
     }
 
     public void mostrarInformacion() {
@@ -241,7 +247,7 @@ public class Electricity_Company {
 
     public void cargarDatosArchivo(Electricity_Company newData){
         try{
-            FileWriter fileWriter = new FileWriter("src/test/text/ElectricityCompany.txt",true);
+            FileWriter fileWriter = new FileWriter("src/test/text/ElectricityCompany.csv",true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("\n" + newData.toString());
             bufferedWriter.close();
@@ -249,38 +255,33 @@ public class Electricity_Company {
             e.printStackTrace();
         }
     }
-
-    public void leerDatosDesdeArchivo(String rutaArchivo) {
-
+    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
+        File file = new File(rutaArchivo);
         try {
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileReader inputfile = new FileReader(file);
+            CSVReader reader = new CSVReader(inputfile);
 
-            String linea;
+            String[] nextRecord;
 
-                while ((linea = bufferedReader.readLine()) != null) {
-                    String[] partes = linea.split(", ");
+            // we are going to read data line by line
+            int i=0;
+            while ((nextRecord = reader.readNext()) != null) {
 
-                    if (partes.length == 6) {
-                        Electricity_Company empresaElectrica = new Electricity_Company();
-                        empresaElectrica.setRut(partes[0]);
-                        empresaElectrica.setNombre(partes[1]);
-                        empresaElectrica.setCostoBase(Double.parseDouble(partes[2]));
-                        empresaElectrica.setCostoPorkW(Double.parseDouble(partes[3]));
-                        empresaElectrica.setLimiteDekW(Double.parseDouble(partes[4]));
-                        empresaElectrica.setCostoAdicionalPorkW(Double.parseDouble(partes[5]));
-                        companies.add(empresaElectrica);
-                    } else {
-                        System.err.println("Error en el formato de la línea: " + linea);
-                    }
+                //System.out.println(nextRecord[4]);
+                if(i>=0)companies.add(new Electricity_Company(nextRecord[0],nextRecord[1],Double.valueOf(nextRecord[2]),Double.valueOf(nextRecord[3]),Double.valueOf(nextRecord[4]),Double.valueOf(nextRecord[5])));
+
+
+                for (String cell : nextRecord) {
+
+                    System.out.print(cell + "\t");
                 }
-
-                bufferedReader.close();
-                fileReader.close();
-
-            } catch (IOException | NumberFormatException e) {
-                System.err.println("Error al leer el archivo: " + e.getMessage());
+                i++;
+                System.out.println();
             }
-        }
 
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

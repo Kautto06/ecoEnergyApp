@@ -281,7 +281,7 @@ public class Home {
 
     public void cargarDatosArchivo(Home newData){
         try{
-            FileWriter fileWriter = new FileWriter("src/test/text/Home.txt",true);
+            FileWriter fileWriter = new FileWriter("src/test/text/Home.csv",true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("\n" + newData.toString());
             bufferedWriter.close();
@@ -290,7 +290,7 @@ public class Home {
         }
     }
 
-    public void Leer(String rutaArchivo) throws CsvValidationException{
+    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException{
         File file = new File(rutaArchivo);
         try {
             FileReader inputfile = new FileReader(file);
@@ -303,7 +303,7 @@ public class Home {
             while ((nextRecord = reader.readNext()) != null) {
 
                 //System.out.println(nextRecord[4]);
-                if(i>0)homes.add(new Home(Integer.parseInt(nextRecord[0]),nextRecord[1],Integer.parseInt(nextRecord[2]),nextRecord[3],nextRecord[4],nextRecord[5]));
+                if(i>=0)homes.add(new Home(Integer.valueOf(nextRecord[0]),nextRecord[1],Integer.valueOf(nextRecord[2]),nextRecord[3],nextRecord[4],nextRecord[5]));
 
 
                 for (String cell : nextRecord) {
