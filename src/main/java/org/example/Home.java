@@ -140,7 +140,6 @@ public class Home {
 
 
         this.homes.add(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome));
-        cargarDatosArchivo(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome));
     }
 
     public int eliminarHomeArreglo(int IdEliminar){
@@ -198,11 +197,9 @@ public class Home {
                 return;
             }
         }
-
-
-
-
     }
+
+
     public void MenuMostrarHome() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione qué elemento de la casa desea mostrar:");
@@ -239,39 +236,42 @@ public class Home {
                 break;
         }
     }
-    public void MenuActualizarDatos() {
-        Scanner scanner = new Scanner(System.in);
 
+    public void actualizarDatos(int id)
+    {
+
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione qué dato de la casa desea actualizar:");
         System.out.println("1. RUT de la compañía");
         System.out.println("2. Nombre de la casa");
         System.out.println("3. Tipo de entorno");
         System.out.println("4. ID del administrador de la casa");
         System.out.println("5. ID del informe");
-        int opcion = scanner.nextInt();
 
+
+        int opcion=scanner.nextInt();
         scanner.nextLine();
 
         switch (opcion) {
             case 1:
                 System.out.print("Nuevo RUT de la compañía: ");
-                String nuevoCompanyRut = scanner.next();
-                setCompanyRut(nuevoCompanyRut);
+                String nuevoCompanyRut = scanner.nextLine();
+                this.homes.get(id).setCompanyRut(nuevoCompanyRut);
                 break;
             case 2:
                 System.out.print("Nuevo nombre de la casa: ");
                 String nuevoHomeName = scanner.nextLine();
-                setHomeName(nuevoHomeName);
+                this.homes.get(id).setHomeName(nuevoHomeName);
                 break;
             case 3:
                 System.out.print("Nuevo tipo de entorno: ");
                 String nuevoEnvironmentType = scanner.nextLine();
-                setEnvironmentType(nuevoEnvironmentType);
+                this.homes.get(id).setEnvironmentType(nuevoEnvironmentType);
                 break;
             case 4:
                 System.out.print("Nuevo ID del administrador de la casa: ");
-                String nuevoIdAdminHome = scanner.next();
-                setIdAdminHome(nuevoIdAdminHome);
+                String nuevoIdAdminHome = scanner.nextLine();
+                this.homes.get(id).setIdAdminHome(nuevoIdAdminHome);
                 break;
             default:
                 System.out.println("Opción no válida");
@@ -279,14 +279,36 @@ public class Home {
         }
     }
 
-    public void cargarDatosArchivo(Home newData){
-        try{
-            FileWriter fileWriter = new FileWriter("src/test/text/Home.csv",true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + newData.toString());
-            bufferedWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
+    public int buscarPosicionId(int id){
+        for (int i=0;i<this.homes.size();i++){
+            if(this.homes.get(i).getId()==id) return i;
+        }
+        return -1;
+    }
+
+    public void MenuActualizarDatos() {
+
+        if(this.homes==null){
+            System.out.println("No hay datos registrados");
+            return;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        int id = 0,posId;
+
+        System.out.println("Mostrando todas las homes del sistema.");
+        for (int i = 0; i < this.homes.size(); i++) {
+            System.out.println("ID=" + homes.get(i).id + "Nombre hombre =" + homes.get(i).homeName);
+        }
+        while (true) {
+            System.out.println("Seleccione un id de  Home valido  para actualizar");
+            id = scanner.nextInt();
+            if (BuscarHome(id) == 1) {
+                posId=buscarPosicionId(id);
+                actualizarDatos(posId);
+                return;
+            }
+
         }
     }
 

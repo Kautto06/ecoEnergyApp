@@ -91,7 +91,6 @@ public class Pollution_state extends Reporte{
         this.Message = scanner.nextLine();
 
         this.pollutionStates.add(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
-        cargarDatosArchivo(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
     }
 
     public int eliminarReporte(int id){
@@ -168,47 +167,61 @@ public class Pollution_state extends Reporte{
                 break;
         }
     }
+
+    public int buscarPosicionId(int id){
+        for (int i=0;i<this.pollutionStates.size();i++){
+            if(this.pollutionStates.get(i).getId()==id) return i;
+        }
+        return -1;
+    }
+    
     public void MenuActualizarDatos() {
         Scanner scanner = new Scanner(System.in);
+
+        if(this.pollutionStates==null){
+            System.out.println("No hay datos registrados");
+            return;
+        }
+
+        int idActualizar,index;
+        Scanner read = new Scanner(System.in);
+        for(int i=0;i < this.pollutionStates.size();i++){
+            this.pollutionStates.get(i).mostrarInformacion();
+        }
+        do{
+            System.out.println("Ingrese ID del elemento a actualizar");
+            idActualizar = read.nextInt();
+        }while(!buscarReporte(idActualizar));
 
         System.out.println("Seleccione qué dato del estado de contaminación desea actualizar:");
         System.out.println("1. Total de consumo");
         System.out.println("2. Consumo actual");
         System.out.println("3. Mensaje");
         int opcion = scanner.nextInt();
-
+        
+        index=buscarPosicionId(idActualizar);
+        
         scanner.nextLine(); // Consumir la línea en blanco después de nextInt()
 
         switch (opcion) {
             case 1:
                 System.out.print("Nuevo total de consumo: ");
                 double nuevoTotalConsume = scanner.nextDouble();
-                setTotal_Consume(nuevoTotalConsume);
+                this.pollutionStates.get(index).setTotal_Consume(nuevoTotalConsume);
                 break;
             case 2:
                 System.out.print("Nuevo consumo actual: ");
                 double nuevoConsumeState = scanner.nextDouble();
-                setConsume_State(nuevoConsumeState);
+                this.pollutionStates.get(index).setConsume_State(nuevoConsumeState);
                 break;
             case 3:
                 System.out.print("Nuevo mensaje: ");
                 String nuevoMensaje = scanner.nextLine();
-                setMessage(nuevoMensaje);
+                this.pollutionStates.get(index).setMessage(nuevoMensaje);
                 break;
             default:
                 System.out.println("Opción no válida");
                 break;
-        }
-    }
-
-    public void cargarDatosArchivo(Pollution_state newData){
-        try{
-            FileWriter fileWriter = new FileWriter("src/test/text/Pollution.csv",true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + newData.toString());
-            bufferedWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
         }
     }
 

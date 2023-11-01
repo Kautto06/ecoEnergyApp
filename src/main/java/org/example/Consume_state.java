@@ -74,7 +74,6 @@ public class Consume_state extends Reporte{
         scanner.nextLine();
 
         this.consumestates.add(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
-        cargarDatosArchivo(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
     }
 
     public String toString(){
@@ -124,8 +123,40 @@ public class Consume_state extends Reporte{
         }
     }
 
+    public int buscarPosicionId(int id){
+        for (int i=0;i<this.consumestates.size();i++){
+            if(this.consumestates.get(i).getId()==id) return i;
+        }
+        return -1;
+    }
+
     public void MenuActualizarDatos() {
         Scanner scanner = new Scanner(System.in);
+
+        if(this.consumestates==null){
+            System.out.println("No hay datos registrados");
+            return;
+        }
+
+        Scanner entrada = new Scanner(System.in);
+        int idActualizar,index;
+        if(this.consumestates==null){
+            System.out.println("No hay reportes en el sistema");
+            return;
+        }
+
+        do {
+            for(int i=0;i<this.consumestates.size();i++)
+                this.consumestates.get(i).mostrarInformacion();
+            System.out.println();
+            System.out.print("Ingrese el ID del reporte que desea actualizar: ");
+            idActualizar= entrada.nextInt();
+            System.out.println();
+        }while(!buscarReporte(idActualizar));
+
+        index=buscarPosicionId(idActualizar);
+
+        System.out.println();
 
         System.out.println("Seleccione qué dato del informe desea actualizar:");
         System.out.println("1. ID del administrador de la casa");
@@ -137,32 +168,21 @@ public class Consume_state extends Reporte{
             case 1:
                 System.out.print("Nuevo ID del administrador de la casa: ");
                 String nuevoIdAdminHome = scanner.next();
-                setIdAdminHome(nuevoIdAdminHome);
+                this.consumestates.get(index).setIdAdminHome(nuevoIdAdminHome);
                 break;
             case 2:
                 System.out.print("Nuevo total de consumo: ");
                 double nuevoTotalConsume = scanner.nextDouble();
-                setTotalConsume(nuevoTotalConsume);
+                this.consumestates.get(index).setTotalConsume(nuevoTotalConsume);
                 break;
             case 3:
                 System.out.print("Nuevo total de costo: ");
                 double nuevoTotalCosto = scanner.nextDouble();
-                setTotalCost(nuevoTotalCosto);
+                this.consumestates.get(index).setTotalCost(nuevoTotalCosto);
                 break;
             default:
                 System.out.println("Opción no válida");
                 break;
-        }
-    }
-
-    public void cargarDatosArchivo(Consume_state newData){
-        try{
-            FileWriter fileWriter = new FileWriter("src/test/text/Report.txt",true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + newData.toString());
-            bufferedWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
         }
     }
 
@@ -186,7 +206,6 @@ public class Consume_state extends Reporte{
     public static void menuEliminarReporte(Consume_state reporte){
 
         Scanner entrada = new Scanner(System.in);
-        boolean encontrado;
         int idAEliminar;
         if(reporte==null){
             System.out.println("No hay reportes en el sistema");

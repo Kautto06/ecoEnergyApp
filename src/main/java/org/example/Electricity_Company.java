@@ -112,7 +112,6 @@ public class Electricity_Company {
         this.costoAdicionalPorkW = scanner.nextDouble();
 
         this.companies.add(new Electricity_Company(this.rut,this.nombre,this.costoBase,this.costoPorkW,this.limiteDekW,this.costoAdicionalPorkW));
-        cargarDatosArchivo(new Electricity_Company(this.rut,this.nombre,this.costoBase,this.costoPorkW,this.limiteDekW,this.costoAdicionalPorkW));
     }
 
     public int eliminarCompany(String rut){
@@ -132,6 +131,14 @@ public class Electricity_Company {
             }
         }
         return false;
+    }
+    public int buscarRutInt(String rut){
+        for(int i=0;i < this.companies.size(); i++){
+            if(this.companies.get(i).getRut().equals(rut)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void menuEliminar(){
@@ -199,6 +206,23 @@ public class Electricity_Company {
     public void MenuActualizarDatos() {
         Scanner scanner = new Scanner(System.in);
 
+        if(this.companies==null){
+            System.out.println("No hay datos registrados");
+            return;
+        }
+
+        String rutActualizar;
+        int i;
+
+        for(int j=0;j<companies.size();j++){
+            companies.get(j).mostrarInformacion();
+        }
+
+        do{
+            System.out.println("Ingrese el rut de la compañia a eliminar");
+            rutActualizar = scanner.nextLine();
+        }while(!buscarRut(rutActualizar));
+        i = buscarRutInt(rutActualizar);
         System.out.println("Seleccione qué dato de la compañía eléctrica desea actualizar:");
         System.out.println("1. Nombre");
         System.out.println("2. Costo base");
@@ -213,27 +237,27 @@ public class Electricity_Company {
             case 1:
                 System.out.print("Nuevo nombre: ");
                 String nuevoNombre = scanner.nextLine();
-                setNombre(nuevoNombre);
+                companies.get(i).setNombre(nuevoNombre);
                 break;
             case 2:
                 System.out.print("Nuevo costo base: ");
                 double nuevoCostoBase = scanner.nextDouble();
-                setCostoBase(nuevoCostoBase);
+                companies.get(i).setCostoBase(nuevoCostoBase);
                 break;
             case 3:
                 System.out.print("Nuevo costo por kW: ");
                 double nuevoCostoPorkW = scanner.nextDouble();
-                setCostoPorkW(nuevoCostoPorkW);
+                companies.get(i).setCostoPorkW(nuevoCostoPorkW);
                 break;
             case 4:
                 System.out.print("Nuevo límite de kW: ");
                 double nuevoLimiteDekW = scanner.nextDouble();
-                setLimiteDekW(nuevoLimiteDekW);
+                companies.get(i).setLimiteDekW(nuevoLimiteDekW);
                 break;
             case 5:
                 System.out.print("Nuevo costo adicional por kW: ");
                 double nuevoCostoAdicionalPorkW = scanner.nextDouble();
-                setCostoAdicionalPorkW(nuevoCostoAdicionalPorkW);
+                companies.get(i).setCostoAdicionalPorkW(nuevoCostoAdicionalPorkW);
                 break;
             default:
                 System.out.println("Opción no válida");
@@ -245,16 +269,6 @@ public class Electricity_Company {
         return rut+", "+nombre+", "+costoBase+", "+costoPorkW+", "+limiteDekW+", "+costoAdicionalPorkW;
     }
 
-    public void cargarDatosArchivo(Electricity_Company newData){
-        try{
-            FileWriter fileWriter = new FileWriter("src/test/text/ElectricityCompany.csv",true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + newData.toString());
-            bufferedWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
     public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
         File file = new File(rutaArchivo);
         try {

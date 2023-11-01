@@ -118,7 +118,6 @@ public class Device {
         this.consumeClassify = scanner.next().charAt(0);
 
         this.dispositivos.add(new Device(this.id, this.deviceName, this.energyConsume, this.activeHours, this.priorityUsage, this.consumeClassify));
-        cargarDatosArchivo(new Device(this.id, this.deviceName, this.energyConsume, this.activeHours, this.priorityUsage, this.consumeClassify));
     }
 
     public int eliminarDevice(int id){
@@ -142,6 +141,13 @@ public class Device {
         System.out.println("Horas activas: " + activeHours);
         System.out.println("Prioridad de uso: " + priorityUsage);
         System.out.println("Clasificación de consumo: " + consumeClassify);
+    }
+
+    public int buscarPosicionId(int id){
+        for (int i=0;i<this.dispositivos.size();i++){
+            if(this.dispositivos.get(i).getId()==id) return i;
+        }
+        return -1;
     }
 
     public int buscarId(int idEliminado){
@@ -207,6 +213,28 @@ public class Device {
     public void MenuActualizarDatos() {
         Scanner scanner = new Scanner(System.in);
 
+        if(this.dispositivos==null){
+            System.out.println("No hay datos registrados");
+            return;
+        }
+
+        int idActualizar, i;
+        Scanner read = new Scanner(System.in);
+        System.out.println("Lista de todos los Dispositivos");
+        for (i = 0; i < this.dispositivos.size(); i++){
+            System.out.println("ID: " + this.dispositivos.get(i).getId());
+            System.out.println("Nombre del dispositivo: " + this.dispositivos.get(i).getDeviceName());
+        }
+        do {
+            System.out.println("Ingrese el id del dispositivo que desea actualizar:");
+            idActualizar = read.nextInt();
+        }while(idActualizar != buscarId(idActualizar));
+
+        i=buscarPosicionId(idActualizar);
+
+        System.out.println();
+
+
         System.out.println("Seleccione qué dato del dispositivo desea actualizar:");
         System.out.println("1. Nombre del dispositivo");
         System.out.println("2. Consumo de energía");
@@ -221,42 +249,31 @@ public class Device {
             case 1:
                 System.out.print("Nuevo nombre del dispositivo: ");
                 String nuevoDeviceName = scanner.nextLine();
-                setDeviceName(nuevoDeviceName);
+                this.dispositivos.get(i).setDeviceName(nuevoDeviceName);
                 break;
             case 2:
                 System.out.print("Nuevo consumo de energía: ");
                 double nuevoEnergyConsume = scanner.nextDouble();
-                setEnergyConsume(nuevoEnergyConsume);
+                this.dispositivos.get(i).setEnergyConsume(nuevoEnergyConsume);
                 break;
             case 3:
                 System.out.print("Nuevas horas activas: ");
                 float nuevasActiveHours = scanner.nextFloat();
-                setActiveHours(nuevasActiveHours);
+                this.dispositivos.get(i).setActiveHours(nuevasActiveHours);
                 break;
             case 4:
                 System.out.print("Nueva prioridad de uso (del 1 al 10): ");
                 int nuevaPriorityUsage = scanner.nextInt();
-                setPriorityUsage(nuevaPriorityUsage);
+                this.dispositivos.get(i).setPriorityUsage(nuevaPriorityUsage);
                 break;
             case 5:
                 System.out.print("Nueva clasificación de consumo (A-G): ");
                 char nuevaConsumeClassify = scanner.next().charAt(0);
-                setConsumeClassify(nuevaConsumeClassify);
+                this.dispositivos.get(i).setConsumeClassify(nuevaConsumeClassify);
                 break;
             default:
                 System.out.println("Opción no válida");
                 break;
-        }
-    }
-
-    public void cargarDatosArchivo(Device newData){
-        try{
-            FileWriter fileWriter = new FileWriter("src/test/text/Devices.txt",true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("\n" + newData.toString());
-            bufferedWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
         }
     }
 
