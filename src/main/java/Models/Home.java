@@ -1,11 +1,16 @@
-package org.example;
+package Models;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Home {
     private int id;
     private String companyRut;
@@ -19,19 +24,17 @@ public class Home {
     private ArrayList<Home> homes= new ArrayList<>();
 
 
-    public Home(int id, String companyRut, int stateId, String homeName, String envioromentType, String idAdminHome) {
+    public Home(int id, String companyRut, String homeName, String environmentType, String idAdminHome) {
         this.id = id;
         this.companyRut = companyRut;
-        this.stateId = stateId;
         this.homeName = homeName;
-        this.environmentType = envioromentType;
+        this.environmentType = environmentType;
         this.idAdminHome = idAdminHome;
     }
 
     public Home(){
         this.id = 0;
         this.companyRut = "";
-        this.stateId = 0;
         this.homeName = "";
         this.environmentType = "";
         this.idAdminHome = "";
@@ -45,9 +48,6 @@ public class Home {
         this.companyRut = companyRut;
     }
 
-    public void setStateId(int stateId) {
-        this.stateId = stateId;
-    }
 
     public void setHomeName(String homeName) {
         this.homeName = homeName;
@@ -69,9 +69,6 @@ public class Home {
         return companyRut;
     }
 
-    public int getStateId() {
-        return stateId;
-    }
 
     public String getHomeName() {
         return homeName;
@@ -124,10 +121,6 @@ public class Home {
         this.companyRut = scanner.next();
         scanner.nextLine();
 
-        System.out.print("Ingrese el ID del estado: ");
-        this.stateId = scanner.nextInt();
-        scanner.nextLine();
-
         System.out.print("Ingrese el nombre del hogar: ");
         this.homeName = scanner.nextLine();
 
@@ -139,7 +132,7 @@ public class Home {
         scanner.nextLine();
 
 
-        this.homes.add(new Home(this.id,this.companyRut,this.stateId,this.homeName,this.environmentType,this.idAdminHome));
+        this.homes.add(new Home(this.id,this.companyRut,this.homeName,this.environmentType,this.idAdminHome));
     }
 
     public int eliminarHomeArreglo(int IdEliminar){
@@ -312,32 +305,25 @@ public class Home {
         }
     }
 
-    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException{
-        File file = new File(rutaArchivo);
-        try {
-            FileReader inputfile = new FileReader(file);
-            CSVReader reader = new CSVReader(inputfile);
+    public void leerDesdeBDHomes(String urlBD, String usuario, String contraseña) {
+        String sql = "SELECT * FROM Home";
+        try (
+                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String companyRut = resultSet.getString("Company_Rut");
+                String nombre = resultSet.getString("Nombre");
+                String environmentType = resultSet.getString("Enviroment_Type");
+                String idAdmin = resultSet.getString("Id_Admin");
 
-            String[] nextRecord;
-
-            // we are going to read data line by line
-            int i=0;
-            while ((nextRecord = reader.readNext()) != null) {
-
-                //System.out.println(nextRecord[4]);
-                if(i>=0)homes.add(new Home(Integer.valueOf(nextRecord[0]),nextRecord[1],Integer.valueOf(nextRecord[2]),nextRecord[3],nextRecord[4],nextRecord[5]));
-
-
-                for (String cell : nextRecord) {
-
-                    System.out.print(cell + "\t");
-                }
-                i++;
-                System.out.println();
+                homes.add(new Home(id, companyRut, nombre, environmentType, idAdmin));
+                System.out.println("ID: " + id + ", Company_Rut: " + companyRut + ", Nombre: " + nombre +
+                        ", Enviroment_Type: " + environmentType + ", Id_Admin: " + idAdmin);
             }
-
-
-        }catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

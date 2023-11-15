@@ -1,10 +1,20 @@
-package org.example;
+package Models;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 
 public class Consume_state extends Reporte{
     private double totalConsume;
@@ -225,35 +235,32 @@ public class Consume_state extends Reporte{
         System.out.println("Se elimino el reporte correctamente");
     }
 
+    public void leerDesdeBDConsumeStates(String urlBD, String usuario, String contraseña) {
+        String sql = "SELECT * FROM Consume_State";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try (
+                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
 
-    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
-        File file = new File(rutaArchivo);
-        try {
-            FileReader inputfile = new FileReader(file);
-            CSVReader reader = new CSVReader(inputfile);
+                int id = resultSet.getInt("ID");
+                int idHome = resultSet.getInt("ID_Home");
+                String idAdminHome = resultSet.getString("ID_Admin");
+                String fecha = resultSet.getString("Fecha");
+                double totalConsume = resultSet.getDouble("Total_Consume");
+                double totalCost = resultSet.getDouble("Total_Cost");
 
-            String[] nextRecord;
-
-            // we are going to read data line by line
-            int i=0;
-            while ((nextRecord = reader.readNext()) != null) {
-
-                //System.out.println(nextRecord[4]);
-                if(i>=0)consumestates.add(new Consume_state(Integer.valueOf(nextRecord[0]),Integer.valueOf(nextRecord[1]),nextRecord[2],
-                        nextRecord[3],Double.valueOf(nextRecord[4]),Double.valueOf(nextRecord[5])));
+                consumestates.add(new Consume_state(id, idHome, idAdminHome, fecha, totalConsume, totalCost));
 
 
-                for (String cell : nextRecord) {
-
-                    System.out.print(cell + "\t");
-                }
-                i++;
-                System.out.println();
             }
-
-
-        }catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+
 }

@@ -1,10 +1,12 @@
 package org.example;
 
-import com.opencsv.exceptions.CsvValidationException;
-import java.text.ParseException;
+import Database.SQLConnection;
 
 public class Main {
-    public static void sistema() throws ParseException, CsvValidationException {
+    public static void sistema(){
+        SQLConnection conexion= new SQLConnection();
+
+        conexion.conectar();
         Menus.menuSeleccionClases();
     }
 }

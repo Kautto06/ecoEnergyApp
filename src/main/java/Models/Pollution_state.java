@@ -1,11 +1,18 @@
-package org.example;
+package Models;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import  java.util.Scanner;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class Pollution_state extends Reporte{
     private double Total_Consume;
@@ -225,33 +232,26 @@ public class Pollution_state extends Reporte{
         }
     }
 
-    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
-        File file = new File(rutaArchivo);
-        try {
-            FileReader inputfile = new FileReader(file);
-            CSVReader reader = new CSVReader(inputfile);
+    public void leerDesdeBDPollutionStates(String urlBD, String usuario, String contraseña) {
+        String sql = "SELECT * FROM Pollution_State";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try (
+                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
 
-            String[] nextRecord;
-
-
-            int i=0;
-            while ((nextRecord = reader.readNext()) != null) {
-
-
-                if(i>=0)pollutionStates.add(new Pollution_state(Integer.valueOf(nextRecord[0]),Integer.valueOf(nextRecord[1]),nextRecord[2],
-                        nextRecord[3],Double.valueOf(nextRecord[4]),Double.valueOf(nextRecord[5]),nextRecord[6]));
-
-
-                for (String cell : nextRecord) {
-
-                    System.out.print(cell + "\t");
-                }
-                i++;
-                System.out.println();
+                int id = resultSet.getInt("ID");
+                int idHome = resultSet.getInt("ID_Home");
+                String idAdminHome = resultSet.getString("ID_Admin");
+                String fecha = resultSet.getString("Fecha");
+                double totalConsume = resultSet.getDouble("Total_Consume");
+                double consumeState = resultSet.getDouble("Consume_State");
+                String message = resultSet.getString("Message");
+                pollutionStates.add(new Pollution_state(id, idHome, idAdminHome, fecha, totalConsume, consumeState, message));
             }
-
-
-        }catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

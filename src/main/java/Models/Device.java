@@ -1,12 +1,17 @@
-package org.example;
+package Models;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Device {
     private int id;
     private String deviceName;
@@ -92,7 +97,7 @@ public class Device {
     }
 
 
-    public void crearDatos() throws ParseException {
+    public void crearDatos() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese el ID: ");
@@ -277,32 +282,23 @@ public class Device {
         }
     }
 
-    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
-        File file = new File(rutaArchivo);
-        try {
-            FileReader inputfile = new FileReader(file);
-            CSVReader reader = new CSVReader(inputfile);
-
-            String[] nextRecord;
-
-            // we are going to read data line by line
-            int i=0;
-            while ((nextRecord = reader.readNext()) != null) {
-
-                //System.out.println(nextRecord[4]);
-                if(i>=0)dispositivos.add(new Device(Integer.valueOf(nextRecord[0]),nextRecord[1],Double.valueOf(nextRecord[2]),Float.valueOf(nextRecord[3]),Integer.valueOf(nextRecord[4]),nextRecord[5].charAt(0)));
-
-
-                for (String cell : nextRecord) {
-
-                    System.out.print(cell + "\t");
-                }
-                i++;
-                System.out.println();
+    public void leerDesdeBD(String urlBD, String usuario, String contraseña) {
+        String sql = "SELECT * FROM Devices";
+        try (
+                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nombreDevice = resultSet.getString("Nombre_Device");
+                double consumoEnergia = resultSet.getDouble("Consumo_Energia");
+                float horasActivo = resultSet.getFloat("Horas_Activo");
+                int priorityUse = resultSet.getInt("Priority_Use");
+                char consumeClassify = resultSet.getString("Consume_Classify").charAt(0);
+                dispositivos.add(new Device(id, nombreDevice, consumoEnergia, horasActivo, priorityUse, consumeClassify));
             }
-
-
-        }catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

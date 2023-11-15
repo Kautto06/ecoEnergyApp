@@ -1,11 +1,16 @@
-package org.example;
+package Models;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Electricity_Company {
     private String rut;
     private String nombre;
@@ -269,32 +274,23 @@ public class Electricity_Company {
         return rut+", "+nombre+", "+costoBase+", "+costoPorkW+", "+limiteDekW+", "+costoAdicionalPorkW;
     }
 
-    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
-        File file = new File(rutaArchivo);
-        try {
-            FileReader inputfile = new FileReader(file);
-            CSVReader reader = new CSVReader(inputfile);
-
-            String[] nextRecord;
-
-            // we are going to read data line by line
-            int i=0;
-            while ((nextRecord = reader.readNext()) != null) {
-
-                //System.out.println(nextRecord[4]);
-                if(i>=0)companies.add(new Electricity_Company(nextRecord[0],nextRecord[1],Double.valueOf(nextRecord[2]),Double.valueOf(nextRecord[3]),Double.valueOf(nextRecord[4]),Double.valueOf(nextRecord[5])));
-
-
-                for (String cell : nextRecord) {
-
-                    System.out.print(cell + "\t");
-                }
-                i++;
-                System.out.println();
+    public void leerDesdeBDCompanies(String urlBD, String usuario, String contraseña) {
+        String sql = "SELECT * FROM Electricity_Company"; // Reemplaza con el nombre real de tu tabla
+        try (
+                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                String rut = resultSet.getString("Rut");
+                String nombre = resultSet.getString("Nombre");
+                double costoBase = resultSet.getDouble("Costo_Base");
+                double costoKW = resultSet.getDouble("Costo_kW");
+                double limiteKW = resultSet.getDouble("Limite_kW");
+                double costoAdicionalKW = resultSet.getDouble("Costo_Adicional_kW");
+                companies.add(new Electricity_Company(rut, nombre, costoBase, costoKW, limiteKW, costoAdicionalKW));
             }
-
-
-        }catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

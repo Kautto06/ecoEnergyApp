@@ -1,11 +1,16 @@
-package org.example;
+package Models;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class User {
     private String rut;
@@ -99,7 +104,7 @@ public class User {
         return rut+", "+Nombres+", "+Apellidos+", "+password+", "+rol+", "+fechaNacimiento;
     }
 
-    public boolean crearDatos() throws ParseException{
+    public void crearDatos(){
         Scanner entrada = new Scanner(System.in);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         System.out.print("Ingrese el rut del nuevo usuario: ");
@@ -113,9 +118,12 @@ public class User {
         System.out.print("Ingrese el rol del nuevo usuario: ");
         this.rol=entrada.nextLine();
         System.out.print("Ingrese la fecha de nacimiento del usuario: ");
-        this.fechaNacimiento=formato.parse(entrada.nextLine());
+        try {
+            this.fechaNacimiento=formato.parse(entrada.nextLine());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         this.users.add(new User(this.rut,this.Nombres,this.Apellidos,this.password,this.rol,this.fechaNacimiento));
-        return true;
     }
 
     public void mostrarInformacion() {
@@ -269,7 +277,7 @@ public class User {
                     break;
             }
         }
-    public static Boolean VerificarUsuario(String rutaArchivo, String rut, String password) throws CsvValidationException {
+    public static Boolean VerificarUsuario(String rutaArchivo, String rut, String password){
         File file = new File(rutaArchivo);
         try {
             FileReader inputfile = new FileReader(file);
@@ -278,7 +286,12 @@ public class User {
 
             // we are going to read data line by line
             int i=0;
-            while ((nextRecord = reader.readNext()) != null){
+            while (true){
+                try {
+                    if (!((nextRecord = reader.readNext()) != null)) break;
+                } catch (CsvValidationException e) {
+                    throw new RuntimeException(e);
+                }
                 if(nextRecord[0].equals(rut) && nextRecord[3].equals(password)){
                     return true;
                 }
@@ -290,37 +303,25 @@ public class User {
         return false;
     }
 
-    public void LeerDesdeCsv(String rutaArchivo) throws CsvValidationException {
-        File file = new File(rutaArchivo);
+    public void leerDesdeBDUsers(String urlBD, String usuario, String contraseña) {
+        String sql = "SELECT * FROM User";
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date fecha=null;
-        try {
-            FileReader inputfile = new FileReader(file);
-            CSVReader reader = new CSVReader(inputfile);
-            String[] nextRecord;
+        try (
+                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                String rut = resultSet.getString("Rut");
+                String nombres = resultSet.getString("Nombres");
+                String apellidos = resultSet.getString("Apellidos");
+                String password = resultSet.getString("Password");
+                String rol = resultSet.getString("Rol");
+                Date fechaNacimiento = resultSet.getDate("Fecha_De_Nacimiento");
+                users.add(new User(rut, nombres, apellidos, password, rol, fechaNacimiento));
 
-            // we are going to read data line by line
-            int i=0;
-            while ((nextRecord = reader.readNext()) != null) {
-                try {
-                    fecha = dateFormat.parse(nextRecord[5]);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }
-                //System.out.println(nextRecord[4]);
-                if(i>=0)users.add(new User(nextRecord[0],nextRecord[1],nextRecord[2],nextRecord[3],nextRecord[4],fecha));
-
-
-                for (String cell : nextRecord) {
-
-                    System.out.print(cell + "\t");
-                }
-                i++;
-                System.out.println();
             }
-
-
-        }catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

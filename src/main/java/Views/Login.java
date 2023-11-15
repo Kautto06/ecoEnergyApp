@@ -8,9 +8,8 @@ import java.text.ParseException;
 
 import com.opencsv.exceptions.CsvValidationException;
 
-import com.opencsv.exceptions.CsvValidationException;
 import org.example.Main;
-import org.example.User;
+import Models.User;
 
 public class Login extends JDialog{
     private JPanel panelMain;
@@ -32,19 +31,15 @@ public class Login extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 String rut = tfRut.getText();
                 String password = String.valueOf(pfPassword.getPassword());
-                try {
-                    if(User.VerificarUsuario("src/test/text/Users.csv",rut,password)){
-                        System.out.println("Usuario verificado");
-                        System.out.println("Entrando al sistema...");
-                        dispose();
-                        Main.sistema();
-                    }
-                    else{
-                        System.out.println("Error de autenticacion");
-                        lbError.setVisible(true);
-                    }
-                } catch (CsvValidationException | ParseException ex) {
-                    throw new RuntimeException(ex);
+                if(User.VerificarUsuario("src/test/text/Users.csv",rut,password)){
+                    System.out.println("Usuario verificado");
+                    System.out.println("Entrando al sistema...");
+                    dispose();
+                    Main.sistema();
+                }
+                else{
+                    System.out.println("Error de autenticacion");
+                    lbError.setVisible(true);
                 }
             }
         });

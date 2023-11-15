@@ -1,5 +1,7 @@
 package org.example;
 
+import Database.SQLConnection;
+import Models.*;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.text.ParseException;
@@ -8,7 +10,8 @@ import java.util.Scanner;
 
 public class Menus {
 
-    public static  void menuSeleccionClases() throws ParseException, CsvValidationException {
+    public static void menuSeleccionClases(){
+
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
 
@@ -33,22 +36,58 @@ public class Menus {
             switch (opcion)
             {
                 case 1:
-                    menuDispositivos(dispositvo);
+                    try {
+                        menuDispositivos(dispositvo);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    } catch (CsvValidationException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 2:
-                    menuUsuarios(usuarios);
+                    try {
+                        menuUsuarios(usuarios);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    } catch (CsvValidationException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 3:
-                    menuEmpresaElectricidad(empresa);
+                    try {
+                        menuEmpresaElectricidad(empresa);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    } catch (CsvValidationException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 4:
-                    menuEstadoDeContaminacion(estado);
+                    try {
+                        menuEstadoDeContaminacion(estado);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    } catch (CsvValidationException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 5:
-                    menuHomes(home);
+                    try {
+                        menuHomes(home);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    } catch (CsvValidationException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 6:
-                    menuConsumeState(reporte);
+                    try {
+                        menuConsumeState(reporte);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    } catch (CsvValidationException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -65,7 +104,6 @@ public class Menus {
         System.out.println();
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
-
         do{
             System.out.println("Seleccione la accion que desea realizar: ");
             System.out.println("1. Agregar un nuevo dispositivo");
@@ -88,7 +126,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    dispositivo.LeerDesdeCsv("src/test/text/Devices.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -141,7 +178,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    usuario.LeerDesdeCsv("src/test/text/Users.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -192,7 +228,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    empresa.LeerDesdeCsv("src/test/text/Electricity_Company.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -241,7 +276,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    estado.LeerDesdeCsv("src/test/text/PollutionState.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -291,7 +325,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    reporte.LeerDesdeCsv("src/test/text/ConsumeState.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -314,7 +347,7 @@ public class Menus {
         }while(opcion!=0);
     }
 
-    public  static  void menuHomes(Home home) throws ParseException, CsvValidationException
+    public static void menuHomes(Home home) throws ParseException, CsvValidationException
     {
         Scanner entrada = new Scanner(System.in);
         int opcion=0;
@@ -341,7 +374,6 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
-                    home.LeerDesdeCsv("src/test/text/Home.csv");
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
