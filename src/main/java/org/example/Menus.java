@@ -109,8 +109,8 @@ public class Menus {
             System.out.println("1. Agregar un nuevo dispositivo");
             System.out.println("2. Mostrar todos los dispositivos");
             System.out.println("3. Cargar datos archivo dispositivos");
-            System.out.println("4. Eliminar un dispositivo");
-            System.out.println("5. Actualizar datos de un dispositivo");
+            System.out.println("4. Actualizar datos de un dispositivo");
+            System.out.println("5. Eliminar un dispositivo");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
             opcion=entrada.nextInt(); entrada.nextLine();
@@ -126,6 +126,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    dispositivo.leerDesdeBD(dispositivo);
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -178,6 +179,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    usuario.leerDesdeBDUsers();
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -197,7 +199,6 @@ public class Menus {
                     System.out.println("Ingrese una opcion valida");
                     System.out.println();
             }
-
         }while(opcion!=0);
     }
 
@@ -228,6 +229,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    empresa.leerDesdeBDCompanies();
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -276,6 +278,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    estado.leerDesdeBDPollutionStates();
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -312,7 +315,7 @@ public class Menus {
             System.out.println("5. Actualizar un reporte de consumo");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
-            opcion=entrada.nextInt();
+            opcion=entrada.nextInt(); entrada.nextLine();
             switch (opcion)
             {
                 case 1:
@@ -325,6 +328,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    reporte.leerDesdeBDConsumeStates();
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;
@@ -361,7 +365,7 @@ public class Menus {
             System.out.println("5. Actualizar un home");
             System.out.println("0. Salir");
             System.out.print("Ingrese su opcion: ");
-            opcion=entrada.nextInt();
+            opcion=entrada.nextInt(); entrada.nextLine();
             switch (opcion)
             {
                 case 1:
@@ -374,6 +378,7 @@ public class Menus {
                     System.out.println();
                     break;
                 case 3:
+                    home.leerDesdeBDHomes();
                     System.out.println("Datos cargados");
                     System.out.println();
                     break;

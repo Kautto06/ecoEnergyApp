@@ -1,4 +1,5 @@
 package Models;
+import Controllers.DeviceController;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
@@ -11,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Controllers.DeviceController.*;
 
 public class Device {
     private int id;
@@ -21,6 +23,8 @@ public class Device {
     private char consumeClassify; // A-G
 
     private ArrayList<Device> dispositivos = new ArrayList<>();
+
+    public DeviceController controlador = new DeviceController();
 
     public Device(int id, String deviceName, double energyConsume, float activesHours, int priorityUsage, char consumeClasify) {
         this.id = id;
@@ -123,6 +127,7 @@ public class Device {
         this.consumeClassify = scanner.next().charAt(0);
 
         this.dispositivos.add(new Device(this.id, this.deviceName, this.energyConsume, this.activeHours, this.priorityUsage, this.consumeClassify));
+        controlador.agregarDeviceABD(new Device(this.id, this.deviceName, this.energyConsume, this.activeHours, this.priorityUsage, this.consumeClassify));
     }
 
     public int eliminarDevice(int id){
@@ -164,8 +169,16 @@ public class Device {
         return 0;
     }
 
+    public Device retornarDevice(int idBuscado){
+        for (int i=0;i<this.dispositivos.size();i++){
+            if(this.dispositivos.get(i).getId()==id) return this.dispositivos.get(i);
+        }
+        return null;
+    }
+
     public void menuEliminar(){
-        int idEliminado, i;
+        int idEliminado,i;
+        Device userAEliminar= new Device();
         Scanner read = new Scanner(System.in);
         System.out.println("Lista de todos los Dispositivos");
         for (i = 0; i < this.dispositivos.size(); i++){
@@ -176,6 +189,8 @@ public class Device {
             System.out.println("Ingrese el id del dispositivo que desea eliminar:");
             idEliminado = read.nextInt();
         }while(idEliminado != buscarId(idEliminado));
+        userAEliminar = retornarDevice(idEliminado);
+        controlador.eliminarDeviceDeBD(userAEliminar);
         eliminarDevice(idEliminado);
         System.out.println("Se elimino correctamente el dispositivo");
     }
@@ -237,6 +252,7 @@ public class Device {
 
         i=buscarPosicionId(idActualizar);
 
+
         System.out.println();
 
 
@@ -280,26 +296,10 @@ public class Device {
                 System.out.println("Opción no válida");
                 break;
         }
+        controlador.actualizarDeviceEnBD(this.dispositivos.get(i));
     }
 
-    public void leerDesdeBD(String urlBD, String usuario, String contraseña) {
-        String sql = "SELECT * FROM Devices";
-        try (
-                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String nombreDevice = resultSet.getString("Nombre_Device");
-                double consumoEnergia = resultSet.getDouble("Consumo_Energia");
-                float horasActivo = resultSet.getFloat("Horas_Activo");
-                int priorityUse = resultSet.getInt("Priority_Use");
-                char consumeClassify = resultSet.getString("Consume_Classify").charAt(0);
-                dispositivos.add(new Device(id, nombreDevice, consumoEnergia, horasActivo, priorityUse, consumeClassify));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void leerDesdeBD(Device dispositivo) {
+        controlador.obtenerTodosLosDevicesDeBD(dispositivo);
     }
 }

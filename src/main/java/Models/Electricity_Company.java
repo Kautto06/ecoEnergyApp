@@ -4,6 +4,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import Controllers.ElectricityCompanyController;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,8 @@ public class Electricity_Company {
     private double costoAdicionalPorkW;
 
     private ArrayList<Electricity_Company> companies= new ArrayList<>();
+
+    ElectricityCompanyController controlador =new ElectricityCompanyController();
 
     public Electricity_Company(String rut, String nombre, double costoBase, double costoPorkW, double limiteDekW, double costoAnadidokW) {
         this.rut = rut;
@@ -114,9 +117,10 @@ public class Electricity_Company {
         this.limiteDekW = scanner.nextDouble();
 
         System.out.print("Ingrese el costo adicional por kW: ");
-        this.costoAdicionalPorkW = scanner.nextDouble();
+        this.costoAdicionalPorkW = scanner.nextDouble(); scanner.nextLine();
 
         this.companies.add(new Electricity_Company(this.rut,this.nombre,this.costoBase,this.costoPorkW,this.limiteDekW,this.costoAdicionalPorkW));
+        controlador.agregarElectricityCompanyABD(new Electricity_Company(this.rut,this.nombre,this.costoBase,this.costoPorkW,this.limiteDekW,this.costoAdicionalPorkW));
     }
 
     public int eliminarCompany(String rut){
@@ -127,6 +131,15 @@ public class Electricity_Company {
             }
         }
         return 0;
+    }
+
+    public Electricity_Company encontrarElectricityCompany(String rut){
+        for(int i=0;i < this.companies.size(); i++){
+            if(this.companies.get(i).getRut().equals(rut)){
+                return this.companies.get(i);
+            }
+        }
+        return null;
     }
 
     public boolean buscarRut(String rut){
@@ -156,7 +169,7 @@ public class Electricity_Company {
             System.out.println("Ingrese rut de la compania a eliminar");
             rutEliminado = read.nextLine();
         }while(!buscarRut(rutEliminado));
-
+        controlador.eliminarElectricityCompany(encontrarElectricityCompany(rutEliminado));
         eliminarCompany(rutEliminado);
         System.out.println("Se elimino correctamente la empresa");
     }
@@ -243,26 +256,31 @@ public class Electricity_Company {
                 System.out.print("Nuevo nombre: ");
                 String nuevoNombre = scanner.nextLine();
                 companies.get(i).setNombre(nuevoNombre);
+                controlador.actualizarElectricityCompanyEnBD(companies.get(i));
                 break;
             case 2:
                 System.out.print("Nuevo costo base: ");
                 double nuevoCostoBase = scanner.nextDouble();
                 companies.get(i).setCostoBase(nuevoCostoBase);
+                controlador.actualizarElectricityCompanyEnBD(companies.get(i));
                 break;
             case 3:
                 System.out.print("Nuevo costo por kW: ");
                 double nuevoCostoPorkW = scanner.nextDouble();
                 companies.get(i).setCostoPorkW(nuevoCostoPorkW);
+                controlador.actualizarElectricityCompanyEnBD(companies.get(i));
                 break;
             case 4:
                 System.out.print("Nuevo límite de kW: ");
                 double nuevoLimiteDekW = scanner.nextDouble();
                 companies.get(i).setLimiteDekW(nuevoLimiteDekW);
+                controlador.actualizarElectricityCompanyEnBD(companies.get(i));
                 break;
             case 5:
                 System.out.print("Nuevo costo adicional por kW: ");
                 double nuevoCostoAdicionalPorkW = scanner.nextDouble();
                 companies.get(i).setCostoAdicionalPorkW(nuevoCostoAdicionalPorkW);
+                controlador.actualizarElectricityCompanyEnBD(companies.get(i));
                 break;
             default:
                 System.out.println("Opción no válida");
@@ -274,24 +292,7 @@ public class Electricity_Company {
         return rut+", "+nombre+", "+costoBase+", "+costoPorkW+", "+limiteDekW+", "+costoAdicionalPorkW;
     }
 
-    public void leerDesdeBDCompanies(String urlBD, String usuario, String contraseña) {
-        String sql = "SELECT * FROM Electricity_Company"; // Reemplaza con el nombre real de tu tabla
-        try (
-                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-                String rut = resultSet.getString("Rut");
-                String nombre = resultSet.getString("Nombre");
-                double costoBase = resultSet.getDouble("Costo_Base");
-                double costoKW = resultSet.getDouble("Costo_kW");
-                double limiteKW = resultSet.getDouble("Limite_kW");
-                double costoAdicionalKW = resultSet.getDouble("Costo_Adicional_kW");
-                companies.add(new Electricity_Company(rut, nombre, costoBase, costoKW, limiteKW, costoAdicionalKW));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void leerDesdeBDCompanies() {
+        controlador.obtenerTodosLasElectricityCompanyDeBD(this);
     }
 }

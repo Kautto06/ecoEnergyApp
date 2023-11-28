@@ -2,8 +2,12 @@ package Models;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
+import Controllers.HomeController;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,18 +15,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class Home {
     private int id;
     private String companyRut;
-    private int stateId;
     private String homeName;
     private String environmentType;
-    private ArrayList<String> homeUsers=new ArrayList(); // futuro uso con base de datos
-    private ArrayList<String> homeDevices= new ArrayList(); // futuro uso con base de datos
+    private ArrayList<User> homeUsers=new ArrayList();
+    private ArrayList<Device> homeDevices= new ArrayList<>();
     private String idAdminHome;
 
     private ArrayList<Home> homes= new ArrayList<>();
 
+    public HomeController controlador = new HomeController();
 
     public Home(int id, String companyRut, String homeName, String environmentType, String idAdminHome) {
         this.id = id;
@@ -86,11 +91,11 @@ public class Home {
         return environmentType;
     }
 
-    public ArrayList<String> getHomeUsers() {
+    public ArrayList<User> getHomeUsers() {
         return homeUsers;
     }
 
-    public ArrayList<String> getHomeDevices() {
+    public ArrayList<Device> getHomeDevices() {
         return homeDevices;
     }
 
@@ -98,11 +103,11 @@ public class Home {
         return homes;
     }
 
-    public void setHomeUsers(ArrayList<String> homeUsers) {
+    public void setHomeUsers(ArrayList<User> homeUsers) {
         this.homeUsers = homeUsers;
     }
 
-    public void setHomeDevices(ArrayList<String> homeDevices) {
+    public void setHomeDevices(ArrayList<Device> homeDevices) {
         this.homeDevices = homeDevices;
     }
 
@@ -133,6 +138,8 @@ public class Home {
 
 
         this.homes.add(new Home(this.id,this.companyRut,this.homeName,this.environmentType,this.idAdminHome));
+        controlador.agregarHomeABD(new Home(this.id,this.companyRut,this.homeName,this.environmentType,this.idAdminHome));
+
     }
 
     public int eliminarHomeArreglo(int IdEliminar){
@@ -146,14 +153,13 @@ public class Home {
         return 0;
     }
     public String toString(){
-        return id+", "+stateId+", "+homeName+", "+environmentType+", "+idAdminHome;
+        return id+", "+homeName+", "+environmentType+", "+idAdminHome;
     }
 
 
     public void mostrarInformacion() {
         System.out.println("ID: " + id);
         System.out.println("ID de la compañía: " + companyRut);
-        System.out.println("ID del estado: " + stateId);
         System.out.println("Nombre de la casa: " + homeName);
         System.out.println("Tipo de entorno: " + environmentType);
         System.out.println("Usuarios en la casa: " + homeUsers);
@@ -170,6 +176,13 @@ public class Home {
         return 0;
     }
 
+    public Home EncontrarHome(int idBuscar)
+    {
+        for(Home home:homes)
+            if(home.getId()==idBuscar)
+                return home;
+        return null;
+    }
     public void MenuEliminarHome()
     {
         int id=0;
@@ -186,6 +199,7 @@ public class Home {
             id=entrada.nextInt();
             if(BuscarHome(id)==1)
             {
+                controlador.eliminarHomeDeBD(EncontrarHome(id));
                 eliminarHomeArreglo(id);
                 return;
             }
@@ -250,21 +264,25 @@ public class Home {
                 System.out.print("Nuevo RUT de la compañía: ");
                 String nuevoCompanyRut = scanner.nextLine();
                 this.homes.get(id).setCompanyRut(nuevoCompanyRut);
+                controlador.actualizarHomeEnBD(this.homes.get(id));
                 break;
             case 2:
                 System.out.print("Nuevo nombre de la casa: ");
                 String nuevoHomeName = scanner.nextLine();
                 this.homes.get(id).setHomeName(nuevoHomeName);
+                controlador.actualizarHomeEnBD(this.homes.get(id));
                 break;
             case 3:
                 System.out.print("Nuevo tipo de entorno: ");
                 String nuevoEnvironmentType = scanner.nextLine();
                 this.homes.get(id).setEnvironmentType(nuevoEnvironmentType);
+                controlador.actualizarHomeEnBD(this.homes.get(id));
                 break;
             case 4:
                 System.out.print("Nuevo ID del administrador de la casa: ");
                 String nuevoIdAdminHome = scanner.nextLine();
                 this.homes.get(id).setIdAdminHome(nuevoIdAdminHome);
+                controlador.actualizarHomeEnBD(this.homes.get(id));
                 break;
             default:
                 System.out.println("Opción no válida");
@@ -303,29 +321,69 @@ public class Home {
             }
 
         }
+
+
     }
 
-    public void leerDesdeBDHomes(String urlBD, String usuario, String contraseña) {
-        String sql = "SELECT * FROM Home";
-        try (
-                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String companyRut = resultSet.getString("Company_Rut");
-                String nombre = resultSet.getString("Nombre");
-                String environmentType = resultSet.getString("Enviroment_Type");
-                String idAdmin = resultSet.getString("Id_Admin");
+    public void leerDesdeBDHomes() {
+        controlador.obtenerTodosLosHomesDeBD(this);
+    }
 
-                homes.add(new Home(id, companyRut, nombre, environmentType, idAdmin));
-                System.out.println("ID: " + id + ", Company_Rut: " + companyRut + ", Nombre: " + nombre +
-                        ", Enviroment_Type: " + environmentType + ", Id_Admin: " + idAdmin);
+    public double calcularGastoEnergetico() {
+        double gastoTotal = 0.0;
+
+
+        for (Device device : homeDevices) {
+            double consumoKwPorHora = device.getEnergyConsume() * device.getActiveHours();
+            gastoTotal += consumoKwPorHora;
+        }
+
+        return gastoTotal;
+    }
+
+    public double calcularHuellaCarbono() {
+
+
+        double huellaCarbonoTotal = 0.0;
+
+        for (Device device : homeDevices) {
+            double consumoKwPorHora = device.getEnergyConsume() * device.getActiveHours();
+            double emisionesKg = consumoKwPorHora * 0.4;
+            huellaCarbonoTotal += emisionesKg;
+        }
+
+        return huellaCarbonoTotal;
+    }
+
+    public ArrayList<Device> obtenerDispositivosOrdenadosPorConsumo() {
+
+        ArrayList<Device> copiaDispositivos = new ArrayList<>(homeDevices);
+
+
+        Collections.sort(copiaDispositivos, new Comparator<Device>() {
+            @Override
+            public int compare(Device device1, Device device2) {
+
+                double consumoTotal1 = device1.getEnergyConsume() * device1.getActiveHours();
+                double consumoTotal2 = device2.getEnergyConsume() * device2.getActiveHours();
+
+                return Double.compare(consumoTotal2, consumoTotal1);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        });
+
+        return copiaDispositivos;
+    }
+
+    public void indicarConsumoElectrico() {
+        double limiteNormal = 100;
+        double limiteExceso = 200;
+
+        if (calcularGastoEnergetico() <= limiteNormal) {
+            System.out.println("Estás dentro de los parámetros normales de consumo eléctrico.");
+        } else if (calcularGastoEnergetico() <= limiteExceso) {
+            System.out.println("Estás sobrepasando un poco los parámetros normales de consumo eléctrico.");
+        } else {
+            System.out.println("Estás sobrepasando en exceso los parámetros normales de consumo eléctrico.");
         }
     }
-
 }

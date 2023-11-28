@@ -7,6 +7,7 @@ public class Main {
         SQLConnection conexion= new SQLConnection();
 
         conexion.conectar();
+        conexion.desconectar();
         Menus.menuSeleccionClases();
     }
 }

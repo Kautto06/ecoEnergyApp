@@ -1,16 +1,18 @@
 package Models;
+import Controllers.UserController;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
-
+import Controllers.UserController;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Controllers.UserController.*;
 
 public class User {
     private String rut;
@@ -18,13 +20,13 @@ public class User {
     private String Apellidos;
     private String password;
     private String rol; // rol en el sistema [CEOS, ADMIN, USER]
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 
     private ArrayList<User> users= new ArrayList<>();
+    public UserController controlador = new UserController();
 
 
-
-    public User(String rut, String Nombres, String Apellidos,String password, String rol, Date fechaNacimiento) {
+    public User(String rut, String Nombres, String Apellidos,String password, String rol, String fechaNacimiento) {
         this.rut = rut;
         this.Nombres = Nombres;
         this.Apellidos = Apellidos;
@@ -92,11 +94,11 @@ public class User {
         this.rol = rol;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -104,26 +106,30 @@ public class User {
         return rut+", "+Nombres+", "+Apellidos+", "+password+", "+rol+", "+fechaNacimiento;
     }
 
-    public void crearDatos(){
+    public void crearDatos() {
         Scanner entrada = new Scanner(System.in);
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
         System.out.print("Ingrese el rut del nuevo usuario: ");
-        this.rut=entrada.nextLine();
+        this.rut = entrada.nextLine();
+
         System.out.print("Ingrese los nombres del nuevo usuario: ");
-        this.Nombres=entrada.nextLine();
+        this.Nombres = entrada.nextLine();
+
         System.out.print("Ingrese los apellidos del nuevo usuario: ");
-        this.Apellidos=entrada.nextLine();
+        this.Apellidos = entrada.nextLine();
+
         System.out.print("Ingrese la contraseña del nuevo usuario: ");
-        this.password=entrada.nextLine();
+        this.password = entrada.nextLine();
+
         System.out.print("Ingrese el rol del nuevo usuario: ");
-        this.rol=entrada.nextLine();
-        System.out.print("Ingrese la fecha de nacimiento del usuario: ");
-        try {
-            this.fechaNacimiento=formato.parse(entrada.nextLine());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        this.users.add(new User(this.rut,this.Nombres,this.Apellidos,this.password,this.rol,this.fechaNacimiento));
+        this.rol = entrada.nextLine();
+
+        System.out.print("Ingrese la fecha de nacimiento del usuario (dd/MM/yyyy): ");
+        this.fechaNacimiento=entrada.nextLine();
+
+        this.users.add(new User(this.rut, this.Nombres, this.Apellidos, this.password, this.rol, this.fechaNacimiento));
+        controlador.agregarUserADB(new User(this.rut, this.Nombres, this.Apellidos, this.password, this.rol, this.fechaNacimiento));
     }
 
     public void mostrarInformacion() {
@@ -133,7 +139,7 @@ public class User {
         System.out.println("Apellidos: " + this.Apellidos);
         System.out.println("Contraseña: "+ this.password);
         System.out.println("Rol en el sistema: " + this.rol);
-        System.out.println("Fecha de nacimiento: " + dateFormat.format(this.fechaNacimiento));
+        System.out.println("Fecha de nacimiento: " + this.fechaNacimiento);
         System.out.println();
     }
     
@@ -153,7 +159,7 @@ public class User {
             rutAEliminar= entrada.nextLine();
             System.out.println();
         }while(!buscarUsuario(rutAEliminar));
-
+        controlador.eliminarUsuarioDeBD(EncontrarUsuario(rutAEliminar));
         eliminarUsuarioArreglo(rutAEliminar);
         System.out.println("Se elimino el usuario correctamente");
     }
@@ -182,8 +188,7 @@ public class User {
                 System.out.println("Rol en el sistema: " + rol);
                 break;
             case 5:
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                System.out.println("Fecha de nacimiento: " + dateFormat.format(fechaNacimiento));
+                System.out.println("Fecha de nacimiento: " + fechaNacimiento);
                 break;
             case 6:
                 mostrarInformacion();
@@ -198,8 +203,16 @@ public class User {
     public int eliminarUsuarioArreglo(String rutEliminar) {
         boolean removed = this.users.removeIf(user -> user.getRut().equals(rutEliminar));
         return removed ? 1 : 0;
+
     }
 
+    public User EncontrarUsuario(String rutBuscado)
+    {
+        for (int i = 0; i < this.users.size(); i++) {
+            if (this.users.get(i).getRut().equals(rutBuscado)) return this.users.get(i);
+        }
+        return null;
+    }
     public boolean buscarUsuario(String rutBuscado) {
         for (int i = 0; i < this.users.size(); i++) {
             if (this.users.get(i).getRut().equals(rutBuscado)) return true;
@@ -220,7 +233,6 @@ public class User {
             return;
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i=0;i<this.users.size();i++){
             this.users.get(i).mostrarInformacion();
@@ -247,30 +259,30 @@ public class User {
                     System.out.print("Nuevo nombre: ");
                     String nuevosNombres = scanner.nextLine();
                     this.users.get(i).setNombres(nuevosNombres);
+                    controlador.actualizarUsuarioEnBD(this.users.get(i));
                     break;
                 case 2:
                     System.out.print("Nuevos apellidos: ");
                     String nuevosApellidos = scanner.nextLine();
                     this.users.get(i).setApellidos(nuevosApellidos);
+                    controlador.actualizarUsuarioEnBD(this.users.get(i));
                     break;
                 case 3:
                     System.out.print("Nueva contraseña: ");
                     String nuevaContrasena = scanner.nextLine();
                     this.users.get(i).setPassword(nuevaContrasena);
+                    controlador.actualizarUsuarioEnBD(this.users.get(i));
+                    break;
                 case 4:
                     System.out.print("Nuevo rol en el sistema [ADMIN, USER]: ");
                     String nuevoRol = scanner.nextLine();
                     this.users.get(i).setRol(nuevoRol);
+                    controlador.actualizarUsuarioEnBD(this.users.get(i));
                     break;
                 case 5:
                     System.out.print("Nueva fecha de nacimiento (dd/MM/yyyy): ");
                     String nuevaFechaStr = scanner.nextLine();
-                    try {
-                        Date nuevaFecha = dateFormat.parse(nuevaFechaStr);
-                        this.users.get(i).setFechaNacimiento(nuevaFecha);
-                    } catch (ParseException e) {
-                        System.out.println("Formato de fecha incorrecto. Use dd/MM/yyyy.");
-                    }
+                    this.users.get(i).setFechaNacimiento(nuevaFechaStr);
                     break;
                 default:
                     System.out.println("Opción no válida");
@@ -303,27 +315,8 @@ public class User {
         return false;
     }
 
-    public void leerDesdeBDUsers(String urlBD, String usuario, String contraseña) {
-        String sql = "SELECT * FROM User";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        try (
-                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-                String rut = resultSet.getString("Rut");
-                String nombres = resultSet.getString("Nombres");
-                String apellidos = resultSet.getString("Apellidos");
-                String password = resultSet.getString("Password");
-                String rol = resultSet.getString("Rol");
-                Date fechaNacimiento = resultSet.getDate("Fecha_De_Nacimiento");
-                users.add(new User(rut, nombres, apellidos, password, rol, fechaNacimiento));
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void leerDesdeBDUsers() {
+        controlador.obtenerTodosLosUsuariosDeBD(this);
     }
 }
 

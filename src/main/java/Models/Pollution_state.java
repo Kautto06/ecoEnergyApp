@@ -1,4 +1,5 @@
 package Models;
+import Controllers.PollutionStateController;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -12,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Controllers.PollutionStateController.*;
 
 
 public class Pollution_state extends Reporte{
@@ -20,6 +22,7 @@ public class Pollution_state extends Reporte{
     private String Message;
 
     private ArrayList<Pollution_state> pollutionStates= new ArrayList<>();
+    public PollutionStateController controlador = new PollutionStateController();
 
     public Pollution_state(int id,int idHome,String idAdminHome,String fecha, double Total_Consume, double Consume_State, String Message) {
         super(id,idHome,idAdminHome,fecha);
@@ -79,7 +82,7 @@ public class Pollution_state extends Reporte{
         scanner.nextLine();
 
         System.out.print("Ingrese el ID de Home: ");
-        idHome = scanner.nextInt();
+        idHome = scanner.nextInt(); scanner.nextLine();
 
         System.out.print("Ingrese el ID de Admin Home: ");
         idAdminHome = scanner.nextLine();
@@ -98,6 +101,7 @@ public class Pollution_state extends Reporte{
         this.Message = scanner.nextLine();
 
         this.pollutionStates.add(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
+        controlador.agregarPollutionStateABD(new Pollution_state(id,idHome,idAdminHome,fecha,this.Total_Consume,this.Consume_State,this.Message));
     }
 
     public int eliminarReporte(int id){
@@ -132,6 +136,13 @@ public class Pollution_state extends Reporte{
         }
         return false;
     }
+    public Pollution_state EncontrarReporte(int idBuscar)
+    {
+        for(Pollution_state state:pollutionStates)
+            if(state.getId()==idBuscar)
+                return state;
+        return null;
+    }
 
     public void menuEliminarPollution(){
         int idEliminado;
@@ -143,7 +154,10 @@ public class Pollution_state extends Reporte{
             System.out.println("Ingrese ID del elemento a eliminar");
             idEliminado = read.nextInt();
         }while(!buscarReporte(idEliminado));
-        eliminarReporte(idEliminado);
+        if(buscarReporte(idEliminado) == true){
+            controlador.eliminarEstadoContaminacionDeBD(EncontrarReporte(idEliminado));
+            eliminarReporte(idEliminado);
+        }
     }
 
     // Método para mostrar un menú y permitir al usuario seleccionar qué elemento mostrar
@@ -215,16 +229,19 @@ public class Pollution_state extends Reporte{
                 System.out.print("Nuevo total de consumo: ");
                 double nuevoTotalConsume = scanner.nextDouble();
                 this.pollutionStates.get(index).setTotal_Consume(nuevoTotalConsume);
+                controlador.actualizarEstadoContaminacionEnBD(this.pollutionStates.get(index));
                 break;
             case 2:
                 System.out.print("Nuevo consumo actual: ");
                 double nuevoConsumeState = scanner.nextDouble();
                 this.pollutionStates.get(index).setConsume_State(nuevoConsumeState);
+                controlador.actualizarEstadoContaminacionEnBD(this.pollutionStates.get(index));
                 break;
             case 3:
                 System.out.print("Nuevo mensaje: ");
                 String nuevoMensaje = scanner.nextLine();
                 this.pollutionStates.get(index).setMessage(nuevoMensaje);
+                controlador.actualizarEstadoContaminacionEnBD(this.pollutionStates.get(index));
                 break;
             default:
                 System.out.println("Opción no válida");
@@ -232,28 +249,8 @@ public class Pollution_state extends Reporte{
         }
     }
 
-    public void leerDesdeBDPollutionStates(String urlBD, String usuario, String contraseña) {
-        String sql = "SELECT * FROM Pollution_State";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        try (
-                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-
-                int id = resultSet.getInt("ID");
-                int idHome = resultSet.getInt("ID_Home");
-                String idAdminHome = resultSet.getString("ID_Admin");
-                String fecha = resultSet.getString("Fecha");
-                double totalConsume = resultSet.getDouble("Total_Consume");
-                double consumeState = resultSet.getDouble("Consume_State");
-                String message = resultSet.getString("Message");
-                pollutionStates.add(new Pollution_state(id, idHome, idAdminHome, fecha, totalConsume, consumeState, message));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void leerDesdeBDPollutionStates() {
+        controlador.obtenerTodosLosEstadosContaminacionDeBD(this);
     }
 
 }

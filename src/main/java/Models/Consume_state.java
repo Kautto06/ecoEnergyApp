@@ -1,4 +1,5 @@
 package Models;
+import Controllers.ConsumeStateController;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -20,6 +21,7 @@ public class Consume_state extends Reporte{
     private double totalConsume;
     private double totalCost;
     private ArrayList<Consume_state> consumestates = new ArrayList<>();
+    public ConsumeStateController controlador= new ConsumeStateController();
 
     public Consume_state(int id, int idHome, String idAdminHome, String fecha, double totalConsume, double totalCost) {
         super(id,idHome,idAdminHome,fecha);
@@ -67,7 +69,7 @@ public class Consume_state extends Reporte{
         scanner.nextLine();
 
         System.out.print("Ingrese el ID de Home: ");
-        idHome = scanner.nextInt();
+        idHome = scanner.nextInt(); scanner.nextLine();
 
         System.out.print("Ingrese el ID de Admin Home: ");
         idAdminHome = scanner.nextLine();
@@ -80,10 +82,11 @@ public class Consume_state extends Reporte{
         scanner.nextLine();
 
         System.out.print("Ingrese el total de costo: ");
-        this.totalCost = scanner.nextDouble();
+        this.totalCost = scanner.nextDouble(); scanner.nextLine();
         scanner.nextLine();
 
         this.consumestates.add(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
+        controlador.agregarConsumeStateABD(new Consume_state(id,idHome,idAdminHome,fecha,this.totalConsume,this.totalCost));
     }
 
     public String toString(){
@@ -194,6 +197,8 @@ public class Consume_state extends Reporte{
                 System.out.println("Opción no válida");
                 break;
         }
+
+        controlador.actualizarConsumeStateEnBD(this.consumestates.get(index));
     }
 
     public boolean buscarReporte(int idBuscado){
@@ -202,6 +207,14 @@ public class Consume_state extends Reporte{
         }
 
         return false;
+    }
+
+    public Consume_state retornarConsumeState(int idBuscado){
+        for (Consume_state reporte : this.consumestates){
+            if(reporte.getId()==idBuscado) return reporte;
+        }
+
+        return null;
     }
 
     public int eliminarReporte(int idEliminar){
@@ -213,10 +226,11 @@ public class Consume_state extends Reporte{
         }
         return 0;
     }
-    public static void menuEliminarReporte(Consume_state reporte){
+    public void menuEliminarReporte(Consume_state reporte){
 
         Scanner entrada = new Scanner(System.in);
         int idAEliminar;
+        Consume_state AEliminar = new Consume_state();
         if(reporte==null){
             System.out.println("No hay reportes en el sistema");
             return;
@@ -231,34 +245,16 @@ public class Consume_state extends Reporte{
             System.out.println();
         }while(!reporte.buscarReporte(idAEliminar));
 
+        AEliminar= reporte.retornarConsumeState(idAEliminar);
+
+        controlador.eliminarEstadoContaminacionDeBD(AEliminar);
+
         reporte.eliminarReporte(idAEliminar);
         System.out.println("Se elimino el reporte correctamente");
     }
 
-    public void leerDesdeBDConsumeStates(String urlBD, String usuario, String contraseña) {
-        String sql = "SELECT * FROM Consume_State";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        try (
-                Connection connection = DriverManager.getConnection(urlBD, usuario, contraseña);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            while (resultSet.next()) {
-
-                int id = resultSet.getInt("ID");
-                int idHome = resultSet.getInt("ID_Home");
-                String idAdminHome = resultSet.getString("ID_Admin");
-                String fecha = resultSet.getString("Fecha");
-                double totalConsume = resultSet.getDouble("Total_Consume");
-                double totalCost = resultSet.getDouble("Total_Cost");
-
-                consumestates.add(new Consume_state(id, idHome, idAdminHome, fecha, totalConsume, totalCost));
-
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void leerDesdeBDConsumeStates() {
+        controlador.obtenerTodosLosConsumeStatesDeBD(this);
     }
 
 

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class SQLConnection implements ConnectionInterface {
     private Connection conexion;
+
+
     public void conectar() {
         String url = "jdbc:sqlite:src/test/DB/EcoEnergyApp.db";
         try {
@@ -15,9 +17,6 @@ public class SQLConnection implements ConnectionInterface {
             String[] tables = {"Devices", "Electricity_Company", "Pollution_State", "Consume_State", "User", "Home"};
 
             // Iterar sobre las tablas e imprimir la información del esquema
-            for (String tableName : tables) {
-                printTableSchema(conexion, tableName);
-            }
 
         } catch (SQLException e) {
             System.err.println("Error en la operación de la base de datos: " + e.getMessage());
@@ -47,34 +46,19 @@ public class SQLConnection implements ConnectionInterface {
         }
     }
 
-    private static void printTableSchema(java.sql.Connection connection, String tableName) throws SQLException {
-        DatabaseMetaData metaData = connection.getMetaData();
-
-        System.out.println("Tabla: " + tableName);
-
-        // Obtener las columnas de la tabla
-        ResultSet columns = metaData.getColumns(null, null, tableName, null);
-
-        // Lista para almacenar los nombres de las columnas
-        ArrayList<String> columnNames = new ArrayList<>();
-
-        // Iterar sobre las columnas
-        while (columns.next()) {
-            String columnName = columns.getString("COLUMN_NAME");
-            columnNames.add(columnName);
+    public ResultSet ejecutarConsultaRetorno(String consulta){
+        ResultSet resultSet = null;
+        try (Statement statement = conexion.createStatement()) {
+            resultSet = statement.executeQuery(consulta);
+            System.out.println("Consulta ejecutada con éxito.");
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        // Mostrar los nombres de las columnas
-        System.out.println("Columnas: " + columnNames);
-
-        // Puedes hacer algo más con los nombres de las columnas si es necesario
-
-        // Limpiar recursos
-        columns.close();
-
+        return resultSet;
     }
-
-
-
-
+    public Connection getConexion() {
+        return conexion;
+    }
 }
+
