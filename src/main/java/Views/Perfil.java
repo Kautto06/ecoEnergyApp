@@ -15,6 +15,7 @@ public class Perfil extends javax.swing.JFrame {
      */
     public Perfil() {
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -114,11 +115,13 @@ public class Perfil extends javax.swing.JFrame {
         EditarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         EditarButton.setForeground(new java.awt.Color(0, 0, 0));
         EditarButton.setText("Editar");
+        EditarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         Exit.setBackground(new java.awt.Color(0, 255, 102));
         Exit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Exit.setForeground(new java.awt.Color(0, 0, 0));
         Exit.setText("Salir");
+        Exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExitActionPerformed(evt);

@@ -113,14 +113,17 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(0, 0, 0));
         btnLogin.setText("Iniciar Sesion");
+        btnLogin.setActionCommand("");
         btnLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnExit.setForeground(new java.awt.Color(0, 0, 0));
         btnExit.setText("Salir");
+        btnExit.setActionCommand("");
         btnExit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
@@ -135,7 +138,9 @@ public class Login extends javax.swing.JFrame {
         btnRegisterHere.setBackground(new java.awt.Color(255, 255, 255));
         btnRegisterHere.setForeground(new java.awt.Color(51, 102, 255));
         btnRegisterHere.setText("Registrate aqui");
+        btnRegisterHere.setActionCommand("");
         btnRegisterHere.setBorder(null);
+        btnRegisterHere.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegisterHere.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterHereActionPerformed(evt);

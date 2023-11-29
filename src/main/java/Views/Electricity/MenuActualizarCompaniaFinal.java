@@ -13,6 +13,7 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
     /** Creates new form GastoEnergetico */
     public MenuActualizarCompaniaFinal() {
         initComponents();
+        setResizable(false);
     }
 
     /** This method is called from within the constructor to
@@ -31,7 +32,8 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
         Volver1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        Volver2 = new javax.swing.JButton();
+        btnReturn = new javax.swing.JButton();
+        btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         Titulo1 = new javax.swing.JLabel();
@@ -69,11 +71,29 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 255, 102));
 
-        Volver2.setBackground(new java.awt.Color(0, 255, 102));
-        Volver2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
-        Volver2.addActionListener(new java.awt.event.ActionListener() {
+        btnReturn.setBackground(new java.awt.Color(0, 255, 102));
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
+        btnReturn.setBorder(null);
+        btnReturn.setContentAreaFilled(false);
+        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Volver2ActionPerformed(evt);
+                btnReturnActionPerformed(evt);
+            }
+        });
+
+        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
+        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
+        btnUserInfo1.setBorder(null);
+        btnUserInfo1.setContentAreaFilled(false);
+        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUserInfo1.setFocusPainted(false);
+        btnUserInfo1.setFocusable(false);
+        btnUserInfo1.setRequestFocusEnabled(false);
+        btnUserInfo1.setRolloverEnabled(false);
+        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserInfo1ActionPerformed(evt);
             }
         });
 
@@ -81,17 +101,21 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(Volver2)
-                .addGap(16, 16, 16))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUserInfo1)
+                    .addComponent(btnReturn))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(Volver2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(btnReturn)
+                .addGap(330, 330, 330)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34))
         );
 
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -102,51 +126,77 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
         Titulo1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        InputNombre.setBackground(new java.awt.Color(255, 255, 255));
+        InputNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        InputNombre.setForeground(new java.awt.Color(0, 0, 0));
         InputNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputNombreActionPerformed(evt);
             }
         });
 
+        confirmar.setBackground(new java.awt.Color(255, 255, 255));
+        confirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        confirmar.setForeground(new java.awt.Color(0, 0, 0));
         confirmar.setText("Confirmar");
+        confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmarActionPerformed(evt);
             }
         });
 
+        InputTipoAmbiente.setBackground(new java.awt.Color(255, 255, 255));
+        InputTipoAmbiente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        InputTipoAmbiente.setForeground(new java.awt.Color(0, 0, 0));
         InputTipoAmbiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputTipoAmbienteActionPerformed(evt);
             }
         });
 
+        InputCompanyRut.setBackground(new java.awt.Color(255, 255, 255));
+        InputCompanyRut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        InputCompanyRut.setForeground(new java.awt.Color(0, 0, 0));
         InputCompanyRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputCompanyRutActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ingrese los datos de la nueva compañia");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Nombre =");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Rut =");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Costo Base=");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Limite de Kw=");
 
+        InputTipoAmbiente1.setBackground(new java.awt.Color(255, 255, 255));
+        InputTipoAmbiente1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        InputTipoAmbiente1.setForeground(new java.awt.Color(0, 0, 0));
         InputTipoAmbiente1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputTipoAmbiente1ActionPerformed(evt);
@@ -273,13 +323,17 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Volver1ActionPerformed
 
-    private void Volver2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Volver2ActionPerformed
-
     private void InputTipoAmbiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputTipoAmbiente1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_InputTipoAmbiente1ActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+
+    }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -452,7 +506,8 @@ public class MenuActualizarCompaniaFinal extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Titulo1;
     private javax.swing.JButton Volver1;
-    private javax.swing.JButton Volver2;
+    private javax.swing.JButton btnReturn;
+    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JButton confirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

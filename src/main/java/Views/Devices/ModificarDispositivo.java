@@ -1,17 +1,17 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views.Devices;
 
 /**
  *
- * @author chebi
+ * @author gerar
  */
-public class ModificarDispositivo extends javax.swing.JPanel {
+public class ModificarDispositivo extends javax.swing.JFrame {
 
     /**
-     * Creates new form ModificarDispositivo
+     * Creates new form NewJFrame
      */
     public ModificarDispositivo() {
         initComponents();
@@ -26,19 +26,354 @@ public class ModificarDispositivo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jPanel1 = new javax.swing.JPanel();
+        IngresoConsumo = new javax.swing.JTextField();
+        IngresoHoras = new javax.swing.JTextField();
+        IngresoPrioridadUso = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        btnReturn = new javax.swing.JButton();
+        btnUserInfo1 = new javax.swing.JButton();
+        IgresoClasificacion = new javax.swing.JTextField();
+        AgregarTxt = new javax.swing.JLabel();
+        Message = new javax.swing.JLabel();
+        NombreTxt = new javax.swing.JLabel();
+        AGMessage = new javax.swing.JLabel();
+        ConsumoTxt = new javax.swing.JLabel();
+        AceptarButton = new javax.swing.JButton();
+        HorasTxt = new javax.swing.JLabel();
+        CancelarButton = new javax.swing.JButton();
+        PrioridadTxt = new javax.swing.JLabel();
+        ClasificacionTxt = new javax.swing.JLabel();
+        IngresoName = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        IngresoConsumo.setBackground(new java.awt.Color(255, 255, 255));
+        IngresoConsumo.setForeground(new java.awt.Color(0, 0, 0));
+        IngresoConsumo.setText("Modificar Consumo");
+
+        IngresoHoras.setBackground(new java.awt.Color(255, 255, 255));
+        IngresoHoras.setForeground(new java.awt.Color(0, 0, 0));
+        IngresoHoras.setText("Modificar Horas");
+        IngresoHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IngresoHorasActionPerformed(evt);
+            }
+        });
+
+        IngresoPrioridadUso.setBackground(new java.awt.Color(255, 255, 255));
+        IngresoPrioridadUso.setForeground(new java.awt.Color(0, 0, 0));
+        IngresoPrioridadUso.setText("Modificar Prioridad");
+        IngresoPrioridadUso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IngresoPrioridadUsoActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(0, 255, 102));
+
+        btnReturn.setBackground(new java.awt.Color(0, 255, 102));
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
+        btnReturn.setBorder(null);
+        btnReturn.setContentAreaFilled(false);
+        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
+
+        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
+        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
+        btnUserInfo1.setBorder(null);
+        btnUserInfo1.setContentAreaFilled(false);
+        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUserInfo1.setFocusPainted(false);
+        btnUserInfo1.setFocusable(false);
+        btnUserInfo1.setRequestFocusEnabled(false);
+        btnUserInfo1.setRolloverEnabled(false);
+        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserInfo1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUserInfo1)
+                    .addComponent(btnReturn))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(btnReturn)
+                .addGap(271, 271, 271)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(47, 47, 47))
+        );
+
+        IgresoClasificacion.setBackground(new java.awt.Color(255, 255, 255));
+        IgresoClasificacion.setForeground(new java.awt.Color(0, 0, 0));
+        IgresoClasificacion.setText("Modificar Classificacion");
+        IgresoClasificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IgresoClasificacionActionPerformed(evt);
+            }
+        });
+
+        AgregarTxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        AgregarTxt.setForeground(new java.awt.Color(0, 0, 0));
+        AgregarTxt.setText("Modificar Dispositivo");
+
+        Message.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        Message.setForeground(new java.awt.Color(0, 0, 0));
+        Message.setText("*Del 1-10");
+
+        NombreTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        NombreTxt.setForeground(new java.awt.Color(0, 0, 0));
+        NombreTxt.setText("Nombre:");
+
+        AGMessage.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        AGMessage.setForeground(new java.awt.Color(0, 0, 0));
+        AGMessage.setText("*A-G");
+
+        ConsumoTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ConsumoTxt.setForeground(new java.awt.Color(0, 0, 0));
+        ConsumoTxt.setText("Consumo de Energía:");
+
+        AceptarButton.setBackground(new java.awt.Color(0, 255, 102));
+        AceptarButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        AceptarButton.setForeground(new java.awt.Color(0, 0, 0));
+        AceptarButton.setText("Aceptar");
+        AceptarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        HorasTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        HorasTxt.setForeground(new java.awt.Color(0, 0, 0));
+        HorasTxt.setText("Horas que esta Activo:");
+
+        CancelarButton.setBackground(new java.awt.Color(0, 255, 102));
+        CancelarButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        CancelarButton.setForeground(new java.awt.Color(0, 0, 0));
+        CancelarButton.setText("Cancelar");
+        CancelarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CancelarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarButtonActionPerformed(evt);
+            }
+        });
+
+        PrioridadTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        PrioridadTxt.setForeground(new java.awt.Color(0, 0, 0));
+        PrioridadTxt.setText("Prioridad de Uso:");
+
+        ClasificacionTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ClasificacionTxt.setForeground(new java.awt.Color(0, 0, 0));
+        ClasificacionTxt.setText("Clasificación de Consumo:");
+
+        IngresoName.setBackground(new java.awt.Color(255, 255, 255));
+        IngresoName.setForeground(new java.awt.Color(0, 0, 0));
+        IngresoName.setText("Modificar Nombre");
+        IngresoName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IngresoNameActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(PrioridadTxt)
+                        .addGap(4, 4, 4)
+                        .addComponent(IngresoPrioridadUso, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Message))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(NombreTxt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IngresoName, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(HorasTxt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IngresoHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ConsumoTxt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IngresoConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(AceptarButton)
+                            .addComponent(ClasificacionTxt))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IgresoClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AGMessage))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CancelarButton))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(AgregarTxt)))
+                .addContainerGap(134, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(AgregarTxt)
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NombreTxt)
+                    .addComponent(IngresoName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ConsumoTxt)
+                    .addComponent(IngresoConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HorasTxt)
+                    .addComponent(IngresoHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PrioridadTxt)
+                    .addComponent(IngresoPrioridadUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Message))
+                .addGap(57, 57, 57)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ClasificacionTxt)
+                    .addComponent(IgresoClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AGMessage))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AceptarButton)
+                    .addComponent(CancelarButton))
+                .addGap(38, 38, 38))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 614, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void IngresoHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoHorasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IngresoHorasActionPerformed
+
+    private void IngresoPrioridadUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoPrioridadUsoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IngresoPrioridadUsoActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+
+    }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+
+    private void IgresoClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IgresoClasificacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IgresoClasificacionActionPerformed
+
+    private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CancelarButtonActionPerformed
+
+    private void IngresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IngresoNameActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ModificarDispositivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ModificarDispositivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ModificarDispositivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ModificarDispositivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ModificarDispositivo().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AGMessage;
+    private javax.swing.JButton AceptarButton;
+    private javax.swing.JLabel AgregarTxt;
+    private javax.swing.JButton CancelarButton;
+    private javax.swing.JLabel ClasificacionTxt;
+    private javax.swing.JLabel ConsumoTxt;
+    private javax.swing.JLabel HorasTxt;
+    private javax.swing.JTextField IgresoClasificacion;
+    private javax.swing.JTextField IngresoConsumo;
+    private javax.swing.JTextField IngresoHoras;
+    private javax.swing.JTextField IngresoName;
+    private javax.swing.JTextField IngresoPrioridadUso;
+    private javax.swing.JLabel Message;
+    private javax.swing.JLabel NombreTxt;
+    private javax.swing.JLabel PrioridadTxt;
+    private javax.swing.JButton btnReturn;
+    private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

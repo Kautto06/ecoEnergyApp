@@ -15,6 +15,7 @@ public class ModificarDatosUser extends javax.swing.JFrame {
      */
     public ModificarDatosUser() {
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -29,7 +30,7 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         jpHome = new javax.swing.JPanel();
         jpNavbar = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo = new javax.swing.JButton();
+        btnUserInfo1 = new javax.swing.JButton();
         lbIcon = new javax.swing.JLabel();
         lbMessage = new javax.swing.JLabel();
         tfNombres = new javax.swing.JTextField();
@@ -52,18 +53,26 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
         btnReturn.setBorder(null);
+        btnReturn.setContentAreaFilled(false);
+        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReturnActionPerformed(evt);
             }
         });
 
-        btnUserInfo.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo.setBorder(null);
-        btnUserInfo.addActionListener(new java.awt.event.ActionListener() {
+        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
+        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
+        btnUserInfo1.setBorder(null);
+        btnUserInfo1.setContentAreaFilled(false);
+        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUserInfo1.setFocusPainted(false);
+        btnUserInfo1.setFocusable(false);
+        btnUserInfo1.setRequestFocusEnabled(false);
+        btnUserInfo1.setRolloverEnabled(false);
+        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfoActionPerformed(evt);
+                btnUserInfo1ActionPerformed(evt);
             }
         });
 
@@ -72,20 +81,20 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         jpNavbarLayout.setHorizontalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo)
+                .addGap(21, 21, 21)
+                .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUserInfo1)
                     .addComponent(btnReturn))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jpNavbarLayout.setVerticalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUserInfo)
-                .addGap(16, 16, 16))
+                .addGap(55, 55, 55)
+                .addComponent(btnReturn)
+                .addGap(276, 276, 276)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(52, 52, 52))
         );
 
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -107,6 +116,7 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Confirmar");
         jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -236,14 +246,6 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        
-    }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfoActionPerformed
-
     private void tfNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombresActionPerformed
@@ -267,6 +269,14 @@ public class ModificarDatosUser extends javax.swing.JFrame {
     private void tfConfirmarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfConfirmarPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfConfirmarPasswordActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+
+    }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,7 +330,7 @@ public class ModificarDatosUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo;
+    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jpHome;
     private javax.swing.JPanel jpNavbar;

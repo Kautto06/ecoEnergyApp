@@ -14,6 +14,7 @@ public class OpcionesHome extends javax.swing.JFrame {
     /** Creates new form GastoEnergetico */
     public OpcionesHome() {
         initComponents();
+        setResizable(false);
     }
 
     /** This method is called from within the constructor to
@@ -34,6 +35,7 @@ public class OpcionesHome extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
+        btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         VerReporte = new javax.swing.JButton();
@@ -62,9 +64,26 @@ public class OpcionesHome extends javax.swing.JFrame {
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
         btnReturn.setBorder(null);
+        btnReturn.setContentAreaFilled(false);
+        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReturnActionPerformed(evt);
+            }
+        });
+
+        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
+        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
+        btnUserInfo1.setBorder(null);
+        btnUserInfo1.setContentAreaFilled(false);
+        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUserInfo1.setFocusPainted(false);
+        btnUserInfo1.setFocusable(false);
+        btnUserInfo1.setRequestFocusEnabled(false);
+        btnUserInfo1.setRolloverEnabled(false);
+        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserInfo1ActionPerformed(evt);
             }
         });
 
@@ -73,16 +92,20 @@ public class OpcionesHome extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnReturn)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUserInfo1)
+                    .addComponent(btnReturn))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(btnReturn)
+                .addGap(274, 274, 274)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(37, 37, 37))
         );
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -91,9 +114,10 @@ public class OpcionesHome extends javax.swing.JFrame {
         Titulo.setText("Tu Home");
 
         VerReporte.setBackground(new java.awt.Color(255, 255, 255));
-        VerReporte.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        VerReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         VerReporte.setForeground(new java.awt.Color(0, 0, 0));
         VerReporte.setText("Ver reportes");
+        VerReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VerReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerReporteActionPerformed(evt);
@@ -101,9 +125,10 @@ public class OpcionesHome extends javax.swing.JFrame {
         });
 
         VerDispositivo.setBackground(new java.awt.Color(255, 255, 255));
-        VerDispositivo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        VerDispositivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         VerDispositivo.setForeground(new java.awt.Color(0, 0, 0));
         VerDispositivo.setText("Ver dispositivos");
+        VerDispositivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VerDispositivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerDispositivoActionPerformed(evt);
@@ -111,9 +136,10 @@ public class OpcionesHome extends javax.swing.JFrame {
         });
 
         VerDispositivo1.setBackground(new java.awt.Color(255, 255, 255));
-        VerDispositivo1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        VerDispositivo1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         VerDispositivo1.setForeground(new java.awt.Color(0, 0, 0));
         VerDispositivo1.setText("Ver Usuarios");
+        VerDispositivo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VerDispositivo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerDispositivo1ActionPerformed(evt);
@@ -132,8 +158,7 @@ public class OpcionesHome extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(lbIcon)
-                        .addGap(38, 38, 38))
+                        .addComponent(lbIcon))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,6 +221,10 @@ public class OpcionesHome extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReturnActionPerformed
 
+    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -245,6 +274,7 @@ public class OpcionesHome extends javax.swing.JFrame {
     private javax.swing.JButton VerDispositivo1;
     private javax.swing.JButton VerReporte;
     private javax.swing.JButton btnReturn;
+    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
