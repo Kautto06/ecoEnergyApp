@@ -55,7 +55,7 @@ public class UserController {
 
         SQLConnection conexion = new SQLConnection();
         conexion.conectar();
-          
+
         String sql = "UPDATE User SET Nombres = '" + nombres + "', Apellidos = '" + apellidos +
                 "', Password = '" + password + "', Rol = '" + rol +
                 "', Fecha_De_Nacimiento = '" + fechaNacimiento +
