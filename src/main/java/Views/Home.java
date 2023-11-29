@@ -52,6 +52,12 @@ public class Home extends javax.swing.JFrame {
         btnUserInfo.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
         btnUserInfo.setBorder(null);
+        btnUserInfo.setContentAreaFilled(false);
+        btnUserInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUserInfo.setFocusPainted(false);
+        btnUserInfo.setFocusable(false);
+        btnUserInfo.setRequestFocusEnabled(false);
+        btnUserInfo.setRolloverEnabled(false);
         btnUserInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserInfoActionPerformed(evt);
@@ -65,25 +71,25 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jpNavbarLayout.createSequentialGroup()
                 .addGap(255, 255, 255)
                 .addComponent(lbMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnUserInfo)
                 .addGap(16, 16, 16))
         );
         jpNavbarLayout.setVerticalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
-                .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNavbarLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lbMessage))
-                    .addGroup(jpNavbarLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnUserInfo)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(lbMessage)
+                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(jpNavbarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnUserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         btnHome.setBackground(new java.awt.Color(255, 255, 255));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/casa.png"))); // NOI18N
+        btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
@@ -92,6 +98,7 @@ public class Home extends javax.swing.JFrame {
 
         btnElectricityCompany.setBackground(new java.awt.Color(255, 255, 255));
         btnElectricityCompany.setIcon(new javax.swing.ImageIcon(getClass().getResource("/torre.png"))); // NOI18N
+        btnElectricityCompany.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnElectricityCompany.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnElectricityCompanyActionPerformed(evt);
@@ -100,6 +107,7 @@ public class Home extends javax.swing.JFrame {
 
         btnUser.setBackground(new java.awt.Color(255, 255, 255));
         btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/grupo.png"))); // NOI18N
+        btnUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserActionPerformed(evt);
@@ -129,6 +137,8 @@ public class Home extends javax.swing.JFrame {
         btnSalir.setForeground(new java.awt.Color(0, 0, 0));
         btnSalir.setText("Salir");
         btnSalir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
