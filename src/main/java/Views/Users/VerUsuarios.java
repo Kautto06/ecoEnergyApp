@@ -34,16 +34,16 @@ public class VerUsuarios extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
-        Titulo = new javax.swing.JLabel();
-        VerReporte = new javax.swing.JButton();
-        VerDispositivo = new javax.swing.JButton();
-        VerDispositivo1 = new javax.swing.JButton();
         lbIcon = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tabla = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -56,6 +56,11 @@ public class VerUsuarios extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Ingrese los datos de la nueva home");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,42 +111,39 @@ public class VerUsuarios extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(btnReturn)
                 .addGap(274, 274, 274)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
         );
 
-        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Titulo.setText("Tu Home");
-
-        VerReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        VerReporte.setText("Ver reportes");
-        VerReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        VerReporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerReporteActionPerformed(evt);
-            }
-        });
-
-        VerDispositivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        VerDispositivo.setText("Ver dispositivos");
-        VerDispositivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        VerDispositivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerDispositivoActionPerformed(evt);
-            }
-        });
-
-        VerDispositivo1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        VerDispositivo1.setText("Ver Usuarios");
-        VerDispositivo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        VerDispositivo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerDispositivo1ActionPerformed(evt);
-            }
-        });
-
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
+
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Rut", "Nombre", "Apellidos", "Rol", "Fecha Nacimiento"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        Tabla.getTableHeader().setResizingAllowed(false);
+        Tabla.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(Tabla);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Usuarios en esta home");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,20 +151,21 @@ public class VerUsuarios extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(lbIcon))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(VerDispositivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VerDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Icon)
-                .addGap(0, 187, Short.MAX_VALUE))
+                        .addGap(200, 200, 200)
+                        .addComponent(lbIcon)
+                        .addGap(34, 34, 34)
+                        .addComponent(Icon)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(14, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,18 +175,12 @@ public class VerUsuarios extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(Icon))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(VerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(VerDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(VerDispositivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,18 +196,6 @@ public class VerUsuarios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void VerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerReporteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VerReporteActionPerformed
-
-    private void VerDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDispositivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VerDispositivoActionPerformed
-
-    private void VerDispositivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDispositivo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VerDispositivo1ActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
 
@@ -272,12 +257,11 @@ public class VerUsuarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Icon;
-    private javax.swing.JLabel Titulo;
-    private javax.swing.JButton VerDispositivo;
-    private javax.swing.JButton VerDispositivo1;
-    private javax.swing.JButton VerReporte;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -285,6 +269,7 @@ public class VerUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbIcon;
     // End of variables declaration//GEN-END:variables
