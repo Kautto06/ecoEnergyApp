@@ -5,6 +5,8 @@
 
 package Views.Homes;
 
+import Views.Perfil;
+
 /**
  *
  * @author alvar
@@ -15,6 +17,7 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
     public MenuActualizarHomeFinal() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -300,11 +303,15 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
     }//GEN-LAST:event_Volver1ActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        MenuHomes menu =new MenuHomes();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        Perfil menu=new Perfil();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

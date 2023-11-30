@@ -4,6 +4,8 @@
  */
 package Views.Homes;
 
+import Views.Perfil;
+
 /**
  *
  * @author gerar
@@ -15,6 +17,8 @@ public class RegistrarHome extends javax.swing.JFrame {
      */
     public RegistrarHome() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -45,28 +49,22 @@ public class RegistrarHome extends javax.swing.JFrame {
 
         Titulo.setBackground(new java.awt.Color(255, 255, 255));
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(0, 0, 0));
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Ingrese el ID");
 
         Titulo1.setBackground(new java.awt.Color(255, 255, 255));
         Titulo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Titulo1.setForeground(new java.awt.Color(0, 0, 0));
         Titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo1.setText("De la Home en la que desea registrarse");
 
-        Input.setBackground(new java.awt.Color(255, 255, 255));
         Input.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Input.setForeground(new java.awt.Color(0, 0, 0));
         Input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputActionPerformed(evt);
             }
         });
 
-        confirmar.setBackground(new java.awt.Color(255, 255, 255));
         confirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        confirmar.setForeground(new java.awt.Color(0, 0, 0));
         confirmar.setText("Confirmar");
         confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +73,6 @@ public class RegistrarHome extends javax.swing.JFrame {
             }
         });
 
-        Tabla.setBackground(new java.awt.Color(255, 255, 255));
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -144,6 +141,11 @@ public class RegistrarHome extends javax.swing.JFrame {
         btnReturn.setBorder(null);
         btnReturn.setContentAreaFilled(false);
         btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
 
         btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
@@ -209,8 +211,16 @@ public class RegistrarHome extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        Perfil menu=new Perfil();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        MenuHomes menu =new MenuHomes();
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReturnActionPerformed
 
     /**
      * @param args the command line arguments

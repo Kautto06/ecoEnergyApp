@@ -5,6 +5,12 @@
 
 package Views.Homes;
 
+import Models.Reporte;
+import Views.Devices.MostrarDevices;
+import Views.EscogerReporte;
+import Views.Perfil;
+import Views.Users.VerUsuarios;
+
 /**
  *
  * @author alvar
@@ -15,6 +21,7 @@ public class OpcionesHome extends javax.swing.JFrame {
     public OpcionesHome() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -40,7 +47,7 @@ public class OpcionesHome extends javax.swing.JFrame {
         Titulo = new javax.swing.JLabel();
         VerReporte = new javax.swing.JButton();
         VerDispositivo = new javax.swing.JButton();
-        VerDispositivo1 = new javax.swing.JButton();
+        VerUsuario = new javax.swing.JButton();
         lbIcon = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -109,13 +116,10 @@ public class OpcionesHome extends javax.swing.JFrame {
         );
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(0, 0, 0));
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Tu Home");
 
-        VerReporte.setBackground(new java.awt.Color(255, 255, 255));
         VerReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        VerReporte.setForeground(new java.awt.Color(0, 0, 0));
         VerReporte.setText("Ver reportes");
         VerReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VerReporte.addActionListener(new java.awt.event.ActionListener() {
@@ -124,9 +128,7 @@ public class OpcionesHome extends javax.swing.JFrame {
             }
         });
 
-        VerDispositivo.setBackground(new java.awt.Color(255, 255, 255));
         VerDispositivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        VerDispositivo.setForeground(new java.awt.Color(0, 0, 0));
         VerDispositivo.setText("Ver dispositivos");
         VerDispositivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VerDispositivo.addActionListener(new java.awt.event.ActionListener() {
@@ -135,14 +137,12 @@ public class OpcionesHome extends javax.swing.JFrame {
             }
         });
 
-        VerDispositivo1.setBackground(new java.awt.Color(255, 255, 255));
-        VerDispositivo1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        VerDispositivo1.setForeground(new java.awt.Color(0, 0, 0));
-        VerDispositivo1.setText("Ver Usuarios");
-        VerDispositivo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        VerDispositivo1.addActionListener(new java.awt.event.ActionListener() {
+        VerUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        VerUsuario.setText("Ver Usuarios");
+        VerUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        VerUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerDispositivo1ActionPerformed(evt);
+                VerUsuarioActionPerformed(evt);
             }
         });
 
@@ -162,7 +162,7 @@ public class OpcionesHome extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(VerDispositivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(VerUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(VerDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(VerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,7 +187,7 @@ public class OpcionesHome extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(VerDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(VerDispositivo1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(VerUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
 
@@ -206,23 +206,33 @@ public class OpcionesHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerReporteActionPerformed
-        // TODO add your handling code here:
+        EscogerReporte menu = new EscogerReporte();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VerReporteActionPerformed
 
     private void VerDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDispositivoActionPerformed
-        // TODO add your handling code here:
+        MostrarDevices menu =new MostrarDevices();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VerDispositivoActionPerformed
 
-    private void VerDispositivo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDispositivo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VerDispositivo1ActionPerformed
+    private void VerUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerUsuarioActionPerformed
+        VerUsuarios menu =new VerUsuarios();
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_VerUsuarioActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        MenuHomes menu =new MenuHomes();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        Perfil menu=new Perfil();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
@@ -271,8 +281,8 @@ public class OpcionesHome extends javax.swing.JFrame {
     private javax.swing.JLabel Icon;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton VerDispositivo;
-    private javax.swing.JButton VerDispositivo1;
     private javax.swing.JButton VerReporte;
+    private javax.swing.JButton VerUsuario;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
