@@ -89,15 +89,12 @@
                           <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Titulo" min="-2" pref="214" max="-2" attributes="0"/>
-                              <Component id="Agregar" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Modificar" min="-2" pref="202" max="-2" attributes="0"/>
-                                      <Component id="Volver" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Component id="Eliminar" min="-2" pref="205" max="-2" attributes="0"/>
+                                  <Component id="Modificar" min="-2" pref="202" max="-2" attributes="0"/>
+                                  <Component id="Volver" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
+                                  <Component id="Agregar" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="Eliminar" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="149" max="32767" attributes="0"/>
                       </Group>
@@ -113,11 +110,11 @@
                   <Component id="Icon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Titulo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="Agregar" min="-2" pref="51" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="Eliminar" min="-2" pref="51" max="-2" attributes="0"/>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="Modificar" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="Volver" min="-2" pref="51" max="-2" attributes="0"/>
@@ -153,7 +150,7 @@
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="324" max="-2" attributes="0"/>
-                      <Component id="btnUserInfo1" max="32767" attributes="0"/>
+                      <Component id="btnUserInfo1" pref="65" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -259,7 +256,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Agregar nuevo usuario"/>
+            <Property name="text" type="java.lang.String" value="Mostrar usuarios"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
