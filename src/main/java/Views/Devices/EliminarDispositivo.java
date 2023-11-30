@@ -4,6 +4,8 @@
  */
 package Views.Devices;
 
+import Views.Home;
+import Views.Perfil;
 /**
  *
  * @author gerar
@@ -16,6 +18,7 @@ public class EliminarDispositivo extends javax.swing.JFrame {
     public EliminarDispositivo() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -204,11 +207,16 @@ public class EliminarDispositivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

@@ -4,6 +4,9 @@
  */
 package Views.Devices;
 
+import Views.Home;
+import Views.Perfil;
+
 /**
  *
  * @author gerar
@@ -16,6 +19,7 @@ public class AgregarDispositivo extends javax.swing.JFrame {
     public AgregarDispositivo() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -296,14 +300,22 @@ public class AgregarDispositivo extends javax.swing.JFrame {
 
     private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
         // TODO add your handling code here:
+        MenuDispositivos menu = new MenuDispositivos();
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_CancelarButtonActionPerformed
 
     private void btnReturn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn1ActionPerformed
-
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturn1ActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

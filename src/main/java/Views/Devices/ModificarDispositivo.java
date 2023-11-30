@@ -4,6 +4,9 @@
  */
 package Views.Devices;
 
+import Views.Home;
+import Views.Perfil;
+
 /**
  *
  * @author gerar
@@ -15,6 +18,8 @@ public class ModificarDispositivo extends javax.swing.JFrame {
      */
     public ModificarDispositivo() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -300,11 +305,16 @@ public class ModificarDispositivo extends javax.swing.JFrame {
     }//GEN-LAST:event_IngresoPrioridadUsoActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     private void IgresoClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IgresoClasificacionActionPerformed
@@ -313,6 +323,9 @@ public class ModificarDispositivo extends javax.swing.JFrame {
 
     private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
         // TODO add your handling code here:
+        MenuDispositivos menu = new MenuDispositivos();
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_CancelarButtonActionPerformed
 
     private void IngresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoNameActionPerformed

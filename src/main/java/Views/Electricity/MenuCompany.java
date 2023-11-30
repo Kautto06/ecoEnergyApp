@@ -4,6 +4,7 @@
  */
 
 package Views.Electricity;
+import Views.*;
 
 /**
  *
@@ -15,6 +16,7 @@ public class MenuCompany extends javax.swing.JFrame {
     public MenuCompany() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -32,7 +34,6 @@ public class MenuCompany extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
@@ -40,6 +41,7 @@ public class MenuCompany extends javax.swing.JFrame {
         Agregar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         Volver = new javax.swing.JButton();
+        Modificar1 = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -55,17 +57,6 @@ public class MenuCompany extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 255, 102));
 
-        btnReturn.setBackground(new java.awt.Color(0, 255, 102));
-        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
-        btnReturn.setBorder(null);
-        btnReturn.setContentAreaFilled(false);
-        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturnActionPerformed(evt);
-            }
-        });
-
         btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
         btnUserInfo1.setBorder(null);
@@ -74,7 +65,6 @@ public class MenuCompany extends javax.swing.JFrame {
         btnUserInfo1.setFocusPainted(false);
         btnUserInfo1.setFocusable(false);
         btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
         btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserInfo1ActionPerformed(evt);
@@ -87,18 +77,14 @@ public class MenuCompany extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnUserInfo1)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(btnReturn)
-                .addGap(347, 347, 347)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addGap(449, 449, 449)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addGap(41, 41, 41))
         );
 
@@ -154,6 +140,17 @@ public class MenuCompany extends javax.swing.JFrame {
             }
         });
 
+        Modificar1.setBackground(new java.awt.Color(255, 255, 255));
+        Modificar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Modificar1.setForeground(new java.awt.Color(0, 0, 0));
+        Modificar1.setText("Mostrar Compañias");
+        Modificar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Modificar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Modificar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,12 +167,13 @@ public class MenuCompany extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Agregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Eliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Modificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Modificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3))
-                            .addComponent(Eliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3)))
                         .addContainerGap(149, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,11 +186,13 @@ public class MenuCompany extends javax.swing.JFrame {
                 .addComponent(Titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Modificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -213,27 +213,46 @@ public class MenuCompany extends javax.swing.JFrame {
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         // TODO add your handling code here:
+        MenuActualizarCompania actualizar = new MenuActualizarCompania();
+        actualizar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         // TODO add your handling code here:
+        MenuAgregarCompania agregar = new MenuAgregarCompania();
+        agregar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
+        MenuEliminarCompania eliminar = new MenuEliminarCompania();
+        eliminar.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         // TODO add your handling code here:
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_VolverActionPerformed
-
-    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
-    }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
+
+    private void Modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modificar1ActionPerformed
+        // TODO add your handling code here:
+        VerCompanies menu = new VerCompanies();
+        menu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Modificar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,9 +297,9 @@ public class MenuCompany extends javax.swing.JFrame {
     private javax.swing.JButton Eliminar;
     private javax.swing.JLabel Icon;
     private javax.swing.JButton Modificar;
+    private javax.swing.JButton Modificar1;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton Volver;
-    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

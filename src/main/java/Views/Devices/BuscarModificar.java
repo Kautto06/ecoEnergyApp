@@ -4,6 +4,10 @@
  */
 package Views.Devices;
 
+import Views.Home;
+import Views.Perfil;
+import Models.Device;
+
 /**
  *
  * @author gerar
@@ -16,6 +20,7 @@ public class BuscarModificar extends javax.swing.JFrame {
     public BuscarModificar() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -139,12 +144,22 @@ public class BuscarModificar extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         AceptarButton.setBackground(new java.awt.Color(0, 255, 102));
         AceptarButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         AceptarButton.setForeground(new java.awt.Color(0, 0, 0));
         AceptarButton.setText("Aceptar");
         AceptarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarButtonActionPerformed(evt);
+            }
+        });
 
         jTable2.setBackground(new java.awt.Color(255, 255, 255));
         jTable2.setForeground(new java.awt.Color(0, 0, 0));
@@ -242,12 +257,25 @@ public class BuscarModificar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo2ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo2ActionPerformed
+
+    private void AceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarButtonActionPerformed
+ 
+    }//GEN-LAST:event_AceptarButtonActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

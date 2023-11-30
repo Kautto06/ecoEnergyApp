@@ -5,6 +5,9 @@
 
 package Views.Electricity;
 
+import Views.Home;
+import Views.Perfil;
+
 
 /**
  *
@@ -16,6 +19,7 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
     public MenuActualizarCompania() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -246,11 +250,16 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

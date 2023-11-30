@@ -5,6 +5,9 @@
 
 package Views.Devices;
 
+import Views.Home;
+import Views.Perfil;
+
 /**
  *
  * @author alvar
@@ -14,6 +17,8 @@ public class MenuDispositivos extends javax.swing.JFrame {
     /** Creates new form GastoEnergetico */
     public MenuDispositivos() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -31,7 +36,6 @@ public class MenuDispositivos extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
@@ -55,17 +59,6 @@ public class MenuDispositivos extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 255, 102));
 
-        btnReturn.setBackground(new java.awt.Color(0, 255, 102));
-        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
-        btnReturn.setBorder(null);
-        btnReturn.setContentAreaFilled(false);
-        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturnActionPerformed(evt);
-            }
-        });
-
         btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
         btnUserInfo1.setBorder(null);
@@ -74,7 +67,6 @@ public class MenuDispositivos extends javax.swing.JFrame {
         btnUserInfo1.setFocusPainted(false);
         btnUserInfo1.setFocusable(false);
         btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
         btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserInfo1ActionPerformed(evt);
@@ -87,17 +79,13 @@ public class MenuDispositivos extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnUserInfo1)
                 .addGap(19, 19, 19))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(btnReturn)
-                .addGap(344, 344, 344)
+                .addGap(447, 447, 447)
                 .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addGap(43, 43, 43))
         );
@@ -227,30 +215,44 @@ public class MenuDispositivos extends javax.swing.JFrame {
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         // TODO add your handling code here:
+        BuscarModificar menu = new BuscarModificar();
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         // TODO add your handling code here:
+        AgregarDispositivo menu = new AgregarDispositivo();
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
+        EliminarDispositivo menu = new EliminarDispositivo();
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         // TODO add your handling code here:
+        Home menuPrincipal = new Home();
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_VolverActionPerformed
-
-    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
-    }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         // TODO add your handling code here:
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     private void Modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modificar1ActionPerformed
         // TODO add your handling code here:
+        MostrarDevices menu = new MostrarDevices();
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_Modificar1ActionPerformed
 
     /**
@@ -299,7 +301,6 @@ public class MenuDispositivos extends javax.swing.JFrame {
     private javax.swing.JButton Modificar1;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton Volver;
-    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
