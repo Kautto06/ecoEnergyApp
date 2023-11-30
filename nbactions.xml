@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM--e</actionName>
+            <displayName>-e</displayName>
+            <goals>
+                <goal>aaa</goal>
+            </goals>
+            <properties>
+                <e></e>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>aa</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

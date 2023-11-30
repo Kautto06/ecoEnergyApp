@@ -5,6 +5,8 @@
 
 package Views.Homes;
 
+import Views.Perfil;
+
 import java.awt.event.ActionEvent;
 
 /**
@@ -17,6 +19,7 @@ public class MenuActualizarHome extends javax.swing.JFrame {
     public MenuActualizarHome() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -151,6 +154,11 @@ public class MenuActualizarHome extends javax.swing.JFrame {
         btnReturn.setBorder(null);
         btnReturn.setContentAreaFilled(false);
         btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
 
         btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
@@ -216,8 +224,17 @@ public class MenuActualizarHome extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        Perfil menu=new Perfil();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+          MenuHomes menu =new MenuHomes();
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReturnActionPerformed
+    
 
     /**
      * @param args the command line arguments
