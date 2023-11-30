@@ -31,10 +31,11 @@ public class EliminarUser extends javax.swing.JFrame {
         jpNavbar = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
-        lbIcon = new javax.swing.JLabel();
         lbMessage = new javax.swing.JLabel();
         tfRut = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,7 +78,7 @@ public class EliminarUser extends javax.swing.JFrame {
                 .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnUserInfo1)
                     .addComponent(btnReturn))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jpNavbarLayout.setVerticalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,11 +86,9 @@ public class EliminarUser extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(btnReturn)
                 .addGap(297, 297, 297)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                 .addGap(40, 40, 40))
         );
-
-        lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
 
         lbMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbMessage.setForeground(new java.awt.Color(0, 0, 0));
@@ -115,47 +114,60 @@ public class EliminarUser extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jpHomeLayout = new javax.swing.GroupLayout(jpHome);
         jpHome.setLayout(jpHomeLayout);
         jpHomeLayout.setHorizontalGroup(
             jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpHomeLayout.createSequentialGroup()
                 .addComponent(jpNavbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpHomeLayout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(lbIcon))
-                    .addGroup(jpHomeLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(tfRut, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpHomeLayout.createSequentialGroup()
-                        .addGap(113, 113, 113)
+                        .addGap(87, 87, 87)
                         .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfRut, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpHomeLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(lbMessage)))
-                .addGap(62, 62, 62))
+                        .addGap(27, 27, 27)
+                        .addGroup(jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbMessage)
+                            .addGroup(jpHomeLayout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jpHomeLayout.setVerticalGroup(
             jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpNavbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpHomeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(lbMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(lbMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfRut, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
                 .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,9 +239,10 @@ public class EliminarUser extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpHome;
     private javax.swing.JPanel jpNavbar;
-    private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbMessage;
     private javax.swing.JTextField tfRut;
     // End of variables declaration//GEN-END:variables
