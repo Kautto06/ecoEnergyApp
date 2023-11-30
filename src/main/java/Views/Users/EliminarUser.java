@@ -4,6 +4,8 @@
  */
 package Views.Users;
 
+
+import Views.Perfil;
 /**
  *
  * @author gerar
@@ -16,6 +18,7 @@ public class EliminarUser extends javax.swing.JFrame {
     public EliminarUser() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -90,16 +93,23 @@ public class EliminarUser extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
+        lbMessage.setBackground(new java.awt.Color(255, 255, 255));
         lbMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbMessage.setForeground(new java.awt.Color(0, 0, 0));
         lbMessage.setText("Ingrese el rut del usuario que desea eliminar: ");
 
+        tfRut.setBackground(new java.awt.Color(255, 255, 255));
+        tfRut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tfRut.setForeground(new java.awt.Color(0, 0, 0));
         tfRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfRutActionPerformed(evt);
             }
         });
 
+        btnConfirmar.setBackground(new java.awt.Color(255, 255, 255));
         btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
         btnConfirmar.setText("Confirmar");
         btnConfirmar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -201,15 +211,21 @@ public class EliminarUser extends javax.swing.JFrame {
     }//GEN-LAST:event_tfRutActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        MenuUsers mu = new MenuUsers();
+        mu.setVisible(true);
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        this.dispose();
+        MenuUsers mu = new MenuUsers();
+        mu.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

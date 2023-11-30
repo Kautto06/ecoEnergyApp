@@ -5,6 +5,9 @@
 
 package Views.Users;
 
+import Views.Home;
+import Views.Perfil;
+
 /**
  *
  * @author alvar
@@ -15,6 +18,7 @@ public class MenuUsers extends javax.swing.JFrame {
     public MenuUsers() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -32,12 +36,11 @@ public class MenuUsers extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
         Titulo = new javax.swing.JLabel();
-        Agregar = new javax.swing.JButton();
+        Mostrar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         Volver = new javax.swing.JButton();
 
@@ -54,17 +57,6 @@ public class MenuUsers extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(0, 255, 102));
-
-        btnReturn.setBackground(new java.awt.Color(0, 255, 102));
-        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
-        btnReturn.setBorder(null);
-        btnReturn.setContentAreaFilled(false);
-        btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturnActionPerformed(evt);
-            }
-        });
 
         btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
@@ -86,20 +78,16 @@ public class MenuUsers extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(btnUserInfo1)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btnReturn)
-                .addGap(324, 324, 324)
+                .addGap(454, 454, 454)
                 .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addGap(56, 56, 56))
+                .addGap(36, 36, 36))
         );
 
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -121,14 +109,14 @@ public class MenuUsers extends javax.swing.JFrame {
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Menu Users");
 
-        Agregar.setBackground(new java.awt.Color(255, 255, 255));
-        Agregar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Agregar.setForeground(new java.awt.Color(0, 0, 0));
-        Agregar.setText("Mostrar usuarios");
-        Agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Agregar.addActionListener(new java.awt.event.ActionListener() {
+        Mostrar.setBackground(new java.awt.Color(255, 255, 255));
+        Mostrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Mostrar.setForeground(new java.awt.Color(0, 0, 0));
+        Mostrar.setText("Mostrar usuarios");
+        Mostrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Mostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarActionPerformed(evt);
+                MostrarActionPerformed(evt);
             }
         });
 
@@ -173,7 +161,7 @@ public class MenuUsers extends javax.swing.JFrame {
                                 .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(149, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -185,7 +173,7 @@ public class MenuUsers extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(Titulo)
                 .addGap(30, 30, 30)
-                .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Mostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -210,27 +198,33 @@ public class MenuUsers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        SeleccionarUserModificar sum= new SeleccionarUserModificar();
+        sum.setVisible(true);
     }//GEN-LAST:event_ModificarActionPerformed
 
-    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarActionPerformed
+    private void MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarActionPerformed
+        this.dispose();
+        VerUsuarios vu = new VerUsuarios();
+        vu.setVisible(true);
+    }//GEN-LAST:event_MostrarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        EliminarUser eu= new EliminarUser();
+        eu.setVisible(true);
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Home menu = new Home();
+        menu.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
 
-    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
-    }//GEN-LAST:event_btnReturnActionPerformed
-
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
@@ -270,13 +264,12 @@ public class MenuUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agregar;
     private javax.swing.JButton Eliminar;
     private javax.swing.JLabel Icon;
     private javax.swing.JButton Modificar;
+    private javax.swing.JButton Mostrar;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton Volver;
-    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

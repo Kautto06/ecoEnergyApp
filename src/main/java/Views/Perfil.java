@@ -4,6 +4,8 @@
  */
 package Views;
 
+import Views.Users.ModificarDatosUser;
+
 /**
  *
  * @author gerar
@@ -16,6 +18,7 @@ public class Perfil extends javax.swing.JFrame {
     public Perfil() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -132,11 +135,16 @@ public class Perfil extends javax.swing.JFrame {
         EditarButton.setForeground(new java.awt.Color(0, 0, 0));
         EditarButton.setText("Editar");
         EditarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        EditarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarButtonActionPerformed(evt);
+            }
+        });
 
         Exit.setBackground(new java.awt.Color(0, 255, 102));
         Exit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Exit.setForeground(new java.awt.Color(0, 0, 0));
-        Exit.setText("Salir");
+        Exit.setText("Cerrar Sesion");
         Exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,18 +188,21 @@ public class Perfil extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MensajeFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 75, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(EditarButton)
-                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MensajeRut, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(EditarButton))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(Exit)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(70, 70, 70)
+                                        .addComponent(MensajeRut, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(135, 135, 135)
+                                        .addComponent(Exit)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,12 +256,22 @@ public class Perfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Login iniciar = new Login();
+        iniciar.setVisible(true);
     }//GEN-LAST:event_ExitActionPerformed
 
     private void btnReturn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn1ActionPerformed
-
+        this.dispose();
+        Home menu = new Home();
+        menu.setVisible(true);
     }//GEN-LAST:event_btnReturn1ActionPerformed
+
+    private void EditarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarButtonActionPerformed
+        this.dispose();
+        ModificarDatosUser mdu = new ModificarDatosUser();
+        mdu.setVisible(true);
+    }//GEN-LAST:event_EditarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,7 +320,6 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel Nombre;
     private javax.swing.JLabel Pass;
     private javax.swing.JLabel Rut;
-    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnReturn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

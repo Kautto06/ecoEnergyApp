@@ -16,6 +16,7 @@ public class Registro extends javax.swing.JFrame {
     public Registro() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -63,6 +64,7 @@ public class Registro extends javax.swing.JFrame {
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flecha.png"))); // NOI18N
         btnReturn.setBorder(null);
+        btnReturn.setContentAreaFilled(false);
         btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,6 +186,11 @@ public class Registro extends javax.swing.JFrame {
         OK.setForeground(new java.awt.Color(0, 0, 0));
         OK.setText("OK");
         OK.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        OK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -295,11 +302,13 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void IngresoRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoRutActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_IngresoRutActionPerformed
 
     private void IngresoNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoNombresActionPerformed
@@ -317,6 +326,12 @@ public class Registro extends javax.swing.JFrame {
     private void IngresoFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IngresoFechaActionPerformed
+
+    private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_OKActionPerformed
 
     /**
      * @param args the command line arguments

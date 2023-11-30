@@ -4,6 +4,8 @@
  */
 package Views.Users;
 
+import Views.Perfil;
+
 /**
  *
  * @author gerar
@@ -16,6 +18,7 @@ public class ModificarDatosUser extends javax.swing.JFrame {
     public ModificarDatosUser() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -30,19 +33,18 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         jpHome = new javax.swing.JPanel();
         jpNavbar = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         lbIcon = new javax.swing.JLabel();
         lbMessage = new javax.swing.JLabel();
         tfNombres = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
         lbMessage1 = new javax.swing.JLabel();
         tfApellidos = new javax.swing.JTextField();
         lbMessage3 = new javax.swing.JLabel();
         tfFechaNacimiento = new javax.swing.JTextField();
         lbMessage4 = new javax.swing.JLabel();
-        tfPassword = new javax.swing.JTextField();
         lbMessage5 = new javax.swing.JLabel();
-        tfConfirmarPassword = new javax.swing.JTextField();
+        pfPassword = new javax.swing.JPasswordField();
+        pfConfirmar = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,40 +63,21 @@ public class ModificarDatosUser extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpNavbarLayout = new javax.swing.GroupLayout(jpNavbar);
         jpNavbar.setLayout(jpNavbarLayout);
         jpNavbarLayout.setHorizontalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jpNavbarLayout.setVerticalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(31, 31, 31)
                 .addComponent(btnReturn)
-                .addGap(276, 276, 276)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(52, 52, 52))
+                .addContainerGap(426, Short.MAX_VALUE))
         );
 
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -111,15 +94,15 @@ public class ModificarDatosUser extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Confirmar");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setBackground(new java.awt.Color(255, 255, 255));
+        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
             }
         });
 
@@ -151,25 +134,17 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         lbMessage4.setForeground(new java.awt.Color(0, 0, 0));
         lbMessage4.setText("Ingrese la contraseña");
 
-        tfPassword.setBackground(new java.awt.Color(255, 255, 255));
-        tfPassword.setForeground(new java.awt.Color(0, 0, 0));
-        tfPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPasswordActionPerformed(evt);
-            }
-        });
-
         lbMessage5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbMessage5.setForeground(new java.awt.Color(0, 0, 0));
         lbMessage5.setText("Confirme la contraseña:");
 
-        tfConfirmarPassword.setBackground(new java.awt.Color(255, 255, 255));
-        tfConfirmarPassword.setForeground(new java.awt.Color(0, 0, 0));
-        tfConfirmarPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfConfirmarPasswordActionPerformed(evt);
-            }
-        });
+        pfPassword.setBackground(new java.awt.Color(255, 255, 255));
+        pfPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        pfPassword.setForeground(new java.awt.Color(0, 0, 0));
+
+        pfConfirmar.setBackground(new java.awt.Color(255, 255, 255));
+        pfConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        pfConfirmar.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jpHomeLayout = new javax.swing.GroupLayout(jpHome);
         jpHome.setLayout(jpHomeLayout);
@@ -179,35 +154,35 @@ public class ModificarDatosUser extends javax.swing.JFrame {
                 .addComponent(jpNavbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpHomeLayout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(lbIcon))
-                    .addGroup(jpHomeLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(lbMessage))
                     .addGroup(jpHomeLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                             .addComponent(lbMessage1)
-                            .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                            .addComponent(tfFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                             .addComponent(lbMessage3)
-                            .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbMessage4)
-                            .addComponent(tfConfirmarPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbMessage5)))
+                            .addComponent(lbMessage5)
+                            .addComponent(pfPassword)
+                            .addComponent(pfConfirmar)))
                     .addGroup(jpHomeLayout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(112, 112, 112)
+                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpHomeLayout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(lbIcon)))
                 .addGap(74, 74, 74))
         );
         jpHomeLayout.setVerticalGroup(
             jpHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpNavbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpHomeLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(lbMessage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,14 +197,14 @@ public class ModificarDatosUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbMessage4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbMessage5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfConfirmarPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pfConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,9 +225,11 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombresActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        this.dispose();
+        Perfil perfil= new Perfil();
+        perfil.setVisible(true);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void tfApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfApellidosActionPerformed
         // TODO add your handling code here:
@@ -262,21 +239,11 @@ public class ModificarDatosUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfFechaNacimientoActionPerformed
 
-    private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPasswordActionPerformed
-
-    private void tfConfirmarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfConfirmarPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfConfirmarPasswordActionPerformed
-
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        this.dispose();
+        Perfil perfil= new Perfil();
+        perfil.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,9 +296,8 @@ public class ModificarDatosUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jpHome;
     private javax.swing.JPanel jpNavbar;
     private javax.swing.JLabel lbIcon;
@@ -340,10 +306,10 @@ public class ModificarDatosUser extends javax.swing.JFrame {
     private javax.swing.JLabel lbMessage3;
     private javax.swing.JLabel lbMessage4;
     private javax.swing.JLabel lbMessage5;
+    private javax.swing.JPasswordField pfConfirmar;
+    private javax.swing.JPasswordField pfPassword;
     private javax.swing.JTextField tfApellidos;
-    private javax.swing.JTextField tfConfirmarPassword;
     private javax.swing.JTextField tfFechaNacimiento;
     private javax.swing.JTextField tfNombres;
-    private javax.swing.JTextField tfPassword;
     // End of variables declaration//GEN-END:variables
 }

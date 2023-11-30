@@ -4,6 +4,8 @@
  */
 package Views.Users;
 
+
+import Views.Perfil;
 /**
  *
  * @author gerar
@@ -16,6 +18,7 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
     public SeleccionarUserModificar() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -206,15 +209,21 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
     }//GEN-LAST:event_tfRutActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        ModificarRolUser mru = new ModificarRolUser();
+        mru.setVisible(true);
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        this.dispose();
+        MenuUsers mu = new MenuUsers();
+        mu.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

@@ -4,6 +4,10 @@
  */
 package Views;
 
+import Views.Homes.MenuHomes;
+import Views.Users.MenuUsers;
+import Views.Electricity.MenuCompany;
+
 /**
  *
  * @author gerar
@@ -15,6 +19,8 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -209,23 +215,32 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUserInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfoActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Perfil miPerfil= new Perfil();
+        miPerfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfoActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        MenuHomes mh = new MenuHomes();
+        mh.setVisible(true);
+        
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnElectricityCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElectricityCompanyActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        MenuCompany mc = new MenuCompany();
+        mc.setVisible(true);
     }//GEN-LAST:event_btnElectricityCompanyActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        MenuUsers mu = new MenuUsers();
+        mu.setVisible(true);
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

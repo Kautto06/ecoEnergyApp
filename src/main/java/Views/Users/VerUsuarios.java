@@ -5,8 +5,7 @@
 
 package Views.Users;
 
-import Views.Homes.*;
-
+import Views.Perfil;
 /**
  *
  * @author alvar
@@ -17,6 +16,7 @@ public class VerUsuarios extends javax.swing.JFrame {
     public VerUsuarios() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -117,6 +117,8 @@ public class VerUsuarios extends javax.swing.JFrame {
 
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
 
+        Tabla.setBackground(new java.awt.Color(255, 255, 255));
+        Tabla.setForeground(new java.awt.Color(0, 0, 0));
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -142,6 +144,7 @@ public class VerUsuarios extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Usuarios en esta home");
 
@@ -198,11 +201,15 @@ public class VerUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        this.dispose();
+        MenuUsers mu = new MenuUsers();
+        mu.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**

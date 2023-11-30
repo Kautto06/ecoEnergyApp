@@ -4,18 +4,18 @@
  */
 package Views;
 
+
+
 /**
  *
  * @author gerar
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login1
-     */
     public Login() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -116,6 +116,11 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setActionCommand("");
         btnLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -225,12 +230,20 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_tfPasswordActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnRegisterHereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterHereActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Registro register = new Registro();
+        register.setVisible(true);
     }//GEN-LAST:event_btnRegisterHereActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        this.dispose();
+        Home menu= new Home();
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments

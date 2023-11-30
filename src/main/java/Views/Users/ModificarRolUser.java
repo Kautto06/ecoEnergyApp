@@ -4,6 +4,8 @@
  */
 package Views.Users;
 
+
+import Views.Perfil;
 /**
  *
  * @author gerar
@@ -16,6 +18,7 @@ public class ModificarRolUser extends javax.swing.JFrame {
     public ModificarRolUser() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -34,7 +37,7 @@ public class ModificarRolUser extends javax.swing.JFrame {
         lbIcon = new javax.swing.JLabel();
         lbMessage = new javax.swing.JLabel();
         tfRol = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,15 +107,15 @@ public class ModificarRolUser extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Confirmar");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setBackground(new java.awt.Color(255, 255, 255));
+        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
             }
         });
 
@@ -133,7 +136,7 @@ public class ModificarRolUser extends javax.swing.JFrame {
                             .addComponent(lbMessage)))
                     .addGroup(jpHomeLayout.createSequentialGroup()
                         .addGap(113, 113, 113)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(62, 62, 62))
         );
         jpHomeLayout.setVerticalGroup(
@@ -147,7 +150,7 @@ public class ModificarRolUser extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(tfRol, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(103, Short.MAX_VALUE))
         );
 
@@ -169,16 +172,22 @@ public class ModificarRolUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfRolActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        this.dispose();
+        MenuUsers mu = new MenuUsers();
+        mu.setVisible(true);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        this.dispose();
+        SeleccionarUserModificar sum = new SeleccionarUserModificar();
+        sum.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Perfil perfil = new Perfil();
+        perfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
@@ -224,9 +233,9 @@ public class ModificarRolUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jpHome;
     private javax.swing.JPanel jpNavbar;
     private javax.swing.JLabel lbIcon;

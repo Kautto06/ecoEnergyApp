@@ -59,22 +59,28 @@ public class MenuActualizarHome extends javax.swing.JFrame {
 
         Titulo.setBackground(new java.awt.Color(255, 255, 255));
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(0, 0, 0));
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Ingrese el ID");
 
         Titulo1.setBackground(new java.awt.Color(255, 255, 255));
         Titulo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo1.setForeground(new java.awt.Color(0, 0, 0));
         Titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo1.setText("De la Home que desea actualizar");
 
+        Input.setBackground(new java.awt.Color(255, 255, 255));
         Input.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Input.setForeground(new java.awt.Color(0, 0, 0));
         Input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputActionPerformed(evt);
             }
         });
 
+        confirmar.setBackground(new java.awt.Color(255, 255, 255));
         confirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        confirmar.setForeground(new java.awt.Color(0, 0, 0));
         confirmar.setText("Confirmar");
         confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +89,7 @@ public class MenuActualizarHome extends javax.swing.JFrame {
             }
         });
 
+        Tabla.setBackground(new java.awt.Color(255, 255, 255));
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
