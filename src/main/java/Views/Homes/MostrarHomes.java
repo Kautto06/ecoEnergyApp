@@ -5,6 +5,8 @@
 
 package Views.Homes;
 
+import Views.Perfil;
+
 import java.awt.event.ActionEvent;
 
 /**
@@ -17,6 +19,7 @@ public class MostrarHomes extends javax.swing.JFrame {
     public MostrarHomes() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -37,8 +40,11 @@ public class MostrarHomes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
-        lbIcon = new javax.swing.JLabel();
         Titulo2 = new javax.swing.JLabel();
+        Titulo1 = new javax.swing.JLabel();
+        Titulo3 = new javax.swing.JLabel();
+        Input = new javax.swing.JTextField();
+        confirmar = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
 
@@ -84,39 +90,81 @@ public class MostrarHomes extends javax.swing.JFrame {
         Tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(Tabla);
 
-        lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
-
         Titulo2.setBackground(new java.awt.Color(255, 255, 255));
         Titulo2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo2.setText("Ver homes");
+
+        Titulo1.setBackground(new java.awt.Color(255, 255, 255));
+        Titulo1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Titulo1.setText("Ingrese el ID");
+
+        Titulo3.setBackground(new java.awt.Color(255, 255, 255));
+        Titulo3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Titulo3.setText("De la Home en la que desea ingresar");
+
+        Input.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InputActionPerformed(evt);
+            }
+        });
+
+        confirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        confirmar.setText("Confirmar");
+        confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbIcon)
-                        .addGap(198, 198, 198))
+                        .addComponent(Titulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(145, 145, 145))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))
+                        .addGap(14, 14, 14))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Titulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(155, 155, 155))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(183, 183, 183))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(131, 131, 131)
+                                .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Titulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(Titulo2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(Titulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addComponent(Titulo3)
+                .addGap(30, 30, 30)
+                .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
@@ -124,6 +172,11 @@ public class MostrarHomes extends javax.swing.JFrame {
         btnReturn.setBorder(null);
         btnReturn.setContentAreaFilled(false);
         btnReturn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
 
         btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
         btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
@@ -161,7 +214,7 @@ public class MostrarHomes extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(btnReturn)
                 .addGap(365, 365, 365)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -181,8 +234,24 @@ public class MostrarHomes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        Perfil menu=new Perfil();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        MenuHomes menu =new MenuHomes();
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InputActionPerformed
+
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,11 +352,15 @@ public class MostrarHomes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Input;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel Titulo1;
     private javax.swing.JLabel Titulo2;
+    private javax.swing.JLabel Titulo3;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JButton confirmar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -295,7 +368,6 @@ public class MostrarHomes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lbIcon;
     // End of variables declaration//GEN-END:variables
 
 

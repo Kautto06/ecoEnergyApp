@@ -4,6 +4,9 @@
  */
 
 package Views.Homes;
+import Views.*;
+
+import Models.User;
 
 /**
  *
@@ -15,6 +18,7 @@ public class MenuHomes extends javax.swing.JFrame {
     public MenuHomes() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -215,27 +219,39 @@ public class MenuHomes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        // TODO add your handling code here:
+        MenuActualizarHome menu= new MenuActualizarHome();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        // TODO add your handling code here:
+        MenuAgregar menu=new MenuAgregar();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        // TODO add your handling code here:
+        MenuEliminarHome menu= new MenuEliminarHome();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verActionPerformed
-        // TODO add your handling code here:
+        MostrarHomes menu =new MostrarHomes();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_verActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        Home menu =new Home();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
+        Perfil menu=new Perfil();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
