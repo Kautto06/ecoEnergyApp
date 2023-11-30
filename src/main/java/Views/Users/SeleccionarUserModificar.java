@@ -8,12 +8,12 @@ package Views.Users;
  *
  * @author gerar
  */
-public class EliminarUser extends javax.swing.JFrame {
+public class SeleccionarUserModificar extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
      */
-    public EliminarUser() {
+    public SeleccionarUserModificar() {
         initComponents();
         setResizable(false);
     }
@@ -92,7 +92,7 @@ public class EliminarUser extends javax.swing.JFrame {
 
         lbMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbMessage.setForeground(new java.awt.Color(0, 0, 0));
-        lbMessage.setText("Ingrese el rut del usuario que desea eliminar: ");
+        lbMessage.setText("Ingrese el rut del usuario que desea actualizar: ");
 
         tfRut.setBackground(new java.awt.Color(255, 255, 255));
         tfRut.setForeground(new java.awt.Color(0, 0, 0));
@@ -234,14 +234,22 @@ public class EliminarUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarUserModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarUserModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarUserModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EliminarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionarUserModificar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -254,7 +262,7 @@ public class EliminarUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EliminarUser().setVisible(true);
+                new SeleccionarUserModificar().setVisible(true);
             }
         });
     }
