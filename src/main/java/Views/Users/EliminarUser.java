@@ -91,20 +91,15 @@ public class EliminarUser extends javax.swing.JFrame {
         );
 
         lbMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbMessage.setForeground(new java.awt.Color(0, 0, 0));
         lbMessage.setText("Ingrese el rut del usuario que desea eliminar: ");
 
-        tfRut.setBackground(new java.awt.Color(255, 255, 255));
-        tfRut.setForeground(new java.awt.Color(0, 0, 0));
         tfRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfRutActionPerformed(evt);
             }
         });
 
-        btnConfirmar.setBackground(new java.awt.Color(255, 255, 255));
         btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
         btnConfirmar.setText("Confirmar");
         btnConfirmar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
