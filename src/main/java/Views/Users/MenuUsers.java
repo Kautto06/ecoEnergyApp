@@ -15,10 +15,21 @@ import Views.Perfil;
 public class MenuUsers extends javax.swing.JFrame {
 
     /** Creates new form GastoEnergetico */
+    
+    private String rutLogeado;
+    
     public MenuUsers() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+    }
+    
+    public void setRutLogeado(String rut){
+        this.rutLogeado=rut;
+    }
+    
+    public String getRutLogeado(){
+        return this.rutLogeado;
     }
 
     /** This method is called from within the constructor to
@@ -36,7 +47,6 @@ public class MenuUsers extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
         Titulo = new javax.swing.JLabel();
@@ -58,36 +68,15 @@ public class MenuUsers extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 255, 102));
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnUserInfo1)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGap(0, 104, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(454, 454, 454)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addGap(36, 36, 36))
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -200,32 +189,30 @@ public class MenuUsers extends javax.swing.JFrame {
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         this.dispose();
         SeleccionarUserModificar sum= new SeleccionarUserModificar();
+        sum.setRutLogeado(rutLogeado);
         sum.setVisible(true);
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarActionPerformed
         this.dispose();
         VerUsuarios vu = new VerUsuarios();
+        vu.setRutLogeado(rutLogeado);
         vu.setVisible(true);
     }//GEN-LAST:event_MostrarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         this.dispose();
         EliminarUser eu= new EliminarUser();
+        eu.setRutLogeado(rutLogeado);
         eu.setVisible(true);
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         this.dispose();
         Home menu = new Home();
+        menu.setRutLogeado(rutLogeado);
         menu.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        this.dispose();
-        Perfil perfil = new Perfil();
-        perfil.setVisible(true);
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +257,6 @@ public class MenuUsers extends javax.swing.JFrame {
     private javax.swing.JButton Mostrar;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton Volver;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

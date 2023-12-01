@@ -4,6 +4,13 @@
  */
 package Views.Pollution;
 
+import Database.SQLConnection;
+import Models.Pollution_state;
+import Views.EscogerReporte;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author gerar
@@ -13,8 +20,30 @@ public class ReportePollution extends javax.swing.JFrame {
     /**
      * Creates new form JFrame
      */
+    
+    private String rutLogeado;
+    private int idHome;
+    
     public ReportePollution() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
+    }
+    
+    public String getRutLogeado() {
+        return rutLogeado;
+    }
+
+    public void setRutLogeado(String rutLogeado) {
+        this.rutLogeado = rutLogeado;
+    }
+
+    public int getIdHome() {
+        return idHome;
+    }
+
+    public void setIdHome(int idHome) {
+        this.idHome = idHome;
     }
 
     /**
@@ -28,24 +57,23 @@ public class ReportePollution extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lbId = new javax.swing.JLabel();
+        lbConsumeState = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        lbIdHome = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        lbIdAdmin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lbFecha = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lbConsumoTotal = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lbMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,13 +83,11 @@ public class ReportePollution extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Estado de Consumo:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("ID Reporte");
+        lbId.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbId.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("Costo Total");
+        lbConsumeState.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbConsumeState.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -70,7 +96,7 @@ public class ReportePollution extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 255, 102));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Aceptar");
+        jButton1.setText("Cargar Datos");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,9 +104,8 @@ public class ReportePollution extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("ID Home");
+        lbIdHome.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbIdHome.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -99,30 +124,13 @@ public class ReportePollution extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
@@ -130,14 +138,11 @@ public class ReportePollution extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(btnReturn)
-                .addGap(287, 287, 287)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addGap(47, 47, 47))
+                .addContainerGap(399, Short.MAX_VALUE))
         );
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("ID Admin");
+        lbIdAdmin.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbIdAdmin.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -147,9 +152,8 @@ public class ReportePollution extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Fecha:");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Fecha");
+        lbFecha.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbFecha.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
@@ -159,17 +163,15 @@ public class ReportePollution extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("ID:");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Consumo Total");
+        lbConsumoTotal.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbConsumoTotal.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Mensaje:");
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Mensaje");
+        lbMensaje.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lbMensaje.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,38 +186,38 @@ public class ReportePollution extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbIdHome, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbIdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbConsumoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbConsumeState, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lbMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(157, 157, 157)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(231, 231, 231)
                         .addComponent(jButton1)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,31 +228,33 @@ public class ReportePollution extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(lbId))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(lbIdHome))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(lbIdAdmin))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(lbFecha))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(lbConsumoTotal))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addComponent(lbConsumeState))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(2, 2, 2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(55, 55, 55))
@@ -281,16 +285,51 @@ public class ReportePollution extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Pollution_state buscado = new Pollution_state();
+        String sql = "SELECT * FROM Pollution_State WHERE ID_Home = " +idHome;
+        ResultSet resultSet=null;
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+        try (Statement statement = conexion.getConexion().createStatement()) {
+            resultSet = statement.executeQuery(sql);
+            System.out.println("Consulta ejecutada con éxito.");
+            if (resultSet.next()) {
+                buscado.setId(resultSet.getInt("ID"));
+                buscado.setIdHome(resultSet.getInt("ID_Home"));
+                buscado.setIdAdminHome(resultSet.getString("ID_Admin"));
+                buscado.setFecha(resultSet.getString("Fecha"));
+                buscado.setTotal_Consume(resultSet.getDouble("Total_Consume"));
+                buscado.setConsume_State(resultSet.getDouble("Consume_State"));
+                buscado.setMessage(resultSet.getString("Message"));
+
+                // Puedes agregar más lógica según sea necesario
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
+        lbId.setText(String.valueOf(buscado.getId()));
+        lbIdAdmin.setText(buscado.getIdAdminHome());
+        lbIdHome.setText(String.valueOf(buscado.getIdHome()));
+        lbFecha.setText(buscado.getFecha());
+        lbConsumeState.setText(String.valueOf(buscado.getConsume_State()));
+        lbConsumoTotal.setText(String.valueOf(buscado.getTotal_Consume()));
+        lbMensaje.setText(buscado.getMessage());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        EscogerReporte er = new EscogerReporte();
+        er.setIdHome(idHome);
+        er.setRutLogeado(rutLogeado);
+        this.dispose();
+        er.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,24 +369,23 @@ public class ReportePollution extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbConsumeState;
+    private javax.swing.JLabel lbConsumoTotal;
+    private javax.swing.JLabel lbFecha;
+    private javax.swing.JLabel lbId;
+    private javax.swing.JLabel lbIdAdmin;
+    private javax.swing.JLabel lbIdHome;
+    private javax.swing.JLabel lbMensaje;
     // End of variables declaration//GEN-END:variables
 }

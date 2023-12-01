@@ -15,6 +15,12 @@ import Models.User;
 public class MenuHomes extends javax.swing.JFrame {
 
     /** Creates new form GastoEnergetico */
+    private String IdUser;
+
+    public void setIdUser(String idUser) {
+        this.IdUser = idUser;
+    }
+
     public MenuHomes() {
         initComponents();
         setResizable(false);
@@ -37,7 +43,6 @@ public class MenuHomes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
         Titulo = new javax.swing.JLabel();
@@ -70,30 +75,13 @@ public class MenuHomes extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -101,16 +89,12 @@ public class MenuHomes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(btnReturn)
-                .addGap(350, 350, 350)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(37, 37, 37))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
 
-        Modificar.setBackground(new java.awt.Color(255, 255, 255));
         Modificar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Modificar.setForeground(new java.awt.Color(0, 0, 0));
         Modificar.setText("Modificar una home");
         Modificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,13 +105,10 @@ public class MenuHomes extends javax.swing.JFrame {
 
         Titulo.setBackground(new java.awt.Color(255, 255, 255));
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(0, 0, 0));
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Menu Home");
 
-        Agregar.setBackground(new java.awt.Color(255, 255, 255));
         Agregar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Agregar.setForeground(new java.awt.Color(0, 0, 0));
         Agregar.setText("Agregar nueva home");
         Agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,9 +117,7 @@ public class MenuHomes extends javax.swing.JFrame {
             }
         });
 
-        Eliminar.setBackground(new java.awt.Color(255, 255, 255));
         Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Eliminar.setForeground(new java.awt.Color(0, 0, 0));
         Eliminar.setText("Eliminar una home");
         Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,9 +126,7 @@ public class MenuHomes extends javax.swing.JFrame {
             }
         });
 
-        ver.setBackground(new java.awt.Color(255, 255, 255));
         ver.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ver.setForeground(new java.awt.Color(0, 0, 0));
         ver.setText("Ver homes");
         ver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ver.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +197,7 @@ public class MenuHomes extends javax.swing.JFrame {
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         MenuActualizarHome menu= new MenuActualizarHome();
+        menu.setIdUsuario(this.IdUser);
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ModificarActionPerformed
@@ -227,32 +205,30 @@ public class MenuHomes extends javax.swing.JFrame {
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         MenuAgregar menu=new MenuAgregar();
         menu.setVisible(true);
+        menu.setIdUser(this.IdUser);
         this.dispose();
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         MenuEliminarHome menu= new MenuEliminarHome();
         menu.setVisible(true);
+        menu.setIdUser(this.IdUser);
         this.dispose();
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verActionPerformed
         MostrarHomes menu =new MostrarHomes();
         menu.setVisible(true);
+        menu.setIdUser(IdUser);
         this.dispose();
     }//GEN-LAST:event_verActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         Home menu =new Home();
         menu.setVisible(true);
+        menu.setRutLogeado(this.IdUser);
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        Perfil menu=new Perfil();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,7 +275,6 @@ public class MenuHomes extends javax.swing.JFrame {
     private javax.swing.JButton Modificar;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

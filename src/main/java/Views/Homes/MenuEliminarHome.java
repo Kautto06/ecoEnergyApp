@@ -5,17 +5,37 @@
 
 package Views.Homes;
 
+import Controllers.HomeController;
+import Database.SQLConnection;
+import Models.User;
 import Views.Perfil;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import Controllers.UserController;
 /**
  *
  * @author alvar
  */
 public class MenuEliminarHome extends javax.swing.JFrame {
 
+
+    private int idComprobar;
+
+    private String idUser;
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
     /** Creates new form GastoEnergetico */
     public MenuEliminarHome() {
         initComponents();
+        Invalido.setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);
     }
@@ -34,13 +54,14 @@ public class MenuEliminarHome extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         Titulo = new javax.swing.JLabel();
         Titulo1 = new javax.swing.JLabel();
         Input = new javax.swing.JTextField();
         confirmar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        Invalido = new javax.swing.JLabel();
+        cargarDatos = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,30 +93,13 @@ public class MenuEliminarHome extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -103,9 +107,7 @@ public class MenuEliminarHome extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnReturn)
-                .addGap(322, 322, 322)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(74, 74, 74))
+                .addContainerGap(460, Short.MAX_VALUE))
         );
 
         Titulo.setBackground(new java.awt.Color(255, 255, 255));
@@ -157,6 +159,22 @@ public class MenuEliminarHome extends javax.swing.JFrame {
         Tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(Tabla);
 
+        Invalido.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido.setText("Ingrese un id valido");
+
+        cargarDatos.setBackground(new java.awt.Color(0, 255, 102));
+        cargarDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cargarDatos.setText("Cargar Datos");
+        cargarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,21 +185,29 @@ public class MenuEliminarHome extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(166, 166, 166))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(88, 88, 88)
-                                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(17, 17, 17))))
+                            .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(164, 164, 164)
+                                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cargarDatos))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(134, 134, 134)
+                                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(90, 90, 90)
+                                        .addComponent(Invalido, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,11 +219,16 @@ public class MenuEliminarHome extends javax.swing.JFrame {
                 .addComponent(Titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Titulo1)
-                .addGap(18, 18, 18)
-                .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
+                .addGap(33, 33, 33)
+                .addComponent(Invalido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cargarDatos))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,20 +250,81 @@ public class MenuEliminarHome extends javax.swing.JFrame {
     }//GEN-LAST:event_InputActionPerformed
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
+        HomeController controlador = new HomeController();
+        String inputText = Input.getText();
+
+        try {
+            idComprobar = Integer.parseInt(inputText);
+
+        } catch (NumberFormatException e) {
+            Invalido.setVisible(true);
+        }
+        idComprobar=Integer.parseInt(inputText);
+        if(controlador.verificarHome(idComprobar)==1)
+        {
+            controlador.eliminarHomeDeBD(controlador.obtenerHomePorId(idComprobar));
+            JOptionPane.showMessageDialog(this, "Home eliminada correctamente");
+            Invalido.setVisible(false);
+            MenuHomes menu= new MenuHomes();
+            menu.setVisible(true);
+            menu.setIdUser(idUser);
+            this.dispose();
+        }
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         MenuHomes menu =new MenuHomes();
         menu.setVisible(true);
+        UserController controlador = new UserController();
+        User usuario = controlador.obtenerUsuarioPorRut(this.idUser);
+        menu.setIdUser(idUser);
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        Perfil menu=new Perfil();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
+        UserController controlador = new UserController();
+        User usuario = controlador.obtenerUsuarioPorRut(this.idUser);
+        LlenarTabla(usuario);
+    }
+
+    private void LlenarTabla(User usuario)
+    {
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        ResultSet resultSet=null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql=" ";
+
+        if(usuario.getRol().equals("ADMIN") || usuario.getRol().equals("CEO"))
+        {sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME";}
+        else
+        {sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME AS H JOIN Users_Home AS UH ON UH.ID_HOME = H.ID JOIN User AS U ON U.RUT = UH.RUT WHERE UH.EsAdmin = 'S' ";}
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Nombre"),
+                        resultSet.getString("Company_Rut"),
+                        resultSet.getString("Enviroment_Type")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }//GEN-LAST:event_cargarDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,11 +378,12 @@ public class MenuEliminarHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Input;
+    private javax.swing.JLabel Invalido;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Titulo1;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JButton cargarDatos;
     private javax.swing.JButton confirmar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

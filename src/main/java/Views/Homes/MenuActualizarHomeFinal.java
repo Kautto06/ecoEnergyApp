@@ -5,7 +5,14 @@
 
 package Views.Homes;
 
+import Models.Electricity_Company;
+import Models.Home;
 import Views.Perfil;
+import Controllers.HomeController;
+import Controllers.ElectricityCompanyController;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -13,11 +20,24 @@ import Views.Perfil;
  */
 public class MenuActualizarHomeFinal extends javax.swing.JFrame {
 
-    /** Creates new form GastoEnergetico */
+    private int idComprobar;
+    private String RutCompania;
+    private String idUser;
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    private Home home;
+
     public MenuActualizarHomeFinal() {
         initComponents();
+        Invalido1.setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);
+    }
+    public void setIdComprobar(int idComprobar) {
+        this.idComprobar = idComprobar;
     }
 
     /** This method is called from within the constructor to
@@ -34,10 +54,10 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         Volver1 = new javax.swing.JButton();
+        Invalido = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         Titulo1 = new javax.swing.JLabel();
@@ -50,6 +70,7 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        Invalido1 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -66,6 +87,12 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
                 Volver1ActionPerformed(evt);
             }
         });
+
+        Invalido.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido.setText("Ingrese un id valido");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,30 +111,13 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -115,9 +125,7 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(btnReturn)
-                .addGap(328, 328, 328)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(37, 37, 37))
+                .addContainerGap(430, Short.MAX_VALUE))
         );
 
         Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -128,18 +136,14 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
         Titulo1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        InputNombre.setBackground(new java.awt.Color(255, 255, 255));
         InputNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        InputNombre.setForeground(new java.awt.Color(0, 0, 0));
         InputNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputNombreActionPerformed(evt);
             }
         });
 
-        confirmar.setBackground(new java.awt.Color(255, 255, 255));
         confirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        confirmar.setForeground(new java.awt.Color(0, 0, 0));
         confirmar.setText("Confirmar");
         confirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -148,18 +152,14 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
             }
         });
 
-        InputTipoAmbiente.setBackground(new java.awt.Color(255, 255, 255));
         InputTipoAmbiente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        InputTipoAmbiente.setForeground(new java.awt.Color(0, 0, 0));
         InputTipoAmbiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputTipoAmbienteActionPerformed(evt);
             }
         });
 
-        InputCompanyRut.setBackground(new java.awt.Color(255, 255, 255));
         InputCompanyRut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        InputCompanyRut.setForeground(new java.awt.Color(0, 0, 0));
         InputCompanyRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InputCompanyRutActionPerformed(evt);
@@ -168,27 +168,29 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ingrese los nuevos datos de la home");
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Nombre =");
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Rut de tu compañia=");
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Tipo de ambiente=");
+
+        Invalido1.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido1.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido1.setText("Ingrese un rut de compañia valido");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -198,7 +200,7 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +209,8 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(InputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(InputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Invalido1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(15, 15, 15))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +237,7 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
                                     .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(159, 159, 159)
+                                .addGap(156, 156, 156)
                                 .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -263,9 +266,11 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(InputTipoAmbiente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Invalido1)
+                .addGap(18, 18, 18)
                 .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,7 +288,27 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
+
+        ElectricityCompanyController controlador= new ElectricityCompanyController();
+        HomeController controllerHome= new HomeController();
+
+        RutCompania=InputCompanyRut.getText();
+        Home home=controllerHome.obtenerHomePorId(idComprobar);
+
+        if(controlador.ComprobarCompania(RutCompania)==1)
+        {
+            Home NewHome= new Home(home.getId(),RutCompania,InputNombre.getText(),InputTipoAmbiente.getText(),home.getIdAdminHome());
+            controllerHome.actualizarHomeEnBD(NewHome);
+            JOptionPane.showMessageDialog(this, "Home actualizada correctamente");
+            Invalido1.setVisible(false);
+            MenuHomes menu= new MenuHomes();
+            menu.setVisible(true);
+            menu.setIdUser(idUser);
+            this.dispose();
+        }
+        else
+            Invalido1.setVisible(true);
+
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void InputNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputNombreActionPerformed
@@ -307,12 +332,6 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        Perfil menu=new Perfil();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,11 +436,12 @@ public class MenuActualizarHomeFinal extends javax.swing.JFrame {
     private javax.swing.JTextField InputCompanyRut;
     private javax.swing.JTextField InputNombre;
     private javax.swing.JTextField InputTipoAmbiente;
+    private javax.swing.JLabel Invalido;
+    private javax.swing.JLabel Invalido1;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Titulo1;
     private javax.swing.JButton Volver1;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JButton confirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

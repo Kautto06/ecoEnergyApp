@@ -4,17 +4,28 @@
  */
 
 package Views.Electricity;
-
+import Controllers.ElectricityCompanyController;
+import Database.SQLConnection;
+import Models.Electricity_Company;
+import Views.Home;
+import Views.Perfil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
 /**
  *
  * @author alvar
  */
 public class MenuEliminarCompania extends javax.swing.JFrame {
-
+    String rutLogueado;    
     /** Creates new form GastoEnergetico */
     public MenuEliminarCompania() {
         initComponents();
+        LlenarTabla();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -33,7 +44,6 @@ public class MenuEliminarCompania extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         Titulo = new javax.swing.JLabel();
         Titulo1 = new javax.swing.JLabel();
         Input = new javax.swing.JTextField();
@@ -67,29 +77,13 @@ public class MenuEliminarCompania extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -97,9 +91,7 @@ public class MenuEliminarCompania extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(btnReturn)
-                .addGap(358, 358, 358)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                .addGap(36, 36, 36))
+                .addContainerGap(503, Short.MAX_VALUE))
         );
 
         Titulo.setBackground(new java.awt.Color(255, 255, 255));
@@ -184,9 +176,7 @@ public class MenuEliminarCompania extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Titulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Titulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,22 +233,63 @@ public class MenuEliminarCompania extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setRut(String rut){
+        this.rutLogueado = rut;
+    }
     private void InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_InputActionPerformed
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
+
+        ElectricityCompanyController controlador = new ElectricityCompanyController();
+        Electricity_Company eliminar = new Electricity_Company();
+        MenuCompany menu = new MenuCompany();
+        eliminar.setRut(Input.getText());
+        controlador.eliminarElectricityCompany(eliminar);
+        JOptionPane.showMessageDialog(this, "Compania eliminada correctamente");
+        menu.setVisible(true);
+        menu.setRut(rutLogueado);
+        this.setVisible(false);
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        MenuCompany menuPrincipal = new MenuCompany();
+        menuPrincipal.setVisible(true);
+        menuPrincipal.setRut(rutLogueado);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
+    private void LlenarTabla()
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        ResultSet resultSet=null;
 
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
 
+        String sql = "SELECT Rut, Nombre FROM Electricity_Company";
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("Rut"),
+                        resultSet.getString("Nombre"),
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -331,7 +362,6 @@ public class MenuEliminarCompania extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo1;
     private javax.swing.JLabel Titulo2;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JButton confirmar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

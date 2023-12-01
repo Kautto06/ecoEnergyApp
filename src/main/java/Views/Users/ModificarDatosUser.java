@@ -5,20 +5,32 @@
 package Views.Users;
 
 import Views.Perfil;
+import Controllers.UserController;
+import javax.swing.JOptionPane;
+import Models.User;
+
 
 /**
  *
  * @author gerar
  */
 public class ModificarDatosUser extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Home
-     */
+    
+    private String rutLogeado;
+    
     public ModificarDatosUser() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+    }
+    
+    
+    public void setRutLogeado(String rut){
+        this.rutLogeado=rut;
+    }
+    
+    public String getRutLogeado(){
+        return this.rutLogeado;
     }
 
     /**
@@ -222,13 +234,33 @@ public class ModificarDatosUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombresActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfNombresActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        this.dispose();
         Perfil perfil= new Perfil();
-        perfil.setVisible(true);
+        String nombres = tfNombres.getText();
+        String apellidos = tfApellidos.getText();
+        String fechaNaci = tfFechaNacimiento.getText();
+        String password = pfPassword.getText();
+        String confirmar = pfConfirmar.getText();
+        
+        if(password.equals(confirmar)){
+            UserController controlador = new UserController();
+            User nuevo = controlador.obtenerUsuarioPorRut(this.rutLogeado);
+            nuevo.setNombres(nombres);
+            nuevo.setApellidos(apellidos);
+            nuevo.setFechaNacimiento(fechaNaci);
+            nuevo.setPassword(password);
+            controlador.actualizarUsuarioEnBD(nuevo);
+            JOptionPane.showMessageDialog(this, "Se actualizaron los datos correctamente");
+            perfil.setRutLogeado(this.rutLogeado);
+            perfil.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Verifiique que las contraseñas coincidan");
+            pfConfirmar.setText("");
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void tfApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfApellidosActionPerformed

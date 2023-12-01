@@ -149,4 +149,35 @@ public class UserController {
         }
         return nuevoUsuario;
     }
+    
+    public boolean verificarCredenciales(String rut, String password) {
+    ResultSet resultSet = null;
+    SQLConnection conexion = new SQLConnection();
+    conexion.conectar();
+
+    String sql = "SELECT * FROM User WHERE Rut = '" + rut + "' AND Password = '" + password + "'";
+    
+    try (Statement statement = conexion.getConexion().createStatement()) {
+        resultSet = statement.executeQuery(sql);
+        
+        if (resultSet.next()) {
+            // Las credenciales son válidas
+            return true;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        conexion.desconectar();
+    }
+    
+    // Las credenciales no son válidas
+    return false;
+}
 }

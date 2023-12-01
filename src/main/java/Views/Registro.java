@@ -4,6 +4,10 @@
  */
 package Views;
 
+import Models.User;
+import Controllers.UserController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gerar
@@ -37,9 +41,8 @@ public class Registro extends javax.swing.JFrame {
         Nombres = new javax.swing.JLabel();
         IngresoNombres = new javax.swing.JTextField();
         Apellidos = new javax.swing.JLabel();
-        InresoApellidos = new javax.swing.JTextField();
+        IngresoApellidos = new javax.swing.JTextField();
         Contrasena = new javax.swing.JLabel();
-        IngresoContrasena = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -48,6 +51,7 @@ public class Registro extends javax.swing.JFrame {
         IngresoFecha = new javax.swing.JTextField();
         Formato = new javax.swing.JLabel();
         OK = new javax.swing.JButton();
+        pfPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,27 +130,18 @@ public class Registro extends javax.swing.JFrame {
         Apellidos.setForeground(new java.awt.Color(0, 0, 0));
         Apellidos.setText("Apellidos");
 
-        InresoApellidos.setBackground(new java.awt.Color(255, 255, 255));
-        InresoApellidos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        InresoApellidos.setForeground(new java.awt.Color(0, 0, 0));
-        InresoApellidos.addActionListener(new java.awt.event.ActionListener() {
+        IngresoApellidos.setBackground(new java.awt.Color(255, 255, 255));
+        IngresoApellidos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        IngresoApellidos.setForeground(new java.awt.Color(0, 0, 0));
+        IngresoApellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InresoApellidosActionPerformed(evt);
+                IngresoApellidosActionPerformed(evt);
             }
         });
 
         Contrasena.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Contrasena.setForeground(new java.awt.Color(0, 0, 0));
         Contrasena.setText("Contrasena");
-
-        IngresoContrasena.setBackground(new java.awt.Color(255, 255, 255));
-        IngresoContrasena.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        IngresoContrasena.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoContrasena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IngresoContrasenaActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -192,6 +187,10 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
+        pfPassword.setBackground(new java.awt.Color(255, 255, 255));
+        pfPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        pfPassword.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -213,10 +212,11 @@ public class Registro extends javax.swing.JFrame {
                                         .addComponent(Nombres)
                                         .addComponent(Contrasena)))
                                 .addGap(41, 41, 41)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(IngresoRut, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IngresoNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InresoApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(IngresoNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(IngresoApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(pfPassword)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(273, 273, 273)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +230,6 @@ public class Registro extends javax.swing.JFrame {
                                             .addComponent(jLabel8)
                                             .addComponent(jLabel7)
                                             .addComponent(jLabel9)))))
-                            .addComponent(IngresoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(IngresoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(OK)
@@ -253,11 +252,11 @@ public class Registro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Apellidos)
-                    .addComponent(InresoApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(IngresoApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Contrasena)
-                    .addComponent(IngresoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,19 +314,30 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_IngresoNombresActionPerformed
 
-    private void InresoApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InresoApellidosActionPerformed
+    private void IngresoApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoApellidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InresoApellidosActionPerformed
-
-    private void IngresoContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoContrasenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IngresoContrasenaActionPerformed
+    }//GEN-LAST:event_IngresoApellidosActionPerformed
 
     private void IngresoFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IngresoFechaActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
+        User nuevo= new User();
+        UserController controlador= new UserController();
+        
+        nuevo.setNombres(IngresoNombres.getText());
+        nuevo.setApellidos(IngresoApellidos.getText());
+        nuevo.setFechaNacimiento(IngresoFecha.getText());
+        nuevo.setRut(IngresoRut.getText());
+        nuevo.setPassword(pfPassword.getText());
+        nuevo.setRol("USER");
+        controlador.agregarUserADB(nuevo);
+        
+        
+        
+        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
+        
         this.dispose();
         Login login = new Login();
         login.setVisible(true);
@@ -374,11 +384,10 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel Contrasena;
     private javax.swing.JLabel FechaNacimiento;
     private javax.swing.JLabel Formato;
-    private javax.swing.JTextField IngresoContrasena;
+    private javax.swing.JTextField IngresoApellidos;
     private javax.swing.JTextField IngresoFecha;
     private javax.swing.JTextField IngresoNombres;
     private javax.swing.JTextField IngresoRut;
-    private javax.swing.JTextField InresoApellidos;
     private javax.swing.JLabel Nombres;
     private javax.swing.JButton OK;
     private javax.swing.JLabel Rut;
@@ -390,5 +399,6 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField pfPassword;
     // End of variables declaration//GEN-END:variables
 }

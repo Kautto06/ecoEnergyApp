@@ -4,6 +4,15 @@
  */
 
 package Views.Electricity;
+import Controllers.ElectricityCompanyController;
+import Controllers.HomeController;
+import Database.SQLConnection;
+import Views.Home;
+import Views.Perfil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -11,11 +20,16 @@ package Views.Electricity;
  * @author alvar
  */
 public class MenuActualizarCompania extends javax.swing.JFrame {
-
+     private String rutLogueado;
+     public void setRut(String rut){
+         this.rutLogueado = rut;
+     }
     /** Creates new form GastoEnergetico */
     public MenuActualizarCompania() {
         initComponents();
+        LlenarTabla();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -34,7 +48,6 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         Titulo = new javax.swing.JLabel();
         Titulo1 = new javax.swing.JLabel();
         Input = new javax.swing.JTextField();
@@ -68,29 +81,13 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -98,9 +95,7 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(btnReturn)
-                .addGap(348, 348, 348)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                .addGap(42, 42, 42))
+                .addContainerGap(500, Short.MAX_VALUE))
         );
 
         Titulo.setBackground(new java.awt.Color(255, 255, 255));
@@ -240,18 +235,57 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
     private void InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_InputActionPerformed
+    private void LlenarTabla()
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        ResultSet resultSet=null;
 
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT Rut, Nombre FROM Electricity_Company";
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("Rut"),
+                        resultSet.getString("Nombre"),
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
+        ElectricityCompanyController controlador = new ElectricityCompanyController();
+        String inputText = Input.getText();
+        if(controlador.ComprobarCompania(inputText)==1)
+        {
+            MenuActualizarCompaniaFinal menu = new MenuActualizarCompaniaFinal();
+            
+            menu.setVisible(true);
+            menu.setRut(rutLogueado);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        MenuCompany menuPrincipal = new MenuCompany();
+        menuPrincipal.setVisible(true);
+        menuPrincipal.setRut(rutLogueado);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,7 +391,6 @@ public class MenuActualizarCompania extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo1;
     private javax.swing.JLabel Titulo2;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JButton confirmar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

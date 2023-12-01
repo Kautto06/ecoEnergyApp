@@ -3,8 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views.Homes;
+import Controllers.HomeController;
+import Controllers.UserController;
 
+import Database.SQLConnection;
+import Models.User;
 import Views.Perfil;
+
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -12,11 +21,15 @@ import Views.Perfil;
  */
 public class RegistrarHome extends javax.swing.JFrame {
 
+
+    private String idUser;
+
     /**
      * Creates new form RegistrarHome
      */
     public RegistrarHome() {
         initComponents();
+        Invalido.setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);
     }
@@ -38,8 +51,9 @@ public class RegistrarHome extends javax.swing.JFrame {
         confirmar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        cargarDatos = new javax.swing.JButton();
+        Invalido = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,29 +110,54 @@ public class RegistrarHome extends javax.swing.JFrame {
         Tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(Tabla);
 
+        cargarDatos.setBackground(new java.awt.Color(0, 255, 102));
+        cargarDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cargarDatos.setText("Cargar Datos");
+        cargarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosActionPerformed(evt);
+            }
+        });
+
+        Invalido.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido.setText("Ingrese un id valido");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 64, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(Titulo1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Titulo1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Invalido, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(65, 65, 65))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                                .addComponent(cargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,11 +168,18 @@ public class RegistrarHome extends javax.swing.JFrame {
                 .addComponent(Titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Titulo1)
-                .addGap(18, 18, 18)
-                .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(23, 23, 23)
+                .addComponent(Invalido)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(cargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(51, 51, 51))
         );
 
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
@@ -147,33 +193,13 @@ public class RegistrarHome extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnReturn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnUserInfo1)))
+                .addGap(12, 12, 12)
+                .addComponent(btnReturn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -182,9 +208,7 @@ public class RegistrarHome extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(btnReturn)
-                .addGap(365, 365, 365)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -207,14 +231,25 @@ public class RegistrarHome extends javax.swing.JFrame {
     }//GEN-LAST:event_InputActionPerformed
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirmarActionPerformed
+        HomeController controller=new HomeController();
+        String inputText = Input.getText();
+        int idComprobar;
 
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        Perfil menu=new Perfil();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+        try {
+            idComprobar = Integer.parseInt(inputText);
+
+        } catch (NumberFormatException e) {
+            Invalido.setVisible(true);
+        }
+        idComprobar=Integer.parseInt(inputText);
+        if(controller.verificarHome(idComprobar)==1)
+        {
+            controller.agregarUsersHome("N",idUser,idComprobar);
+        }
+        else
+            Invalido.setVisible(true);
+
+    }//GEN-LAST:event_confirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         MenuHomes menu =new MenuHomes();
@@ -222,6 +257,49 @@ public class RegistrarHome extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
+    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
+        UserController controlador = new UserController();
+        User usuario = controlador.obtenerUsuarioPorRut(this.idUser);
+        LlenarTabla(usuario);
+    }//GEN-LAST:event_cargarDatosActionPerformed
+
+    private void LlenarTabla(User usuario)
+    {
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        ResultSet resultSet=null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql=" ";
+
+        
+        sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME";
+        
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Nombre"),
+                        resultSet.getString("Company_Rut"),
+                        resultSet.getString("Enviroment_Type")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -259,11 +337,12 @@ public class RegistrarHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Input;
+    private javax.swing.JLabel Invalido;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Titulo1;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JButton cargarDatos;
     private javax.swing.JButton confirmar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

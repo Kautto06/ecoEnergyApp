@@ -78,7 +78,7 @@ public class ElectricityCompanyController {
         String sql = "SELECT * FROM Electricity_Company";
         try (Statement statement = conexion.getConexion().createStatement()) {
             resultSet = statement.executeQuery(sql);
-            System.out.println("Consulta ejecutada con éxito.");
+
             while (resultSet.next()) {
                 if(!ElectricityCompany.buscarRut(resultSet.getString("Rut"))){
                     Electricity_Company newECompany = new Electricity_Company();
@@ -115,7 +115,7 @@ public class ElectricityCompanyController {
         String sql = "SELECT * FROM Home WHERE Rut = " + rut;
         try (Statement statement = conexion.getConexion().createStatement()) {
             resultSet = statement.executeQuery(sql);
-            System.out.println("Consulta ejecutada con éxito.");
+
             if (resultSet.next()) {
                 newEC = new Electricity_Company();
                 newEC.setRut(resultSet.getString("Rut"));
@@ -136,4 +136,37 @@ public class ElectricityCompanyController {
         }
         return newEC;
     }
+    
+    
+    public int ComprobarCompania(String rut) {
+        int resultado = 0;
+        ResultSet resultSet = null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT * FROM Electricity_Company WHERE Rut = '" + rut + "'";
+
+        try (Statement statement = conexion.getConexion().createStatement()) {
+            resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+
+                resultado = 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+        return resultado;
+    }
+    
 }

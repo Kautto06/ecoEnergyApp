@@ -3,18 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views.Devices;
+import Database.*;
+import Controllers.DeviceController;
+import Models.Device;
+import Views.Home;
+import Views.Perfil;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author gerar
  */
 public class ModificarDispositivo extends javax.swing.JFrame {
-
+    private String rut;
+    private int idHome;
+    private int idDevice;
+    
+    public void setIdDevice(int id){
+        this.idDevice = id;
+    }
+    
+    public void setRutUser(String rut){
+        this.rut = rut;
+    }
+    
+    public void setIdHome(int id){
+        this.idHome = id;
+    }
     /**
      * Creates new form NewJFrame
      */
     public ModificarDispositivo() {
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -32,7 +54,6 @@ public class ModificarDispositivo extends javax.swing.JFrame {
         IngresoPrioridadUso = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         IgresoClasificacion = new javax.swing.JTextField();
         AgregarTxt = new javax.swing.JLabel();
         Message = new javax.swing.JLabel();
@@ -52,11 +73,9 @@ public class ModificarDispositivo extends javax.swing.JFrame {
 
         IngresoConsumo.setBackground(new java.awt.Color(255, 255, 255));
         IngresoConsumo.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoConsumo.setText("Modificar Consumo");
 
         IngresoHoras.setBackground(new java.awt.Color(255, 255, 255));
         IngresoHoras.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoHoras.setText("Modificar Horas");
         IngresoHoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngresoHorasActionPerformed(evt);
@@ -65,7 +84,6 @@ public class ModificarDispositivo extends javax.swing.JFrame {
 
         IngresoPrioridadUso.setBackground(new java.awt.Color(255, 255, 255));
         IngresoPrioridadUso.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoPrioridadUso.setText("Modificar Prioridad");
         IngresoPrioridadUso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngresoPrioridadUsoActionPerformed(evt);
@@ -85,30 +103,13 @@ public class ModificarDispositivo extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -116,14 +117,11 @@ public class ModificarDispositivo extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(btnReturn)
-                .addGap(271, 271, 271)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(47, 47, 47))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
         IgresoClasificacion.setBackground(new java.awt.Color(255, 255, 255));
         IgresoClasificacion.setForeground(new java.awt.Color(0, 0, 0));
-        IgresoClasificacion.setText("Modificar Classificacion");
         IgresoClasificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IgresoClasificacionActionPerformed(evt);
@@ -155,6 +153,11 @@ public class ModificarDispositivo extends javax.swing.JFrame {
         AceptarButton.setForeground(new java.awt.Color(0, 0, 0));
         AceptarButton.setText("Aceptar");
         AceptarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarButtonActionPerformed(evt);
+            }
+        });
 
         HorasTxt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         HorasTxt.setForeground(new java.awt.Color(0, 0, 0));
@@ -181,7 +184,6 @@ public class ModificarDispositivo extends javax.swing.JFrame {
 
         IngresoName.setBackground(new java.awt.Color(255, 255, 255));
         IngresoName.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoName.setText("Modificar Nombre");
         IngresoName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngresoNameActionPerformed(evt);
@@ -300,12 +302,12 @@ public class ModificarDispositivo extends javax.swing.JFrame {
     }//GEN-LAST:event_IngresoPrioridadUsoActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        BuscarModificar menuPrincipal = new BuscarModificar();
+        menuPrincipal.setVisible(true);
+        menuPrincipal.setRutUser(rut);
+        menuPrincipal.setIdHome(idHome);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     private void IgresoClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IgresoClasificacionActionPerformed
         // TODO add your handling code here:
@@ -313,11 +315,36 @@ public class ModificarDispositivo extends javax.swing.JFrame {
 
     private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
         // TODO add your handling code here:
+        MenuDispositivos menu = new MenuDispositivos();
+        menu.setVisible(true);
+        menu.setRutUser(rut);
+        menu.setIdHome(idHome);
+        this.setVisible(false);
     }//GEN-LAST:event_CancelarButtonActionPerformed
 
     private void IngresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IngresoNameActionPerformed
+
+    private void AceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarButtonActionPerformed
+
+     DeviceController controlador = new DeviceController();
+     Device actualizado = new Device();
+     actualizado.setId(this.idDevice);
+     actualizado.setDeviceName(IngresoName.getText());
+     actualizado.setEnergyConsume(Double.valueOf(IngresoConsumo.getText()));
+     actualizado.setActiveHours(Float.valueOf(IngresoHoras.getText()));
+     actualizado.setPriorityUsage(Integer.valueOf(IngresoPrioridadUso.getText()));
+     actualizado.setConsumeClassify(IgresoClasificacion.getText().charAt(0));
+     controlador.actualizarDeviceEnBD(actualizado);
+     JOptionPane.showMessageDialog(this, "Dispositivo actualizado correctamente");
+     MenuDispositivos menu = new MenuDispositivos();
+     menu.setVisible(true);
+     menu.setRutUser(rut);
+     menu.setIdHome(idHome);
+     this.setVisible(false);
+     
+    }//GEN-LAST:event_AceptarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,7 +399,6 @@ public class ModificarDispositivo extends javax.swing.JFrame {
     private javax.swing.JLabel NombreTxt;
     private javax.swing.JLabel PrioridadTxt;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

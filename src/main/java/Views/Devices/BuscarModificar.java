@@ -3,19 +3,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views.Devices;
+import Controllers.DeviceController;
+import Database.SQLConnection;
+import Models.Device;
+import Views.Home;
+import Views.Perfil;
+import Models.Device;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author gerar
  */
 public class BuscarModificar extends javax.swing.JFrame {
-
+    private String rut;
+    private int idHome;
+    private int idDevice;
+    
+    public void setIdDevice(int id){
+        this.idDevice = id;
+    }
+    
+    public void setRutUser(String rut){
+        this.rut = rut;
+    }
+    
+    public void setIdHome(int id){
+        this.idHome = id;
+    }
     /**
      * Creates new form NewJFrame
      */
     public BuscarModificar() {
         initComponents();
+        LlenarTabla();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -32,7 +58,6 @@ public class BuscarModificar extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -91,29 +116,13 @@ public class BuscarModificar extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo2.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo2.setBorder(null);
-        btnUserInfo2.setContentAreaFilled(false);
-        btnUserInfo2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo2.setFocusPainted(false);
-        btnUserInfo2.setFocusable(false);
-        btnUserInfo2.setRequestFocusEnabled(false);
-        btnUserInfo2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo2)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -121,9 +130,7 @@ public class BuscarModificar extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(btnReturn)
-                .addGap(262, 262, 262)
-                .addComponent(btnUserInfo2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
+                .addContainerGap(483, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -139,12 +146,22 @@ public class BuscarModificar extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         AceptarButton.setBackground(new java.awt.Color(0, 255, 102));
         AceptarButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         AceptarButton.setForeground(new java.awt.Color(0, 0, 0));
         AceptarButton.setText("Aceptar");
         AceptarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarButtonActionPerformed(evt);
+            }
+        });
 
         jTable2.setBackground(new java.awt.Color(255, 255, 255));
         jTable2.setForeground(new java.awt.Color(0, 0, 0));
@@ -242,12 +259,65 @@ public class BuscarModificar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        MenuDispositivos menuPrincipal = new MenuDispositivos();
+        menuPrincipal.setVisible(true);
+        menuPrincipal.setRutUser(rut);
+        menuPrincipal.setIdHome(idHome);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
 
-    private void btnUserInfo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo2ActionPerformed
+    private void AceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarButtonActionPerformed
+        DeviceController controlador = new DeviceController();
+        int id = Integer.valueOf(jTextField1.getText());
+        if(controlador.verificarDevice(id)== 1)
+        {
+            ModificarDispositivo menu = new ModificarDispositivo();
+            menu.setRutUser(rut);
+            menu.setIdHome(idHome);
+            menu.setIdDevice(id);
+            menu.setVisible(true);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_AceptarButtonActionPerformed
+    private void LlenarTabla()
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        ResultSet resultSet=null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT ID, Nombre_Device, Consumo_Energia, Horas_Activo, Priority_Use, Consume_Classify FROM Devices";
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Nombre_Device"),
+                        resultSet.getDouble("Consumo_Energia"),
+                        resultSet.getFloat("Horas_Activo"),
+                        resultSet.getInt("Priority_Use"),
+                        resultSet.getString("Consume_Classify").charAt(0),
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo2ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,7 +358,6 @@ public class BuscarModificar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AceptarButton;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

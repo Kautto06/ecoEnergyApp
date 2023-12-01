@@ -5,7 +5,15 @@
 package Views.Users;
 
 
+import Database.SQLConnection;
 import Views.Perfil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import Models.User;
+import Controllers.UserController;
+import javax.swing.JOptionPane;
 /**
  *
  * @author gerar
@@ -15,10 +23,56 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+    
+    private String rutLogeado;
+    
     public SeleccionarUserModificar() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        LlenarTabla();
+    }
+    
+    public void setRutLogeado(String rut){
+        this.rutLogeado=rut;
+    }
+    
+    public String getRutLogeado(){
+        return this.rutLogeado;
+    }
+    
+    private void LlenarTabla()
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ResultSet resultSet=null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT Rut, Nombres, Apellidos, Rol, Fecha_De_Nacimiento FROM User";
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getString("Rut"),
+                        resultSet.getString("Nombres"),
+                        resultSet.getString("Apellidos"),
+                        resultSet.getString("Rol"),
+                        resultSet.getString("Fecha_De_Nacimiento")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
     }
 
     /**
@@ -33,7 +87,6 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
         jpHome = new javax.swing.JPanel();
         jpNavbar = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         lbMessage = new javax.swing.JLabel();
         tfRut = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
@@ -57,30 +110,13 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpNavbarLayout = new javax.swing.GroupLayout(jpNavbar);
         jpNavbar.setLayout(jpNavbarLayout);
         jpNavbarLayout.setHorizontalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jpNavbarLayout.setVerticalGroup(
@@ -88,9 +124,7 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
             .addGroup(jpNavbarLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(btnReturn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(605, Short.MAX_VALUE))
         );
 
         lbMessage.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -209,22 +243,32 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
     }//GEN-LAST:event_tfRutActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        this.dispose();
-        ModificarRolUser mru = new ModificarRolUser();
-        mru.setVisible(true);
+        String rutModificar = tfRut.getText();
+        UserController controlador = new UserController();
+        User verificar = new User();
+        
+        verificar = controlador.obtenerUsuarioPorRut(rutModificar);
+        
+        if(verificar!=null){
+            this.dispose();
+            ModificarRolUser mru = new ModificarRolUser();
+            mru.setRutLogeado(rutLogeado);
+            mru.setRutModificar(rutModificar);
+            mru.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Ingrese un rut que sea valido");
+            tfRut.setText("");
+        }
+        
+        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         this.dispose();
         MenuUsers mu = new MenuUsers();
+        mu.setRutLogeado(this.rutLogeado);
         mu.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        this.dispose();
-        Perfil perfil = new Perfil();
-        perfil.setVisible(true);
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,7 +323,6 @@ public class SeleccionarUserModificar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpHome;

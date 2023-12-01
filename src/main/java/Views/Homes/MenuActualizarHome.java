@@ -5,9 +5,24 @@
 
 package Views.Homes;
 
+import Database.SQLConnection;
+import Models.Home;
+import Models.User;
 import Views.Perfil;
+import Controllers.HomeController;
 
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
+import java.sql.*;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import Controllers.UserController;
 
 /**
  *
@@ -15,9 +30,17 @@ import java.awt.event.ActionEvent;
  */
 public class MenuActualizarHome extends javax.swing.JFrame {
 
+    private int idComprobar;
+    private String idUsuario;
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     /** Creates new form GastoEnergetico */
     public MenuActualizarHome() {
         initComponents();
+        Invalido.setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);
     }
@@ -43,6 +66,8 @@ public class MenuActualizarHome extends javax.swing.JFrame {
         confirmar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        Invalido = new javax.swing.JLabel();
+        cargarDatos = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
         btnUserInfo1 = new javax.swing.JButton();
 
@@ -100,14 +125,37 @@ public class MenuActualizarHome extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         Tabla.getTableHeader().setResizingAllowed(false);
         Tabla.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(Tabla);
+
+        Invalido.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido.setText("Ingrese un id valido");
+
+        cargarDatos.setBackground(new java.awt.Color(0, 255, 102));
+        cargarDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cargarDatos.setText("Cargar Datos");
+        cargarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,22 +164,28 @@ public class MenuActualizarHome extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(140, 140, 140)
-                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(Invalido, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 64, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addGap(54, 54, 54))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cargarDatos)
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,10 +197,14 @@ public class MenuActualizarHome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Titulo1)
                 .addGap(18, 18, 18)
+                .addComponent(Invalido)
+                .addGap(8, 8, 8)
                 .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cargarDatos))
+                .addContainerGap())
         );
 
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
@@ -220,8 +278,73 @@ public class MenuActualizarHome extends javax.swing.JFrame {
     }//GEN-LAST:event_InputActionPerformed
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirmarActionPerformed
+        HomeController controlador = new HomeController();
+        String inputText = Input.getText();
+
+        try {
+            idComprobar = Integer.parseInt(inputText);
+
+        } catch (NumberFormatException e) {
+          Invalido.setVisible(true);
+        }
+        idComprobar=Integer.parseInt(inputText);
+        if(controlador.verificarHome(idComprobar)==1)
+        {
+            MenuActualizarHomeFinal menu = new MenuActualizarHomeFinal();
+            menu.setIdComprobar(idComprobar);
+            menu.setIdUser(idUsuario);
+            menu.setVisible(true);
+            this.dispose();
+        }
+
+
+
+
+
+
+    }
+    private void LlenarTabla(User usuario)
+    {
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        ResultSet resultSet=null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql=" ";
+
+        if(usuario.getRol().equals("ADMIN") || usuario.getRol().equals("CEO"))
+            {sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME";}
+        else
+            {sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME AS H JOIN Users_Home AS UH ON UH.ID_HOME = H.ID JOIN User AS U ON U.RUT = UH.RUT WHERE UH.EsAdmin = 'S' ";}
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Nombre"),
+                        resultSet.getString("Company_Rut"),
+                        resultSet.getString("Enviroment_Type")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }
+
+
+
+//GEN-LAST:event_confirmarActionPerformed
 
     private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
         Perfil menu=new Perfil();
@@ -230,10 +353,18 @@ public class MenuActualizarHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-          MenuHomes menu =new MenuHomes();
+        MenuHomes menu =new MenuHomes();
         menu.setVisible(true);
+        menu.setIdUser(idUsuario);
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
+        UserController controlador = new UserController();
+        User usuario = controlador.obtenerUsuarioPorRut(this.idUsuario);
+        LlenarTabla(usuario);
+
+    }//GEN-LAST:event_cargarDatosActionPerformed
     
 
     /**
@@ -304,11 +435,13 @@ public class MenuActualizarHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Input;
+    private javax.swing.JLabel Invalido;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Titulo1;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JButton cargarDatos;
     private javax.swing.JButton confirmar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

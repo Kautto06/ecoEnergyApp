@@ -23,8 +23,18 @@ public class HomeController {
                 "VALUES (" + id + ", '" + companyRut + "', '" + homeName + "', '" + environmentType + "')";
 
         conexion.ejecutarConsulta(sql);
-        System.out.println("Datos de Home agregados exitosamente a la base de datos.");
 
+
+        conexion.desconectar();
+    }
+    public void agregarUsersHome(String esAdmin,String Rut, int IdHome)
+    {
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql="INSERT INTO Users_Home (EsAdmin, RUT, ID_HOME)" +
+                "VALUES ('" + esAdmin + "', '" + Rut + "', " + IdHome +  ")";
+        conexion.ejecutarConsulta(sql);
         conexion.desconectar();
     }
 
@@ -74,7 +84,6 @@ public class HomeController {
         String sql = "SELECT * FROM Home";
         try (Statement statement = conexion.getConexion().createStatement()){
             resultSet = statement.executeQuery(sql);
-            System.out.println("Consulta ejecutada con éxito.");
             while (resultSet.next()) {
                 if(home.BuscarHome(resultSet.getInt("ID"))==0){
                     Home newHome = new Home();
@@ -126,5 +135,52 @@ public class HomeController {
             }
         }
         return newHome;
+    }
+
+    public int verificarHome(int homeId) {
+        int resultado = 0;
+        ResultSet resultSet = null;
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT * FROM Home WHERE ID = " + homeId;
+        try (Statement statement = conexion.getConexion().createStatement()) {
+            resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                resultado = 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return resultado;
+    }
+    public int obtenerUltimoIdDeHomes() {
+        int ultimoId = -1;  // Valor predeterminado en caso de que no se encuentren registros
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT MAX(ID) AS UltimoId FROM Home";
+        try (Statement statement = conexion.getConexion().createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
+                if (resultSet.next()) {
+                    ultimoId = resultSet.getInt("UltimoId");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        }
+
+        return ultimoId;
     }
 }

@@ -142,6 +142,51 @@ public class DeviceController {
 
         return newDevice;
     }
+    public int verificarDevice(int deviceId) {
+        int resultado = 0;
+        ResultSet resultSet = null;
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
 
+        String sql = "SELECT * FROM Devices WHERE ID = " + deviceId;
+        try (Statement statement = conexion.getConexion().createStatement()) {
+            resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                resultado = 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return resultado;
+    }
+    public int obtenerUltimoIdDevice() {
+    int ultimoId = -1;  // Valor predeterminado en caso de que no se encuentren registros
+
+    SQLConnection conexion = new SQLConnection();
+    conexion.conectar();
+
+    String sql = "SELECT MAX(ID) AS UltimoId FROM Devices";
+    try (Statement statement = conexion.getConexion().createStatement()) {
+        try (ResultSet resultSet = statement.executeQuery(sql)) {
+            if (resultSet.next()) {
+                ultimoId = resultSet.getInt("UltimoId");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        conexion.desconectar();
+    }
+
+    return ultimoId;
+}
 
 }

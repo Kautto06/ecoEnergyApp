@@ -82,10 +82,11 @@
                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="IngresoRut" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="IngresoNombres" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="InresoApellidos" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
+                              <Component id="IngresoNombres" alignment="0" pref="181" max="32767" attributes="0"/>
+                              <Component id="IngresoApellidos" alignment="0" pref="181" max="32767" attributes="0"/>
+                              <Component id="pfPassword" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -105,7 +106,6 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <Component id="IngresoContrasena" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
                               <Component id="IngresoFecha" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                   <Component id="OK" min="-2" max="-2" attributes="0"/>
@@ -136,12 +136,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Apellidos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="InresoApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="IngresoApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Contrasena" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="IngresoContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="Contrasena" min="-2" max="-2" attributes="0"/>
+                      <Component id="pfPassword" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -305,7 +305,7 @@
             <Property name="text" type="java.lang.String" value="Apellidos"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="InresoApellidos">
+        <Component class="javax.swing.JTextField" name="IngresoApellidos">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -318,7 +318,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InresoApellidosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IngresoApellidosActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Contrasena">
@@ -331,22 +331,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Contrasena"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="IngresoContrasena">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IngresoContrasenaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -449,6 +433,19 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OKActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="pfPassword">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

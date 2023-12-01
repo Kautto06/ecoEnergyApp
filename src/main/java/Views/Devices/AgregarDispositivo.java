@@ -3,19 +3,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views.Devices;
+import Database.SQLConnection;
+import Controllers.DeviceController;
+import Models.Device;
+import Views.Home;
+import Views.Perfil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author gerar
  */
 public class AgregarDispositivo extends javax.swing.JFrame {
-
+    private String rut;
+    private int idHome;
+    
+    public void setRutUser(String rut){
+        this.rut = rut;
+    }
+    
+    public void setIdHome(int id){
+        this.idHome = id;
+    }
     /**
      * Creates new form NewJFrame
      */
     public AgregarDispositivo() {
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -30,7 +49,6 @@ public class AgregarDispositivo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn1 = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         AgregarTxt = new javax.swing.JLabel();
         NombreTxt = new javax.swing.JLabel();
         ConsumoTxt = new javax.swing.JLabel();
@@ -64,30 +82,13 @@ public class AgregarDispositivo extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn1))
+                .addComponent(btnReturn1)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -95,9 +96,7 @@ public class AgregarDispositivo extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(btnReturn1)
-                .addGap(323, 323, 323)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                .addGap(44, 44, 44))
+                .addContainerGap(444, Short.MAX_VALUE))
         );
 
         AgregarTxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -126,15 +125,17 @@ public class AgregarDispositivo extends javax.swing.JFrame {
 
         IngresoName.setBackground(new java.awt.Color(255, 255, 255));
         IngresoName.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoName.setText("Nombre DIspositivo");
+        IngresoName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IngresoNameActionPerformed(evt);
+            }
+        });
 
         IngresoConsumo.setBackground(new java.awt.Color(255, 255, 255));
         IngresoConsumo.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoConsumo.setText("Consumo de Energia del DIspositivo");
 
         IngresoHoras.setBackground(new java.awt.Color(255, 255, 255));
         IngresoHoras.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoHoras.setText("Horas que esta activo ");
         IngresoHoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngresoHorasActionPerformed(evt);
@@ -143,7 +144,6 @@ public class AgregarDispositivo extends javax.swing.JFrame {
 
         IngresoPrioridadUso.setBackground(new java.awt.Color(255, 255, 255));
         IngresoPrioridadUso.setForeground(new java.awt.Color(0, 0, 0));
-        IngresoPrioridadUso.setText("Prioridad de Uso");
         IngresoPrioridadUso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngresoPrioridadUsoActionPerformed(evt);
@@ -152,7 +152,6 @@ public class AgregarDispositivo extends javax.swing.JFrame {
 
         IgresoClasificacion.setBackground(new java.awt.Color(255, 255, 255));
         IgresoClasificacion.setForeground(new java.awt.Color(0, 0, 0));
-        IgresoClasificacion.setText("Clasificacion");
         IgresoClasificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IgresoClasificacionActionPerformed(evt);
@@ -172,6 +171,11 @@ public class AgregarDispositivo extends javax.swing.JFrame {
         AceptarButton.setForeground(new java.awt.Color(0, 0, 0));
         AceptarButton.setText("Aceptar");
         AceptarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarButtonActionPerformed(evt);
+            }
+        });
 
         CancelarButton.setBackground(new java.awt.Color(0, 255, 102));
         CancelarButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
@@ -296,15 +300,45 @@ public class AgregarDispositivo extends javax.swing.JFrame {
 
     private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
         // TODO add your handling code here:
+        MenuDispositivos menu = new MenuDispositivos();
+        menu.setVisible(true);
+        menu.setRutUser(rut);
+        menu.setIdHome(idHome);
+        this.setVisible(false);
     }//GEN-LAST:event_CancelarButtonActionPerformed
 
     private void btnReturn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn1ActionPerformed
-
+        MenuDispositivos menuPrincipal = new MenuDispositivos();
+        menuPrincipal.setVisible(true);
+        menuPrincipal.setRutUser(rut);
+        menuPrincipal.setIdHome(idHome);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturn1ActionPerformed
 
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
+    private void IngresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngresoNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+    }//GEN-LAST:event_IngresoNameActionPerformed
+
+    private void AceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarButtonActionPerformed
+        DeviceController controlador = new DeviceController();
+        SQLConnection conexion = new SQLConnection();
+        int id = (controlador.obtenerUltimoIdDevice() + 1);
+        String sql = "INSERT INTO Devices_Home (ID_Device, ID_HOME) values (" + id + ", " + this.idHome + ")";
+        
+        Device nuevo = new Device(id, IngresoName.getText(), Double.valueOf(IngresoConsumo.getText()), 
+                Float.valueOf(IngresoHoras.getText()), Integer.valueOf(IngresoPrioridadUso.getText()), 
+                (IgresoClasificacion.getText()).charAt(0));
+        controlador.agregarDeviceABD(nuevo);
+        conexion.conectar();
+        conexion.ejecutarConsulta(sql);
+        conexion.desconectar();
+        JOptionPane.showMessageDialog(this, "Dispositivo agregado correctamente");
+        MenuDispositivos menu = new MenuDispositivos();
+        menu.setVisible(true);
+        menu.setRutUser(rut);
+        menu.setIdHome(idHome);
+        this.setVisible(false);
+    }//GEN-LAST:event_AceptarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,7 +393,6 @@ public class AgregarDispositivo extends javax.swing.JFrame {
     private javax.swing.JLabel NombreTxt;
     private javax.swing.JLabel PrioridadTxt;
     private javax.swing.JButton btnReturn1;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

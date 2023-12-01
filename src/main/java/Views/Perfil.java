@@ -5,6 +5,9 @@
 package Views;
 
 import Views.Users.ModificarDatosUser;
+import Controllers.UserController;
+import Models.User;
+
 
 /**
  *
@@ -15,11 +18,23 @@ public class Perfil extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    
+    private String rutLogeado;
+    
     public Perfil() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
+    
+    public void setRutLogeado(String rut){
+        this.rutLogeado=rut;
+    }
+    
+    public String getRutLogeado(){
+        return this.rutLogeado;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +61,7 @@ public class Perfil extends javax.swing.JFrame {
         MensajeRut = new javax.swing.JLabel();
         MensajePass = new javax.swing.JLabel();
         MensajeFecha = new javax.swing.JLabel();
+        cargarDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,16 +169,23 @@ public class Perfil extends javax.swing.JFrame {
         });
 
         MensajeNombre.setForeground(new java.awt.Color(0, 0, 0));
-        MensajeNombre.setText("Nombre Completo");
 
         MensajeRut.setForeground(new java.awt.Color(0, 0, 0));
-        MensajeRut.setText("RUT");
 
         MensajePass.setForeground(new java.awt.Color(0, 0, 0));
-        MensajePass.setText("********");
 
         MensajeFecha.setForeground(new java.awt.Color(0, 0, 0));
-        MensajeFecha.setText("********");
+
+        cargarDatos.setBackground(new java.awt.Color(0, 255, 102));
+        cargarDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cargarDatos.setForeground(new java.awt.Color(0, 0, 0));
+        cargarDatos.setText("Cargar Datos");
+        cargarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,37 +195,39 @@ public class Perfil extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Nombre)
-                                .addGap(18, 18, 18)
-                                .addComponent(MensajeNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Rut)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(FechaNacimiento)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MensajePass, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Pass)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MensajeFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 75, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(EditarButton))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(MensajeRut, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 194, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(70, 70, 70)
-                                        .addComponent(MensajeRut, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Nombre)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(MensajeNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Rut)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(135, 135, 135)
-                                        .addComponent(Exit)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                        .addComponent(FechaNacimiento)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MensajePass, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Pass)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MensajeFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(Exit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cargarDatos)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +252,9 @@ public class Perfil extends javax.swing.JFrame {
                     .addComponent(Pass)
                     .addComponent(MensajeFecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Exit)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Exit)
+                    .addComponent(cargarDatos))
                 .addGap(53, 53, 53))
         );
 
@@ -256,6 +283,7 @@ public class Perfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        this.rutLogeado=null;
         this.dispose();
         Login iniciar = new Login();
         iniciar.setVisible(true);
@@ -264,14 +292,26 @@ public class Perfil extends javax.swing.JFrame {
     private void btnReturn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn1ActionPerformed
         this.dispose();
         Home menu = new Home();
+        menu.setRutLogeado(this.rutLogeado);
         menu.setVisible(true);
     }//GEN-LAST:event_btnReturn1ActionPerformed
 
     private void EditarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarButtonActionPerformed
         this.dispose();
         ModificarDatosUser mdu = new ModificarDatosUser();
+        mdu.setRutLogeado(this.rutLogeado);
         mdu.setVisible(true);
     }//GEN-LAST:event_EditarButtonActionPerformed
+
+    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
+        UserController controlador = new UserController();
+        User usuario = controlador.obtenerUsuarioPorRut(this.rutLogeado);
+        
+        MensajeFecha.setText(usuario.getFechaNacimiento());
+        MensajeNombre.setText(usuario.getNombres());
+        MensajePass.setText(usuario.getPassword());
+        MensajeRut.setText(usuario.getRut()); 
+    }//GEN-LAST:event_cargarDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,6 +361,7 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel Pass;
     private javax.swing.JLabel Rut;
     private javax.swing.JButton btnReturn1;
+    private javax.swing.JButton cargarDatos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

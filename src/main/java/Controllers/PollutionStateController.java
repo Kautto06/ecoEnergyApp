@@ -107,7 +107,7 @@ public class PollutionStateController {
         SQLConnection conexion = new SQLConnection();
         conexion.conectar();
 
-        String sql = "SELECT * FROM Pollution_state";
+        String sql = "SELECT * FROM Pollution_state WHERE ID = " + estadoContaminacion.getId();
         try (Statement statement = conexion.getConexion().createStatement()) {
             resultSet = statement.executeQuery(sql);
             System.out.println("Consulta ejecutada con éxito.");

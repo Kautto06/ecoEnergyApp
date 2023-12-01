@@ -8,6 +8,10 @@ import Views.Homes.MenuHomes;
 import Views.Users.MenuUsers;
 import Views.Electricity.MenuCompany;
 
+import Models.User;
+import Controllers.UserController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gerar
@@ -17,10 +21,21 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+    
+    private String rutLogeado;
+    
     public Home() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+    }
+    
+    public void setRutLogeado(String rut){
+        this.rutLogeado=rut;
+    }
+    
+    public String getRutLogeado(){
+        return this.rutLogeado;
     }
 
     /**
@@ -217,12 +232,14 @@ public class Home extends javax.swing.JFrame {
     private void btnUserInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfoActionPerformed
         this.dispose();
         Perfil miPerfil= new Perfil();
+        miPerfil.setRutLogeado(this.rutLogeado);
         miPerfil.setVisible(true);
     }//GEN-LAST:event_btnUserInfoActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         this.dispose();
         MenuHomes mh = new MenuHomes();
+        mh.setIdUser(rutLogeado);
         mh.setVisible(true);
         
     }//GEN-LAST:event_btnHomeActionPerformed
@@ -231,12 +248,21 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
         MenuCompany mc = new MenuCompany();
         mc.setVisible(true);
+        mc.setRut(rutLogeado);
     }//GEN-LAST:event_btnElectricityCompanyActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        this.dispose();
-        MenuUsers mu = new MenuUsers();
-        mu.setVisible(true);
+        UserController controlador = new UserController();
+        User verificar = controlador.obtenerUsuarioPorRut(rutLogeado);
+        
+        if(!verificar.getRol().toUpperCase().equals("CEO") && !verificar.getRol().toUpperCase().equals("ADMIN")){
+            JOptionPane.showMessageDialog(this, "No tienes acceso para entrar a esta seccion");
+        }else{
+            this.dispose();
+            MenuUsers mu = new MenuUsers();
+            mu.setRutLogeado(this.rutLogeado);
+            mu.setVisible(true);
+        }
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

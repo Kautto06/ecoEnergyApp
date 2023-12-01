@@ -6,6 +6,11 @@ package Views.Users;
 
 
 import Views.Perfil;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+import Models.User;
+import Controllers.UserController;
 /**
  *
  * @author gerar
@@ -15,11 +20,33 @@ public class ModificarRolUser extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+    
+    private String rutModificar;
+    private String rutLogeado;
+    
     public ModificarRolUser() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
+
+    public String getRutModificar() {
+        return rutModificar;
+    }
+
+    public String getRutLogeado() {
+        return rutLogeado;
+    }
+
+    public void setRutModificar(String rutModificar) {
+        this.rutModificar = rutModificar;
+    }
+
+    public void setRutLogeado(String rutLogeado) {
+        this.rutLogeado = rutLogeado;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,7 +60,6 @@ public class ModificarRolUser extends javax.swing.JFrame {
         jpHome = new javax.swing.JPanel();
         jpNavbar = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         lbIcon = new javax.swing.JLabel();
         lbMessage = new javax.swing.JLabel();
         tfRol = new javax.swing.JTextField();
@@ -56,30 +82,13 @@ public class ModificarRolUser extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jpNavbarLayout = new javax.swing.GroupLayout(jpNavbar);
         jpNavbar.setLayout(jpNavbarLayout);
         jpNavbarLayout.setHorizontalGroup(
             jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpNavbarLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jpNavbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jpNavbarLayout.setVerticalGroup(
@@ -87,9 +96,7 @@ public class ModificarRolUser extends javax.swing.JFrame {
             .addGroup(jpNavbarLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(btnReturn)
-                .addGap(295, 295, 295)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(43, 43, 43))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
 
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eco-energy.png"))); // NOI18N
@@ -173,22 +180,36 @@ public class ModificarRolUser extends javax.swing.JFrame {
     }//GEN-LAST:event_tfRolActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        this.dispose();
+        String rolModificado = tfRol.getText();
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("USER");
+        roles.add("ADMIN");
+        roles.add("CEO");
         MenuUsers mu = new MenuUsers();
-        mu.setVisible(true);
+        
+        if(roles.contains(rolModificado.toUpperCase())){
+            UserController controlador = new UserController();
+            User nuevoRol = new User();
+            nuevoRol= controlador.obtenerUsuarioPorRut(rutModificar);
+            nuevoRol.setRol(rolModificado);
+            controlador.actualizarUsuarioEnBD(nuevoRol);
+            JOptionPane.showMessageDialog(this, "Se modifico el rol correctamente");
+            this.dispose();
+            mu.setVisible(true);
+            mu.setRutLogeado(rutLogeado);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Ingrese un rol que sea valido");
+            tfRol.setText("");
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         this.dispose();
         SeleccionarUserModificar sum = new SeleccionarUserModificar();
+        sum.setRutLogeado(rutLogeado);
         sum.setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        this.dispose();
-        Perfil perfil = new Perfil();
-        perfil.setVisible(true);
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,7 +256,6 @@ public class ModificarRolUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JPanel jpHome;
     private javax.swing.JPanel jpNavbar;
     private javax.swing.JLabel lbIcon;

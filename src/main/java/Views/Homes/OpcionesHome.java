@@ -6,7 +6,7 @@
 package Views.Homes;
 
 import Models.Reporte;
-import Views.Devices.MostrarDevices;
+import Views.Devices.MenuDispositivos;
 import Views.EscogerReporte;
 import Views.Perfil;
 import Views.Users.VerUsuarios;
@@ -16,6 +16,17 @@ import Views.Users.VerUsuarios;
  * @author alvar
  */
 public class OpcionesHome extends javax.swing.JFrame {
+
+    private int idHome;
+    private String idUser;
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public void setIdHome(int idHome) {
+        this.idHome = idHome;
+    }
 
     /** Creates new form GastoEnergetico */
     public OpcionesHome() {
@@ -42,7 +53,6 @@ public class OpcionesHome extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         Icon = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         VerReporte = new javax.swing.JButton();
@@ -79,30 +89,13 @@ public class OpcionesHome extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -110,9 +103,7 @@ public class OpcionesHome extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(btnReturn)
-                .addGap(274, 274, 274)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(37, 37, 37))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -208,32 +199,33 @@ public class OpcionesHome extends javax.swing.JFrame {
     private void VerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerReporteActionPerformed
         EscogerReporte menu = new EscogerReporte();
         menu.setVisible(true);
+        menu.setIdHome(idHome);
+        menu.setRutLogeado(idUser);
         this.dispose();
     }//GEN-LAST:event_VerReporteActionPerformed
 
     private void VerDispositivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerDispositivoActionPerformed
-        MostrarDevices menu =new MostrarDevices();
+        MenuDispositivos menu =new MenuDispositivos();
         menu.setVisible(true);
+        menu.setIdHome(idHome);
+        menu.setRutUser(idUser);
         this.dispose();
     }//GEN-LAST:event_VerDispositivoActionPerformed
 
     private void VerUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerUsuarioActionPerformed
         VerUsuarios menu =new VerUsuarios();
         menu.setVisible(true);
+        menu.setIdHome(idHome);
+        menu.setRutLogeado(idUser);
         this.dispose();
     }//GEN-LAST:event_VerUsuarioActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         MenuHomes menu =new MenuHomes();
         menu.setVisible(true);
+        menu.setIdUser(idUser);
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        Perfil menu=new Perfil();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,7 +276,6 @@ public class OpcionesHome extends javax.swing.JFrame {
     private javax.swing.JButton VerReporte;
     private javax.swing.JButton VerUsuario;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

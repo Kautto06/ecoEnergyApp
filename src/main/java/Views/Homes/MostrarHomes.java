@@ -5,9 +5,18 @@
 
 package Views.Homes;
 
+import Controllers.HomeController;
+import Database.SQLConnection;
+import Models.User;
 import Views.Perfil;
 
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import Controllers.UserController;
 
 /**
  *
@@ -15,9 +24,25 @@ import java.awt.event.ActionEvent;
  */
 public class MostrarHomes extends javax.swing.JFrame {
 
+    private int idComprobar;
+
+    private String idUser;
+
+    public void setIdUser(String idUser)
+    {
+        this.idUser=idUser;
+    }
+
+
+    public void setIdComprobar(int idComprobar) {
+        this.idComprobar = idComprobar;
+    }
+
     /** Creates new form GastoEnergetico */
     public MostrarHomes() {
         initComponents();
+        Invalido1.setVisible(false);
+        Invalido2.setVisible(false);
         setResizable(false);
         setLocationRelativeTo(null);
     }
@@ -36,6 +61,7 @@ public class MostrarHomes extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         Titulo = new javax.swing.JLabel();
+        Invalido1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -45,8 +71,9 @@ public class MostrarHomes extends javax.swing.JFrame {
         Titulo3 = new javax.swing.JLabel();
         Input = new javax.swing.JTextField();
         confirmar = new javax.swing.JButton();
+        Invalido2 = new javax.swing.JLabel();
+        cargarDatos = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -60,6 +87,12 @@ public class MostrarHomes extends javax.swing.JFrame {
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Menu Home");
+
+        Invalido1.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido1.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido1.setText("Ingrese un id valido");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,11 +154,27 @@ public class MostrarHomes extends javax.swing.JFrame {
             }
         });
 
+        Invalido2.setBackground(new java.awt.Color(255, 255, 255));
+        Invalido2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Invalido2.setForeground(new java.awt.Color(255, 153, 153));
+        Invalido2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invalido2.setText("Ingrese un id valido");
+
+        cargarDatos.setBackground(new java.awt.Color(0, 255, 102));
+        cargarDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cargarDatos.setText("Cargar Datos");
+        cargarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -135,18 +184,23 @@ public class MostrarHomes extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(183, 183, 183))
+                        .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(185, 185, 185))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Invalido2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(138, 138, 138))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(131, 131, 131)
-                                .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Titulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(174, 174, 174)
+                                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cargarDatos))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(131, 131, 131)
+                                    .addComponent(Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Titulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -155,16 +209,20 @@ public class MostrarHomes extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(Titulo2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(Titulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Titulo3)
-                .addGap(30, 30, 30)
-                .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addComponent(Invalido2)
+                .addGap(21, 21, 21)
+                .addComponent(Input, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17))
         );
 
         btnReturn.setBackground(new java.awt.Color(0, 255, 102));
@@ -178,33 +236,13 @@ public class MostrarHomes extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.setRolloverEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnReturn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnUserInfo1)))
+                .addGap(12, 12, 12)
+                .addComponent(btnReturn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -213,9 +251,7 @@ public class MostrarHomes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(btnReturn)
-                .addGap(365, 365, 365)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addGap(23, 460, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -233,15 +269,10 @@ public class MostrarHomes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
-        Perfil menu=new Perfil();
-        menu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
-
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         MenuHomes menu =new MenuHomes();
         menu.setVisible(true);
+        menu.setIdUser(idUser);
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
@@ -250,8 +281,77 @@ public class MostrarHomes extends javax.swing.JFrame {
     }//GEN-LAST:event_InputActionPerformed
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirmarActionPerformed
+        HomeController controlador = new HomeController();
+        String inputText = Input.getText();
+
+        try {
+            idComprobar = Integer.parseInt(inputText);
+
+        } catch (NumberFormatException e) {
+            Invalido1.setVisible(true);
+            Invalido2.setVisible(true);
+        }
+        idComprobar=Integer.parseInt(inputText);
+        if(controlador.verificarHome(idComprobar)==1)
+        {
+            OpcionesHome menu = new OpcionesHome();
+            menu.setIdHome(idComprobar);
+            menu.setVisible(true);
+            menu.setIdUser(idUser);
+            this.dispose();
+        }
+        else {
+            Invalido1.setVisible(true);
+            Invalido2.setVisible(true);
+        }
+    }
+    private void LlenarTabla(User usuario)
+    {
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        ResultSet resultSet=null;
+
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql=" ";
+
+        if(usuario.getRol().equals("ADMIN") || usuario.getRol().equals("CEO"))
+        {sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME";}
+        else
+        {sql = "SELECT ID, Nombre, Company_Rut, Enviroment_Type FROM HOME AS H JOIN Users_Home AS UH ON UH.ID_HOME = H.ID JOIN User AS U ON U.RUT = UH.RUT WHERE UH.EsAdmin = 'S' ";}
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Nombre"),
+                        resultSet.getString("Company_Rut"),
+                        resultSet.getString("Enviroment_Type")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+
+    }
+
+//GEN-LAST:event_confirmarActionPerformed
+
+    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
+        UserController controlador = new UserController();
+        User usuario = controlador.obtenerUsuarioPorRut(this.idUser);
+        LlenarTabla(usuario);
+    }//GEN-LAST:event_cargarDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,13 +453,15 @@ public class MostrarHomes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Input;
+    private javax.swing.JLabel Invalido1;
+    private javax.swing.JLabel Invalido2;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Titulo1;
     private javax.swing.JLabel Titulo2;
     private javax.swing.JLabel Titulo3;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
+    private javax.swing.JButton cargarDatos;
     private javax.swing.JButton confirmar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

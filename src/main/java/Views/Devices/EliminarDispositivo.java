@@ -3,19 +3,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views.Devices;
-
+import Database.*;
+import Controllers.DeviceController;
+import Models.Device;
+import Views.Home;
+import Views.Perfil;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author gerar
  */
 public class EliminarDispositivo extends javax.swing.JFrame {
-
+    private String rut;
+    private int idHome;
+    
+    public void setRutUser(String rut){
+        this.rut = rut;
+    }
+    
+    public void setIdHome(int id){
+        this.idHome = id;
+    }
     /**
      * Creates new form NewJFrame
      */
     public EliminarDispositivo() {
         initComponents();
+        LlenarTabla();
         setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -30,7 +50,6 @@ public class EliminarDispositivo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnReturn = new javax.swing.JButton();
-        btnUserInfo1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -55,29 +74,13 @@ public class EliminarDispositivo extends javax.swing.JFrame {
             }
         });
 
-        btnUserInfo1.setBackground(new java.awt.Color(0, 255, 102));
-        btnUserInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario.png"))); // NOI18N
-        btnUserInfo1.setBorder(null);
-        btnUserInfo1.setContentAreaFilled(false);
-        btnUserInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUserInfo1.setFocusPainted(false);
-        btnUserInfo1.setFocusable(false);
-        btnUserInfo1.setRequestFocusEnabled(false);
-        btnUserInfo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserInfo1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUserInfo1)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addGap(37, 37, 37))
         );
         jPanel2Layout.setVerticalGroup(
@@ -85,9 +88,7 @@ public class EliminarDispositivo extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(btnReturn)
-                .addGap(210, 210, 210)
-                .addComponent(btnUserInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addGap(36, 36, 36))
+                .addContainerGap(411, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -103,12 +104,22 @@ public class EliminarDispositivo extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         AceptarButton.setBackground(new java.awt.Color(0, 255, 102));
         AceptarButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         AceptarButton.setForeground(new java.awt.Color(0, 0, 0));
         AceptarButton.setText("Aceptar");
         AceptarButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setForeground(new java.awt.Color(0, 0, 0));
@@ -204,12 +215,68 @@ public class EliminarDispositivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-
+        MenuDispositivos menuPrincipal = new MenuDispositivos();
+        menuPrincipal.setVisible(true);
+        menuPrincipal.setRutUser(rut);
+        menuPrincipal.setIdHome(idHome);
+        this.setVisible(false);
     }//GEN-LAST:event_btnReturnActionPerformed
+    private void LlenarTabla()
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ResultSet resultSet=null;
 
-    private void btnUserInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInfo1ActionPerformed
+        SQLConnection conexion = new SQLConnection();
+        conexion.conectar();
+
+        String sql = "SELECT ID, Nombre_Device, Consumo_Energia, Horas_Activo, Priority_Use, Consume_Classify FROM Devices";
+
+        try (Statement statement = conexion.getConexion().createStatement())
+        {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                model.addRow(new Object[]{
+                        resultSet.getInt("ID"),
+                        resultSet.getString("Nombre_Device"),
+                        resultSet.getDouble("Consumo_Energia"),
+                        resultSet.getFloat("Horas_Activo"),
+                        resultSet.getInt("Priority_Use"),
+                        resultSet.getString("Consume_Classify").charAt(0),
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            conexion.desconectar();
+        }
+
+    }
+    private void AceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarButtonActionPerformed
+        SQLConnection conexion = new SQLConnection();
+        String sql = "DELETE FROM Devices_Home WHERE ID_Device = " + Integer.valueOf(jTextField1.getText());
+        DeviceController controlador = new DeviceController();
+        Device eliminar = new Device();
+        eliminar.setId(Integer.valueOf(jTextField1.getText()));
+        controlador.eliminarDeviceDeBD(eliminar);
+        conexion.conectar();
+        conexion.ejecutarConsulta(sql);
+        conexion.desconectar();
+        JOptionPane.showMessageDialog(this, "Dispositivo eliminado correctamente");
+        MenuDispositivos menu = new MenuDispositivos();
+        menu.setVisible(true);
+        menu.setRutUser(rut);
+        menu.setIdHome(idHome);
+        this.setVisible(false);
+    }//GEN-LAST:event_AceptarButtonActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserInfo1ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,7 +317,6 @@ public class EliminarDispositivo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AceptarButton;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnUserInfo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
